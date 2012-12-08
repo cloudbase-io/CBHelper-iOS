@@ -94,8 +94,8 @@
     
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    //[self presentModalViewController:picker animated:YES];
+
+    // present the picker - the insert completes in the delegate method below
     [self presentViewController:picker animated:YES completion:^{
         NSLog(@"Presented view controller");
     }];
@@ -107,6 +107,7 @@
     
     if (appDelegate.helper)
     {
+        // run the search and parse the returned data.
         [appDelegate.helper searchAllDocumentsInCollection:@"test_users" whenDone:^(CBHelperResponseInfo *response) {
             self.searchData = [[NSMutableArray alloc] init];
             
@@ -115,7 +116,6 @@
                 {
                     for (NSDictionary *tip in response.responseData)
                     {
-                        //[tips addObject:[tip valueForKey:@"tip_text"]];
                         TestDataObject *obj = [[TestDataObject alloc] init];
                         obj.firstName = [tip valueForKey:@"firstName"];
                         obj.lastName = [tip valueForKey:@"lastName"];
@@ -124,7 +124,9 @@
                         [self.searchData addObject:obj];
                     }
                     
-                [self performSegueWithIdentifier:@"DataTableSegue" sender:self];
+                    // show the data table screen. The method prepareforsegue passes along the searchData
+                    // object.
+                    [self performSegueWithIdentifier:@"DataTableSegue" sender:self];
                 }
             }
         }];
@@ -134,17 +136,14 @@
 - (IBAction)downloadFile:(id)sender {
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
+    // download the file id and display the image into a floating UIImageView
     [appDelegate.helper downloadFileData:self.fileIdField.text whenDone:^(NSData *fileContent) {
         UIImage *downloadedImg = [UIImage imageWithData:fileContent];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:downloadedImg];
         
+        // TODO: The UIImageView should probably close itself once tapped.
         [self.view addSubview:imageView];
     }];
-}
-
--(IBAction)removeKeyboard
-{
-    [self.fileIdField resignFirstResponder];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -190,6 +189,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)Picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
+    // read the picked image into a CBHelperAttachment object
     UIImage* theImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     NSMutableArray* files = [[NSMutableArray alloc] init];
@@ -204,6 +204,7 @@
     
     if (appDelegate.helper)
     {
+        // send the insert with the attachment
         [appDelegate.helper insertDocument:[appDelegate.helper objectToDictionaryOrArray:newObj] inCollection:@"test_users" withFiles:files whenDone:^(CBHelperResponseInfo *response) {
             NSLog(@"response data is %@", NSStringFromClass([response.responseData class]));
             self.outputLabel.text = (NSString*)[response.responseData lowercaseString];
@@ -213,5 +214,11 @@
     [Picker dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+// hide the keyboard once editing of a test field is done.
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 @end

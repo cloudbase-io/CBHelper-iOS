@@ -62,8 +62,14 @@
 -(IBAction)sendNotification:(id)sender {
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     if (appDelegate.notificationDeviceToken != NULL) {
-        [appDelegate.helper sendNotification:notificationText.text withBadge:NULL andSound:NULL toChannel:channelName.text];
+        [appDelegate.helper sendNotification:notificationText.text withBadge:-1 andSound:NULL toChannel:channelName.text];
     }
+}
+
+// hide the keyboard once editing of a test field is done.
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

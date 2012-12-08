@@ -24,7 +24,10 @@
 @interface CBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) CBHelper *helper;
+@property (nonatomic, retain) CBHelper *helper; // The shared CBHelper object used throughout the application
+
+// The token returned by apple when the application registers for push notification.
+// For this to work the application needs to be signed.
 @property (nonatomic, retain) NSData *notificationDeviceToken;
 
 -(void)initNotificationsForApp:(UIApplication *)application;

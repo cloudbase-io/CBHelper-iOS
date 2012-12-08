@@ -50,6 +50,7 @@
 {
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
+    // by default we use the DEBUG severity level.
     [appDelegate.helper logDebug:self.logLine.text forCategory:self.logCategory.text];
 }
 
@@ -57,6 +58,12 @@
 {
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [appDelegate.helper logEvent:self.eventCode.text];
+}
+
+// hide the keyboard once editing of a test field is done.
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

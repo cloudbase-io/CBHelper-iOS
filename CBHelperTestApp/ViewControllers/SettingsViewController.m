@@ -55,6 +55,7 @@
 
 - (IBAction)saveSettings:(id)sender
 {
+    // get the singleton from the Settings object and save the values
     Settings *sharedInstance = [Settings sharedInstance];
     
     sharedInstance.appCode = self.appCode.text;
@@ -63,6 +64,7 @@
     
     [Settings saveToFile];
     
+    // initialise the shared CBHelper object
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
     appDelegate.helper = [[CBHelper alloc] initForApp:sharedInstance.appCode withSecret:sharedInstance.appSecret];
@@ -71,6 +73,8 @@
 
 }
 
+// downloads an image from flickr into the phone media library. This is because the simulator is not allowed
+// to use the camera and we need some pictures in the library to test the data APIs with attachments
 - (IBAction)downloadImage:(id)sender
 {
     [self.activityIndicator startAnimating];
@@ -92,6 +96,12 @@
         
     }
     [self.activityIndicator stopAnimating];
+}
+
+// hide the keyboard once editing of a test field is done.
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

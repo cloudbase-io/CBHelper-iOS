@@ -39,6 +39,6 @@
 
 - (IBAction)downloadFile:(id)sender;
 
--(IBAction)removeKeyboard;
+- (BOOL) textFieldShouldReturn:(UITextField *)textField;
 
 @end

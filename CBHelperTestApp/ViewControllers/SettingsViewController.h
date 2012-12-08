@@ -33,4 +33,6 @@
 - (IBAction)downloadImage:(id)sender;
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end

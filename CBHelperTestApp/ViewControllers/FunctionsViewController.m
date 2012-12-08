@@ -68,4 +68,10 @@
     }];
 }
 
+// hide the keyboard once editing of a test field is done.
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 @end

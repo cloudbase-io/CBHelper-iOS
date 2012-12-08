@@ -25,4 +25,6 @@
 -(IBAction)executeFunction:(id)sender;
 -(IBAction)executeApplet:(id)sender;
 
+- (BOOL) textFieldShouldReturn:(UITextField *)textField;
+
 @end

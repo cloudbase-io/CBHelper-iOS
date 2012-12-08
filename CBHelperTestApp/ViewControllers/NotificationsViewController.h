@@ -27,4 +27,6 @@
 -(IBAction)unsubscribeFromChannel:(id)sender;
 -(IBAction)sendNotification:(id)sender;
 
+- (BOOL) textFieldShouldReturn:(UITextField *)textField;
+
 @end

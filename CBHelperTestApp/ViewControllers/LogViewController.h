@@ -29,4 +29,6 @@
 
 - (IBAction)logEvent:(id)sender;
 
+- (BOOL) textFieldShouldReturn:(UITextField *)textField;
+
 @end
