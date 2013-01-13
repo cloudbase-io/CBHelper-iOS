@@ -108,6 +108,7 @@
     if (appDelegate.helper)
     {
         // run the search and parse the returned data.
+        /*
         [appDelegate.helper searchAllDocumentsInCollection:@"test_users" whenDone:^(CBHelperResponseInfo *response) {
             self.searchData = [[NSMutableArray alloc] init];
             
@@ -129,6 +130,35 @@
                     [self performSegueWithIdentifier:@"DataTableSegue" sender:self];
                 }
             }
+        }];
+        */
+        
+        CBDataSearchConditionGroup* searchCondition = [[CBDataSearchConditionGroup alloc] initWithoutSubConditions];//[[CBDataSearchConditionGroup alloc] initWithField:@"firstName" is:CBOperatorEqual to:@"Cloud"];
+        [searchCondition addSortField:@"firstName" withSortingDirection:CBSortDescending];
+        searchCondition.limit = 1;
+        
+        [appDelegate.helper searchDocumentWithConditions:searchCondition inCollection:@"test_users" whenDone:^(CBHelperResponseInfo *response) {
+            self.searchData = [[NSMutableArray alloc] init];
+            
+            if (response.postSuccess) {
+                if ([response.responseData isKindOfClass:[NSArray class]])
+                {
+                    for (NSDictionary *tip in response.responseData)
+                    {
+                        TestDataObject *obj = [[TestDataObject alloc] init];
+                        obj.firstName = [tip valueForKey:@"firstName"];
+                        obj.lastName = [tip valueForKey:@"lastName"];
+                        obj.title = [tip valueForKey:@"title"];
+                        
+                        [self.searchData addObject:obj];
+                    }
+                    
+                    // show the data table screen. The method prepareforsegue passes along the searchData
+                    // object.
+                    [self performSegueWithIdentifier:@"DataTableSegue" sender:self];
+                }
+            }
+
         }];
     }
 }

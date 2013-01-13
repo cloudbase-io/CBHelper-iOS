@@ -15,10 +15,10 @@
  02111-1307, USA.
  */
 
-#import "CBHelperResponseInfo.h"
+#import "CBPayPalBillItem.h"
 
-@implementation CBHelperResponseInfo
+@implementation CBPayPalBillItem
 
-@synthesize postSuccess, errorMessage, function, responseData, statusCode, responseString;
+@synthesize name, description, amount, tax, quantity;
 
 @end

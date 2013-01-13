@@ -17,13 +17,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CBAppDelegate.h"
+#import "PayPalBrowserViewController.h"
 
 @interface FunctionsViewController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UITextField* functionCodeField;
+@property (nonatomic, retain) NSString* payPalUrl;
 
 -(IBAction)executeFunction:(id)sender;
 -(IBAction)executeApplet:(id)sender;
+-(IBAction)testPayPalPayment:(id)sender;
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField;
 

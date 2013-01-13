@@ -15,10 +15,14 @@
  02111-1307, USA.
  */
 
-#import "CBHelperResponseInfo.h"
+#import <UIKit/UIKit.h>
+#import "CBAppDelegate.h"
 
-@implementation CBHelperResponseInfo
+@interface PayPalBrowserViewController : UIViewController <UIWebViewDelegate>
 
-@synthesize postSuccess, errorMessage, function, responseData, statusCode, responseString;
+@property (nonatomic, retain) IBOutlet UIWebView* webView;
+@property (nonatomic, retain) NSString* payPalUrl;
+
+- (IBAction)closeModal:(id)sender;
 
 @end

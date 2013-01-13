@@ -45,9 +45,20 @@ typedef enum {
     CBConditionLinkNor
 } CBConditionLink;
 
+typedef enum {
+    CBSortAscending = 1,
+    CBSortDescending = -1
+} CBSortDirection;
+
 @property (nonatomic, retain) NSMutableArray *conditions;
+@property (nonatomic, retain) NSMutableArray *sortKeys;
 @property (nonatomic, retain) NSString *field;
 @property (nonatomic, retain) id value;
+/**
+ * This property is the maximum number of results to be returned by the search
+ */
+@property (nonatomic) NSInteger limit;
+
 @property (nonatomic) CBConditionOperator CBOperator;
 @property (nonatomic) CBConditionLink CBLink;
 
@@ -147,6 +158,13 @@ typedef enum {
  * @param norGroup the new sub-conditions group.
  */
 - (void)addNor:(CBDataSearchConditionGroup *)norGroup;
+/**
+ * Add a sorting condition to your search. You can add multiple fields to sort by.
+ * It is only possible to sort on top level fields and not on objects.
+ * @param fieldName The name of the field in the collection
+ * @param dir A CBSortDirection value
+ */
+- (void)addSortField:(NSString *)fieldName withSortingDirection:(CBSortDirection)dir;
 
 /** @name Serialising the object */
 /**

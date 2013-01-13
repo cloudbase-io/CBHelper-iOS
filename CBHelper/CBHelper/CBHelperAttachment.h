@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSString* fileName;
 @property (nonatomic, retain) NSData* fileData;
 
-/***
+/**
  * creates a new attachment
  * @param fileName The original name of the file
  * @param content the NSData representation of the file.

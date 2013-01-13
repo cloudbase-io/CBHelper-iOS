@@ -27,6 +27,8 @@
 		E22C63C81644702500F557D5 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B81644702500F557D5 /* SBJsonTokeniser.m */; };
 		E22C63C91644702500F557D5 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BA1644702500F557D5 /* SBJsonUTF8Stream.m */; };
 		E22C63CA1644702500F557D5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BC1644702500F557D5 /* SBJsonWriter.m */; };
+		E276F9DB1696217E00546827 /* CBPayPalBill.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DA1696217E00546827 /* CBPayPalBill.m */; };
+		E276F9DE169623A200546827 /* CBPayPalBillItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DD169623A200546827 /* CBPayPalBillItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +86,10 @@
 		E22C63BA1644702500F557D5 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		E22C63BB1644702500F557D5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		E22C63BC1644702500F557D5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		E276F9D91696217E00546827 /* CBPayPalBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPayPalBill.h; sourceTree = "<group>"; };
+		E276F9DA1696217E00546827 /* CBPayPalBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPayPalBill.m; sourceTree = "<group>"; };
+		E276F9DC169623A200546827 /* CBPayPalBillItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPayPalBillItem.h; sourceTree = "<group>"; };
+		E276F9DD169623A200546827 /* CBPayPalBillItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPayPalBillItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,10 @@
 				E22C639816446FCB00F557D5 /* CBHelperViewController.h */,
 				E22C639916446FCB00F557D5 /* CBHelperViewController.m */,
 				E22C638516446F8500F557D5 /* Supporting Files */,
+				E276F9D91696217E00546827 /* CBPayPalBill.h */,
+				E276F9DA1696217E00546827 /* CBPayPalBill.m */,
+				E276F9DC169623A200546827 /* CBPayPalBillItem.h */,
+				E276F9DD169623A200546827 /* CBPayPalBillItem.m */,
 			);
 			path = CBHelper;
 			sourceTree = "<group>";
@@ -256,6 +266,8 @@
 				E22C63C81644702500F557D5 /* SBJsonTokeniser.m in Sources */,
 				E22C63C91644702500F557D5 /* SBJsonUTF8Stream.m in Sources */,
 				E22C63CA1644702500F557D5 /* SBJsonWriter.m in Sources */,
+				E276F9DB1696217E00546827 /* CBPayPalBill.m in Sources */,
+				E276F9DE169623A200546827 /* CBPayPalBillItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

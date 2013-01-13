@@ -23,7 +23,7 @@
 
 @implementation FunctionsViewController
 
-@synthesize functionCodeField;
+@synthesize functionCodeField, payPalUrl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -68,10 +68,51 @@
     }];
 }
 
+-(IBAction)testPayPalPayment:(id)sender {
+    CBPayPalBill *newBill = [[CBPayPalBill alloc] init];
+    newBill.name = @"test bill";
+    newBill.description = @"test bill for $9.99";
+    newBill.currency = @"USD";
+    newBill.invoiceNumber = @"test-invoice-01";
+    newBill.paymentCompletedFunction = @"";
+    newBill.paymentCancelledFunction = @"";
+
+    CBPayPalBillItem *item = [[CBPayPalBillItem alloc] init];
+    item.name = @"test item";
+    item.description = @"test item for $9.99";
+    item.amount = [NSNumber numberWithDouble:9.99];
+    item.tax = [NSNumber numberWithDouble:0.00];
+    item.quantity = [NSNumber numberWithInt:1];
+    
+    [newBill addNewItem:item];
+    
+    CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.helper preparePayPalPurchase:newBill onLiveEnvironment:NO whenDone:^(CBHelperResponseInfo *response) {
+        if (response.postSuccess && [response.responseData isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *tmpData = (NSDictionary *)response.responseData;
+            if ([tmpData objectForKey:@"checkout_url"] != NULL)
+            {
+                self.payPalUrl = (NSString *)[tmpData objectForKey:@"checkout_url"];
+            
+                [self performSegueWithIdentifier:@"PayPalBrowserModalSegue" sender:self];
+                tmpData = NULL;
+            }
+        }
+    }];
+}
+
 // hide the keyboard once editing of a test field is done.
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PayPalBrowserModalSegue"]) {
+        PayPalBrowserViewController *destViewController = segue.destinationViewController;
+        destViewController.payPalUrl = self.payPalUrl;
+    }
 }
 
 @end

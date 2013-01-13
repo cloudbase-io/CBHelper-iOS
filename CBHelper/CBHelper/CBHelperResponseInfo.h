@@ -17,17 +17,36 @@
 
 #import <Foundation/Foundation.h>
 
-/***
+/**
  * This object represents a response from the cloudbase.io servers. It is returned to both
  * the protocol methods and the block handlers for the various API calls. The only exception
  * to this is the downloadFile method which returnes the file NSData directly.
  */
 @interface CBHelperResponseInfo : NSObject
 
-@property (nonatomic, retain) NSString *errorMessage; /// the error message if one is returned by cloudbase.io
-@property (nonatomic, retain) NSString *function; /// the cloudbase.io function called by the api (data/notification/etc)
-@property (nonatomic) NSInteger statusCode; /// the http status code - anything other than 200 is an error
-@property (nonatomic, retain) id responseData; /// the NSDictionary containing the response data. this is the content of the "message" element in the JSON response from cloudbase.io
-@property (nonatomic) BOOL postSuccess; /// whether the API call was successfull
+/**
+ * the error message if one is returned by cloudbase.io
+ */
+@property (nonatomic, retain) NSString *errorMessage;
+/**
+ * the cloudbase.io function called by the api (data/notification/etc)
+ */
+@property (nonatomic, retain) NSString *function;
+/**
+ * the http status code - anything other than 200 is an error
+ */
+@property (nonatomic) NSInteger statusCode;
+/**
+ * the NSDictionary containing the response data. this is the content of the "message" element in the JSON response from cloudbase.io
+ */
+@property (nonatomic, retain) id responseData;
+/**
+ * whether the API call was successfull
+ */
+@property (nonatomic) BOOL postSuccess;
+/**
+ * contains the full response string from cloudbase.io
+ */
+@property (nonatomic, retain) NSString *responseString;
 
 @end

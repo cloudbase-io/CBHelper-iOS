@@ -290,8 +290,6 @@ static const short _base64DecodingTable[256] = {
 {
     NSMutableDictionary *serializedConditions = [conditions serializeConditions];
     
-    NSLog(@"Search key: %@", [serializedConditions JSONRepresentation]);
-    
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/search", [self generateURL], self.appCode, collection];
     
     [self sendPost:@"data" withForm:serializedConditions andParameters:nil toUrl:postUrl whenDone:handler];
@@ -496,6 +494,52 @@ static const short _base64DecodingTable[256] = {
     
     [self sendPost:@"applet" withForm:nil andParameters:params toUrl:postUrl whenDone:handler];
     postUrl = nil;
+}
+
+#pragma mark - PayPal
+- (void)preparePayPalPurchase:(CBPayPalBill*)bill onLiveEnvironment:(BOOL)isLive whenDone:(void (^) (CBHelperResponseInfo *response))handler
+{
+    NSString *postUrl = [NSString stringWithFormat:@"%@/%@/paypal/prepare", [self generateURL], self.appCode];
+    NSMutableDictionary* postForm = [[NSMutableDictionary alloc] init];
+    
+    NSMutableDictionary* payment = [bill serializePurchase];
+    
+    [postForm setObject:payment forKey:@"purchase_details"];
+    [postForm setObject:(isLive?@"live":@"sandbox") forKey:@"environment"];
+    [postForm setObject:bill.currency forKey:@"currency"];
+    [postForm setObject:@"purchase" forKey:@"type"];
+    [postForm setObject:bill.paymentCompletedFunction forKey:@"completed_cloudfunction"];
+    [postForm setObject:bill.paymentCancelledFunction forKey:@"cancelled_cloudfunction"];
+    if (bill.paymentCompletedUrl != NULL)
+        [postForm setObject:bill.paymentCompletedUrl forKey:@"payment_completed_url"];
+    if (bill.paymentCancelledUrl != NULL)
+        [postForm setObject:bill.paymentCancelledUrl forKey:@"payment_cancelled_url"];
+    
+    [self sendPost:@"paypal" withForm:postForm andParameters:NULL toUrl:postUrl whenDone:handler];
+}
+
+- (BOOL)readPayPalResponse:(NSURLRequest*)request whenDone:(void (^) (CBHelperResponseInfo *response))handler
+{
+    NSString* urlString = [request.URL absoluteString];
+    if ([urlString rangeOfString:@"paypal/update-status"].location == NSNotFound)
+    {
+        return YES;
+    }
+    else
+    {
+        [self sendPost:@"paypal" withForm:NULL andParameters:NULL toUrl:urlString whenDone:handler];
+        return NO;
+    }
+}
+
+- (void)getPayPalPaymentDetails:(NSString*)paymentId whenDone:(void (^) (CBHelperResponseInfo *response))handler
+{
+    NSString *postUrl = [NSString stringWithFormat:@"%@/%@/paypal/payment-details", [self generateURL], self.appCode];
+    NSMutableDictionary* postForm = [[NSMutableDictionary alloc] init];
+    
+    [postForm setObject:paymentId forKey:@"payment_id"];
+    
+    [self sendPost:@"paypal" withForm:postForm andParameters:NULL toUrl:postUrl whenDone:handler];
 }
 
 #pragma mark - Common
@@ -934,12 +978,13 @@ static const short _base64DecodingTable[256] = {
         CBHelperResponseInfo *res = [[CBHelperResponseInfo alloc] init];
         res.function = connection.CBFunctionName;
         res.statusCode = [connection.responseStatusCode integerValue];
+        res.responseString = [[NSString alloc] initWithData:connection.responseData encoding:NSUTF8StringEncoding];
+        // uncomment this to see the full response data
+        //NSLog(@"Received: %@", res.responseString);
         if (res.statusCode != 200)
             NSLog(@"Status code: %i", res.statusCode);
         
         if ([connection.responseStatusCode intValue] == 200) {
-            // uncomment this to see the full response data
-            //NSLog(@"Received: %@", (NSString *)res.responseData);
             NSDictionary *respData = [connection.responseData JSONValue];
     
             NSDictionary *functionOutput = [respData objectForKey:res.function];

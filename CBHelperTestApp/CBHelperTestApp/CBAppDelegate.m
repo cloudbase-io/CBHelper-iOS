@@ -28,7 +28,6 @@
     if (sharedInstance.appCode && !self.helper) {
         self.helper = [[CBHelper alloc] initForApp:sharedInstance.appCode withSecret:sharedInstance.appSecret];
         [self.helper setPassword:sharedInstance.appPwd];
-        [self.helper registerDevice];
         
         [self initNotificationsForApp:application];
     }

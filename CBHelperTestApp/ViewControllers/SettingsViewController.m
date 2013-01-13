@@ -69,8 +69,6 @@
     
     appDelegate.helper = [[CBHelper alloc] initForApp:sharedInstance.appCode withSecret:sharedInstance.appSecret];
     [appDelegate.helper setPassword:sharedInstance.appPwd];
-    //CBAppDelegate.helper;
-
 }
 
 // downloads an image from flickr into the phone media library. This is because the simulator is not allowed

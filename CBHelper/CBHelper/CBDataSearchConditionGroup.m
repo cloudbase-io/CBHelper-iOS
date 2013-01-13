@@ -19,7 +19,7 @@
 
 @implementation CBDataSearchConditionGroup
 
-@synthesize conditions, field, value, CBLink, CBOperator;
+@synthesize conditions, field, value, CBLink, CBOperator, sortKeys, limit;
 
 NSString * const CBConditionOperator_ToString[] = {
     @"",
@@ -46,12 +46,15 @@ NSString * const CBConditionLink_ToString[] = {
 };
 
 NSString * const CBSearchKey = @"cb_search_key";
+NSString * const CBSortKey = @"cb_sort_key";
+NSString * const CBLimitKey = @"cb_limit";
 
 - (id)init
 {
     if (self = [super init])
     {
         self.conditions = [[NSMutableArray alloc] init];
+        self.limit = -1;
         return self;
     }
     return nil;
@@ -59,6 +62,7 @@ NSString * const CBSearchKey = @"cb_search_key";
 - (id)initWithoutSubConditions
 {
     self = [super init];
+    self.limit = -1;
     return self;
 }
 
@@ -69,6 +73,7 @@ NSString * const CBSearchKey = @"cb_search_key";
         self.field = fieldName;
         self.CBOperator = op;
         self.value = compareValue;
+        self.limit = -1;
         return self;
     }
     return nil;
@@ -92,6 +97,7 @@ NSString * const CBSearchKey = @"cb_search_key";
             [searchQuery setValue:[NSNumber numberWithLong:distance] forKey:@"$maxDistance"];
         
         self.value  = searchQuery;
+        self.limit = -1;
         return self;
     }
     
@@ -119,6 +125,7 @@ NSString * const CBSearchKey = @"cb_search_key";
         [searchQuery setValue:boxCond forKey:@"$within"];
 
         self.value  = searchQuery;
+        self.limit = -1;
         return self;
     }
     
@@ -188,16 +195,31 @@ NSString * const CBSearchKey = @"cb_search_key";
     [self.conditions addObject:norGroup];
 }
 
+- (void)addSortField:(NSString *)fieldName withSortingDirection:(CBSortDirection)dir
+{
+    if (self.sortKeys == NULL)
+        self.sortKeys = [[NSMutableArray alloc] init];
+    
+    NSMutableDictionary* newSort = [[NSMutableDictionary alloc] init];
+    [newSort setObject:[NSString stringWithFormat:@"%i", dir] forKey:fieldName];
+    
+    [self.sortKeys addObject:newSort];
+}
+
 - (NSMutableDictionary *)serializeConditions
 {
     NSMutableDictionary *conds = [self serializeConditions:self];
     NSMutableDictionary *finalConditions = [[NSMutableDictionary alloc] init];
     if (![conds valueForKey:CBSearchKey])
-    {
         [finalConditions setValue:conds forKey:CBSearchKey];
-    }
     else
         finalConditions = conds;
+    
+    if (self.sortKeys != NULL && [self.sortKeys count] > 0)
+        [finalConditions setObject:self.sortKeys forKey:CBSortKey];
+    
+    if (self.limit > 0)
+        [finalConditions setObject:[NSString stringWithFormat:@"%i", self.limit] forKey:CBLimitKey];
     
     return finalConditions;
 }

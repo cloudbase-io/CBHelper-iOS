@@ -25,26 +25,27 @@
 #import "CBDataSearchConditionGroup.h"
 #import "NSURLConnection+CBHelper.h"
 #import "CBHelperAttachment.h"
+#import "CBPayPalBill.h"
 
 /*
  * Methods available to the delegate class
  */ 
 @protocol CBHelperDelegate
-/***
+/**
  * This method is invoked whenever a request to the APIs is completed.
  * @param response The CBHelperResponseInfo object representing the data received from the APIs
  */
 - (void)requestCompleted:(CBHelperResponseInfo *)response;
 
 @optional
-/***
+/**
  * Use this method to monitor the status of the upload of a post request. Particularly useful
  * if what you are sending is large data such as an image
  * @param totalBytesWritten The number of bytes sent so far in the request
  * @param totalBytesExpectedToWrite The total size of the request in bytes
  */
 - (void)didSendBodyData:(NSNumber *)totalBytesWritten totalBytesExpectedToWrite:(NSNumber *)totalBytesExpectedToWrite;
-/***
+/**
  * This method is triggered as data is received for a response. Useful for big responses as it will
  * allow you to display a progress bar
  * @param bytesReceived the total bytes received so far
@@ -116,7 +117,7 @@ typedef enum {
 
 // exposed methods
 
-/***
+/**
  * Initialisation method for the helper class with the required parameters. The password is sent separately in the
  * password field.
  * @param code The applcation code from the cloudbase website (for example test-app)
@@ -134,7 +135,7 @@ typedef enum {
  */
 - (NSString *)getSessionID;
 
-/***
+/**
  * Generates the request body for a parameter
  * @param paramName the name of the request parameter
  * @param paramValue The value for the parameter
@@ -142,21 +143,21 @@ typedef enum {
  */
 - (NSData *)requestBodyForParameter:(NSString *)paramName withValue:(NSString *)paramValue;
 
-/***
+/**
  * Generates the request body for an attachment file
  * @param attachment The CBHelperAttachment object representing the file
  * @return An NSData object with the request body data for the parameter
  */
 - (NSData *)requestBodyForFile:(CBHelperAttachment *)attachment withOrder:(NSInteger)fileNum;
 
-/***
+/**
  * Converts the given object to a MutableDictionary or Array. Only @property elements of the object will be considered.
  * @param obj The object to be converted.
  * @return An NSMutableDictionary or NSMutableArray depending on the object passed as input
  */
 - (id)objectToDictionaryOrArray:(id)obj;
 
-/***
+/**
  * !!! EXPERIMENTAL !!!
  * Tries to populate a new object of the given Class with the data contained in the Dictionary or Array passed. This 
  * will only process top level properties and cannot populate Dictionary/Array within the object as it will have no 
@@ -167,7 +168,7 @@ typedef enum {
  */
 - (id)dictionaryOrArray:(id)dictionaryOrArray toObject:(Class)objectClass;
 
-/***
+/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. This method
  * should not be used directly.
  * @param function The string represnetation of the called function (log/data...)
@@ -176,7 +177,7 @@ typedef enum {
  */
 - (void)sendPost:(NSString *)function withForm:(id)form toUrl:(NSString *)url;
 
-/***
+/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. This method
  * should not be used directly.
  * @param function The string represnetation of the called function (log/data...)
@@ -187,7 +188,7 @@ typedef enum {
 
 - (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments toUrl:(NSString *)url;
 
-/***
+/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
  * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
  * This method should not be used directly.
@@ -198,7 +199,7 @@ typedef enum {
  */
 - (void)sendPost:(NSString *)function withForm:(id)form andParameters:(NSDictionary *)params toUrl:(NSString *)url;
 
-/***
+/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
  * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
  * This method should not be used directly.
@@ -211,7 +212,7 @@ typedef enum {
 - (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments andParameters:(NSDictionary *)params toUrl:(NSString *)url;
 
 
-/***
+/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
  * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
  * This method should not be used directly.
@@ -223,7 +224,7 @@ typedef enum {
  */
 - (void)sendPost:(NSString *)function withForm:(id)form andParameters:(NSDictionary *)params toUrl:(NSString *)url whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
  * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
  * This method should not be used directly.
@@ -236,7 +237,7 @@ typedef enum {
  */
 - (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments andParameters:(NSDictionary *)params toUrl:(NSString *)url whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * Generic method to send a request to the Cloudbase APIs. This should not be used directly and it's only called by the
  * API interaction methods described below.
  * Once the request is completed this method will try to invoke the requestCompleted method of the Delegate
@@ -246,7 +247,7 @@ typedef enum {
  */
 - (void)sendRequest:(NSString *)function toUrl:(NSString *)url withData:(NSData *)formData;
 
-/***
+/**
  * Generic method to send a request to the Cloudbase APIs. This should not be used directly and it's only called by the
  * API interaction methods described below.
  * Once the request is completed this method will try to invoke the requestCompleted method of the Delegate
@@ -257,26 +258,26 @@ typedef enum {
  */
 - (void)sendRequest:(NSString *)function toUrl:(NSString *)url withData:(NSData *)formData whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * Returns a unique identifier for the user/application on the device
  * Use in iOS5 instad of the deprecated Device > UniqueIdentifier
  * @return An NSString containing a unique identifier for the device/user
  */
 + (NSString *)GetUUID;
-/***
+/**
  * Encodes an NSString with md5
  * @param str The string to be encoded
  * @return The md5 hash of the given string
  */
 + (NSString *) md5:(NSString *)str;
-/***
+/**
  * Produces a base64 encoded string with the given data. This is used by this class to prepare images
  * to upload to your database
  * @param objData The NSData object to be encoded
  * @return The base64 encoded string
  */
 + (NSString *)encodeBase64WithData:(NSData *)objData;
-/***
+/**
  * creates an NSData object from a base46 encoded string
  * @param strBase64 The base64 encoded string
  * @return The NSData 
@@ -285,7 +286,7 @@ typedef enum {
 
 - (void)registerDevice;
 /** @name Logging functions */
-/***
+/**
  * Logs a message to the application database in the given cateogry and level. This is a generic method and should not
  * be called directly unless there is a need to go outside the standard logging levels. It is possible to use a custom
  * level however it is not advised as it might not work correctly with the statistics functionality.
@@ -295,79 +296,79 @@ typedef enum {
  * @param level The severity level of the log message
  */
 - (void)log:(NSString *)line forCategory:(NSString *)cat atLevel:(CBLogLevel)level;
-/***
+/**
  * Log a debug message. Once the execution is completed the requestCompleted method in the delegate object is called.
  * @param line The log message
  * @param cat The logging category
  */
 - (void)logDebug:(NSString *)line forCategory:(NSString *)cat;
-/***
+/**
  * Log a debug message in the default cateogory. Once the execution is completed the requestCompleted method in 
  * the delegate object is called.
  * @param line The log message
  */
 - (void)logDebug:(NSString *)line;
-/***
+/**
  * Log an info message. Once the execution is completed the requestCompleted method in the delegate object is called.
  * @param line The log message
  * @param cat The logging category
  */
 - (void)logInfo:(NSString *)line forCategory:(NSString *)cat;
-/***
+/**
  * Log an info message in the default cateogory. Once the execution is completed the requestCompleted method in 
  * the delegate object is called.
  * @param line The log message
  */
 - (void)logInfo:(NSString *)line;
-/***
+/**
  * Log a warning message. Once the execution is completed the requestCompleted method in the delegate object is called.
  * @param line The log message
  * @param cat The logging category
  */
 - (void)logWarning:(NSString *)line forCategory:(NSString *)cat;
-/***
+/**
  * Log a warning message in the default cateogory. Once the execution is completed the requestCompleted method in 
  * the delegate object is called.
  * @param line The log message
  */
 - (void)logWarning:(NSString *)line;
-/***
+/**
  * Log an error message. Once the execution is completed the requestCompleted method in the delegate object is called.
  * @param line The log message
  * @param cat The logging category
  */
 - (void)logError:(NSString *)line forCategory:(NSString *)cat;
-/***
+/**
  * Log an error message in the default cateogory. Once the execution is completed the requestCompleted method in 
  * the delegate object is called.
  * @param line The log message
  */
 - (void)logError:(NSString *)line;
-/***
+/**
  * Log a fatal message. Once the execution is completed the requestCompleted method in the delegate object is called.
  * @param line The log message
  * @param cat The logging category
  */
 - (void)logFatal:(NSString *)line forCategory:(NSString *)cat;
-/***
+/**
  * Log a fatal message in the default cateogory. Once the execution is completed the requestCompleted method in 
  * the delegate object is called.
  * @param line The log message
  */
 - (void)logFatal:(NSString *)line;
-/***
+/**
  * Log an event message. Once the execution is completed the requestCompleted method in the delegate object is called.
  * @param line The log message
  * @param cat The logging category
  */
 - (void)logEvent:(NSString *)line forCategory:(NSString *)cat;
-/***
+/**
  * Log an event message in the default cateogory. Once the execution is completed the requestCompleted method in 
  * the delegate object is called.
  * @param line The log message
  */
 - (void)logEvent:(NSString *)line;
-/***
+/**
  * Log the navigation to a new UIViewController
  * @param viewName An NSString representing the unique name for the loaded UIViewController
  */
@@ -375,7 +376,7 @@ typedef enum {
 
 
 /** @name Data functions */
-/***
+/**
  * Inserts the given object in a cloudbase collection. If the collection does not exist it is automatically created.
  * Similarly if the data structure of the given object is different from documents already present in the collection
  * the structure is automatically altered to accommodate the new object.
@@ -389,7 +390,7 @@ typedef enum {
  */
 - (void)insertDocument:(id)obj inCollection:(NSString *)collectionName;
 
-/***
+/**
  * Inserts the given object in a cloudbase collection. If the collection does not exist it is automatically created.
  * Similarly if the data structure of the given object is different from documents already present in the collection
  * the structure is automatically altered to accommodate the new object.
@@ -404,7 +405,7 @@ typedef enum {
  */
 - (void)insertDocument:(id)obj inCollection:(NSString *)collectionName withFiles:(NSArray *)attachments;
 
-/***
+/**
  * Inserts the given object in a cloudbase collection. If the collection does not exist it is automatically created.
  * Similarly if the data structure of the given object is different from documents already present in the collection
  * the structure is automatically altered to accommodate the new object.
@@ -419,7 +420,7 @@ typedef enum {
  */
 - (void)insertDocument:(id)obj inCollection:(NSString *)collectionName whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * Inserts the given object in a cloudbase collection. If the collection does not exist it is automatically created.
  * Similarly if the data structure of the given object is different from documents already present in the collection
  * the structure is automatically altered to accommodate the new object.
@@ -435,7 +436,7 @@ typedef enum {
  */
 - (void)insertDocument:(id)obj inCollection:(NSString *)collectionName withFiles:(NSArray *)attachments whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * !!!EXPERIMENTAL!!!
  * Updates all of the documents in the given collection matching the search conditions with the given object.
  * @param obj The object to update the documents' values to.
@@ -444,7 +445,7 @@ typedef enum {
  */
 - (void)updateDocument:(id)obj where:(CBDataSearchConditionGroup *)conditions inCollection:(NSString *)collection;
 
-/***
+/**
  * !!!EXPERIMENTAL!!!
  * Updates all of the documents in the given collection matching the search conditions with the given object.
  * @param obj The object to update the documents' values to.
@@ -454,28 +455,28 @@ typedef enum {
  */
 - (void)updateDocument:(id)obj where:(CBDataSearchConditionGroup *)conditions inCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 ;
-/***
+/**
  * Returns all of the document elements within a collection. The data is accessible from the CBHelperResponseOInfo
  * object passed to the requestCompleted method of the delegate.
  * @param collection The name of the collection to be extracted
  */
 - (void)searchAllDocumentsInCollection:(NSString *)collection;
 
-/***
+/**
  * Returns all of the document elements within a collection. The data is accessible from the CBHelperResponseOInfo
  * object passed to the requestCompleted method of the delegate.
  * @param collection The name of the collection to be extracted
  * @param handler block of code to execute once the request is completed
  */
 - (void)searchAllDocumentsInCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler;
-/***
+/**
  * Runs a search over a collection with the given criteria. The documents matching the search critirea are then
  * returned in the CBHelperResponseInfo object passed to the requestCompleted method of the delegate.
  * @param conditions A set of search conditions
  * @param collection The name of the collection to run the search over
  */
 - (void)searchDocumentWithConditions:(CBDataSearchConditionGroup *)conditions inCollection:(NSString *)collection;
-/***
+/**
  * Runs a search over a collection with the given criteria. The documents matching the search criteria are then
  * returned in the CBHelperResponseInfo object passed to the requestCompleted method of the delegate.
  * @param conditions A set of search conditions
@@ -484,7 +485,7 @@ typedef enum {
  */
 - (void)searchDocumentWithConditions:(CBDataSearchConditionGroup *)conditions inCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * This methods downloads a file associated with a record in the cloudbase database. The data is then returned to the handler 
  * block.
  * During the download of the data the didReceiveResponseData method of the protocol is triggered.
@@ -496,7 +497,7 @@ typedef enum {
 
 /** @name Push notification functions */
 
-/***
+/**
  * Subscribes the devices with the current token received from Apple to a notification channel. All devices are
  * autmatically subscribed to the channel <strong>all</strong>.
  * @param deviceToken The token received from the didRegisterForRemoteNotifications method
@@ -504,7 +505,7 @@ typedef enum {
  */
 - (void)subscribeDeviceWithToken:(NSData *)deviceToken toNotificationChannel:(NSString *)channel;
 
-/***
+/**
  * Unsubscribes the devices with the current token received from Apple from a notification channel. 
  * @param deviceToken The token received from the didRegisterForRemoteNotifications method
  * @param channel The name of the channel to unsubscribe from.
@@ -512,7 +513,7 @@ typedef enum {
  */
 - (void)unsubscribeDeviceWithToken:(NSData *)deviceToken fromNotificationChannel:(NSString *)channel andAll:(BOOL)removeCompletely;
 
-/***
+/**
  * Send an email to the specified recipient using the given template
  * @param templateCode The template code generated on cloudbase.io
  * @param recipient The email address of the email recipient
@@ -520,7 +521,7 @@ typedef enum {
  * @param vars The variables to fill the template
  */
 - (void)sendEmail:(NSString *)templateCode to:(NSString *)recipient withSubject:(NSString *)subject andVars:(NSDictionary *)vars;
-/***
+/**
  * If client notifications are enabled then this method will send a notification to all devices subscribed to a 
  * particular channel.
  * @param text The notification text
@@ -531,7 +532,7 @@ typedef enum {
  */
 - (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannel:(NSString *)channel;
 
-/***
+/**
  * If client notifications are enabled then this method will send a notification to all devices subscribed to the 
  * channels in the given array
  * @param text The notification text
@@ -544,20 +545,20 @@ typedef enum {
 
 /** @name CloudFunctions methods */
 
-/***
+/**
  * Executes a CloudFunction on demand.
  * @param fcode The function code for the function to be executed
  */
 - (void)executeCloudFunction:(NSString *)fcode;
 
-/***
+/**
  * Executes a CloudFunction on demand.
  * @param fcode The function code for the function to be executed
  * @param params The parameters for the function
  */
 - (void)executeCloudFunction:(NSString *)fcode withParameters:(NSDictionary *)params;
 
-/***
+/**
  * Executes a CloudFunction on demand and handles the response from the service with a block.
  * @param fcode The function code for the function to be executed
  * @param params The parameters for the function
@@ -565,14 +566,14 @@ typedef enum {
  */
 - (void)executeCloudFunction:(NSString *)fcode withParameters:(NSDictionary *)params whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
-/***
+/**
  * Executes an applet on demand.
  * @param fcode The applet code for the function to be executed
  * @param params The parameters for the applet
  */
 - (void)executeApplet:(NSString *)fcode withParameters:(NSDictionary *)params;
 
-/***
+/**
  * Executes an applet on demand and handles the response from the service with a block.
  * @param fcode The applet code for the function to be executed
  * @param params The parameters for the applet
@@ -580,6 +581,33 @@ typedef enum {
  */
 - (void)executeApplet:(NSString *)fcode withParameters:(NSDictionary *)params whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
+/** @name PayPal digital goods sale integration */
 
+/**
+ * Calls PayPal and requests a token for the express checkout of digital goods.
+ * The PayPal API credentials must be set in the cloudbase.io control panel for this method to work.
+ * @param bill A populated CBPayPalBill object with at least one detail item
+ * @param isLive Whether the call should be made to the PayPal production or sandbox environments
+ * @param handler A block to manage the results returned from the server - specifically the token and checkout url
+ */
+- (void)preparePayPalPurchase:(CBPayPalBill*)bill onLiveEnvironment:(BOOL)isLive whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
+/**
+ * This method should be used from the UIWebView delegate method to intercept the web pages loaded and detect
+ * the completion of the payment process. The method:
+ * - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+ * should be implemented returning the result of this CBHelper method.
+ * @param request The request handed to the delegate method
+ * @param handler A method to handle the completion of the payment once the user has gone through all the steps
+ * @return NO if we have reached the end of the payment and we can go back to the cloudbase.io APIs
+ */
+- (BOOL)readPayPalResponse:(NSURLRequest*)request whenDone:(void (^) (CBHelperResponseInfo *response))handler;
+
+/**
+ * Retrieves the information about a PayPal purchase which has been initiated with the preparePayPalPurchase method.
+ * The paymentId is returned when the payment is prepared and completed.
+ * @param paymentId The payment id returned by cloudbase.io
+ * @param handler A method to use the details returned by the cloudbase.io APIs
+ */
+- (void)getPayPalPaymentDetails:(NSString*)paymentId whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 @end
