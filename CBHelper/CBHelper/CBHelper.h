@@ -27,6 +27,38 @@
 #import "CBHelperAttachment.h"
 #import "CBPayPalBill.h"
 
+/*! \mainpage cloudbase.io iOS Helper Class Reference
+ *
+ * \section intro_sec Introduction
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, version 2, as published by
+ * the Free Software Foundation.<br/><br/>
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details.<br/><br/>
+ 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; see the file COPYING.  If not, write to the Free
+ * Software Foundation, 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.<br/><br/>
+ *
+ * \section install_sec Getting Started
+ *
+ * The cloudbase.io iOS helper class compiles to .a library. The project
+ * needs to be part of your workspace and the CBHelper directory in your path for
+ * additional includes.<br/><br/>
+ * To be able to compile your application make sure that the "Other Linker Flags"
+ * for the CBHelperTestApp target include the following two options:<br/>
+ * -ObjC<br/>
+ * -all_load<br/><br/>
+ *
+ * This full reference is a companion to <a href="/documentation/ios" target="_blank">
+ * the tutorial on the cloudbase.io website<a/>
+ */
+
 /*
  * Methods available to the delegate class
  */ 
