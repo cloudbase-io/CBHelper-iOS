@@ -55,6 +55,7 @@ NSString * const CBLimitKey = @"cb_limit";
     {
         self.conditions = [[NSMutableArray alloc] init];
         self.limit = -1;
+        self.commandType = CBDataAggregationMatch;
         return self;
     }
     return nil;
@@ -74,6 +75,7 @@ NSString * const CBLimitKey = @"cb_limit";
         self.CBOperator = op;
         self.value = compareValue;
         self.limit = -1;
+        self.commandType = CBDataAggregationMatch;
         return self;
     }
     return nil;
@@ -98,6 +100,7 @@ NSString * const CBLimitKey = @"cb_limit";
         
         self.value  = searchQuery;
         self.limit = -1;
+        self.commandType = CBDataAggregationMatch;
         return self;
     }
     
@@ -126,6 +129,7 @@ NSString * const CBLimitKey = @"cb_limit";
 
         self.value  = searchQuery;
         self.limit = -1;
+        self.commandType = CBDataAggregationMatch;
         return self;
     }
     
@@ -204,6 +208,12 @@ NSString * const CBLimitKey = @"cb_limit";
     [newSort setObject:[NSString stringWithFormat:@"%i", dir] forKey:fieldName];
     
     [self.sortKeys addObject:newSort];
+}
+
+- (NSObject *)serializeAggregateConditions {
+    NSMutableDictionary *conds = [self serializeConditions:self];
+    
+    return conds;
 }
 
 - (NSMutableDictionary *)serializeConditions

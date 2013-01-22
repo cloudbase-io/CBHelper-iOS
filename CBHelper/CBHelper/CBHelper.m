@@ -297,6 +297,28 @@ static const short _base64DecodingTable[256] = {
     postUrl = nil;
 }
 
+- (void)searchDocumentWithAggregates:(NSMutableArray *)aggregateConditions inCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler {
+    NSMutableArray *serializedAggregateConditions = [[NSMutableArray alloc] init];
+    
+    
+    for (CBDataAggregationCommand *curCommand in aggregateConditions) {
+        NSMutableDictionary *curSerializedCondition = [[NSMutableDictionary alloc] init];
+        
+        [curSerializedCondition setObject:[curCommand serializeAggregateConditions] forKey:[curCommand getCommandTypeString]];
+        
+        [serializedAggregateConditions addObject:curSerializedCondition];
+    }
+    
+    NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/aggregate", [self generateURL], self.appCode, collection];
+    
+    NSMutableDictionary *finalCond = [[NSMutableDictionary alloc] init];
+    [finalCond setObject:serializedAggregateConditions forKey:@"cb_aggregate_key"];
+    
+    [self sendPost:@"data" withForm:finalCond andParameters:nil toUrl:postUrl whenDone:handler];
+    
+    postUrl = nil;
+}
+
 - (void)updateDocument:(id)obj where:(CBDataSearchConditionGroup *)conditions inCollection:(NSString *)collection
 {
     [self updateDocument:obj where:conditions inCollection:collection whenDone:nil];

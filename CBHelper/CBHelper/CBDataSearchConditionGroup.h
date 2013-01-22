@@ -19,7 +19,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface CBDataSearchConditionGroup : NSObject
+#import "CBDataAggregationCommand.h"
+
+@interface CBDataSearchConditionGroup : CBDataAggregationCommand
 
 typedef enum {
     CBOperatorEqual,
@@ -180,5 +182,6 @@ typedef enum {
  * @return The NSMutableDictionary representation of the current conditions
  */
 - (NSMutableDictionary *)serializeConditions;
+
 
 @end

@@ -87,7 +87,7 @@
     [newBill addNewItem:item];
     
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [appDelegate.helper preparePayPalPurchase:newBill onLiveEnvironment:NO whenDone:^(CBHelperResponseInfo *response) {
+    [appDelegate.helper preparePayPalPurchase:newBill onLiveEnvironment:YES whenDone:^(CBHelperResponseInfo *response) {
         if (response.postSuccess && [response.responseData isKindOfClass:[NSDictionary class]])
         {
             NSDictionary *tmpData = (NSDictionary *)response.responseData;

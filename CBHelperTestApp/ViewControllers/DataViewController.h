@@ -36,6 +36,7 @@
 - (IBAction)insertObject:(id)sender;
 - (IBAction)insertObjectWithFiles:(id)sender;
 - (IBAction)searchObjects:(id)sender;
+- (IBAction)searchAggregateObjects:(id)sender;
 
 - (IBAction)downloadFile:(id)sender;
 

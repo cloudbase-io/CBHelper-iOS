@@ -26,6 +26,9 @@
 #import "NSURLConnection+CBHelper.h"
 #import "CBHelperAttachment.h"
 #import "CBPayPalBill.h"
+#import "CBDataAggregationCommand.h"
+#import "CBDataAggregationCommandGroup.h"
+#import "CBDataAggregationCommandProject.h"
 
 /*! \mainpage cloudbase.io iOS Helper Class Reference
  *
@@ -517,6 +520,13 @@ typedef enum {
  */
 - (void)searchDocumentWithConditions:(CBDataSearchConditionGroup *)conditions inCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
+/**
+ * Runs a search over a collection and applies the given list of aggregation commands to the output.
+ * @param aggregateConditions A List of CBDataAggregationCommand objects
+ * @param collection The name of the collection to run the search over
+ * @param handler a block of code to be executed once the request is completed
+ */
+- (void)searchDocumentWithAggregates:(NSMutableArray *)aggregateConditions inCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 /**
  * This methods downloads a file associated with a record in the cloudbase database. The data is then returned to the handler 
  * block.

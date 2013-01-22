@@ -669,6 +669,7 @@
                 <relationship kind="action" name="downloadFile:"/>
                 <relationship kind="action" name="insertObject:"/>
                 <relationship kind="action" name="insertObjectWithFiles:"/>
+                <relationship kind="action" name="searchAggregateObjects:"/>
                 <relationship kind="action" name="searchObjects:"/>
                 <relationship kind="action" name="switchLocationData:"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>

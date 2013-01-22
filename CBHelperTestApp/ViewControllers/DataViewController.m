@@ -107,35 +107,9 @@
     
     if (appDelegate.helper)
     {
-        // run the search and parse the returned data.
-        /*
-        [appDelegate.helper searchAllDocumentsInCollection:@"test_users" whenDone:^(CBHelperResponseInfo *response) {
-            self.searchData = [[NSMutableArray alloc] init];
-            
-            if (response.postSuccess) {
-                if ([response.responseData isKindOfClass:[NSArray class]])
-                {
-                    for (NSDictionary *tip in response.responseData)
-                    {
-                        TestDataObject *obj = [[TestDataObject alloc] init];
-                        obj.firstName = [tip valueForKey:@"firstName"];
-                        obj.lastName = [tip valueForKey:@"lastName"];
-                        obj.title = [tip valueForKey:@"title"];
-                        
-                        [self.searchData addObject:obj];
-                    }
-                    
-                    // show the data table screen. The method prepareforsegue passes along the searchData
-                    // object.
-                    [self performSegueWithIdentifier:@"DataTableSegue" sender:self];
-                }
-            }
-        }];
-        */
-        
         CBDataSearchConditionGroup* searchCondition = [[CBDataSearchConditionGroup alloc] initWithoutSubConditions];//[[CBDataSearchConditionGroup alloc] initWithField:@"firstName" is:CBOperatorEqual to:@"Cloud"];
         [searchCondition addSortField:@"firstName" withSortingDirection:CBSortDescending];
-        searchCondition.limit = 1;
+        searchCondition.limit = 10;
         
         [appDelegate.helper searchDocumentWithConditions:searchCondition inCollection:@"test_users" whenDone:^(CBHelperResponseInfo *response) {
             self.searchData = [[NSMutableArray alloc] init];
@@ -161,6 +135,32 @@
 
         }];
     }
+}
+
+- (IBAction)searchAggregateObjects:(id)sender {
+    NSMutableArray *aggregateCond = [[NSMutableArray alloc] init];
+    
+    CBDataAggregationCommandProject *projectCommand = [[CBDataAggregationCommandProject alloc] init];
+    [projectCommand.includeFields addObject:@"Symbol"];
+    [projectCommand.includeFields addObject:@"Price"];
+    [projectCommand.includeFields addObject:@"total"];
+    
+    [aggregateCond addObject:projectCommand];
+    
+    CBDataSearchConditionGroup *searchCond = [[CBDataSearchConditionGroup alloc] initWithField:@"Symbol" is:CBOperatorEqual to:@"AAPL"];
+    
+    [aggregateCond addObject:searchCond];
+    
+    CBDataAggregationCommandGroup *groupCommand = [[CBDataAggregationCommandGroup alloc] init];
+    [groupCommand addOutputField:@"Symbol"];
+    [groupCommand addGroupFormulaFor:@"total" withOperator:CBDataAggregationGroupSum onField:@"Price"];
+    
+    [aggregateCond addObject:groupCommand];
+    
+    CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.helper searchDocumentWithAggregates:aggregateCond inCollection:@"security_master_3" whenDone:^(CBHelperResponseInfo *response) {
+    }];
+    
 }
 
 - (IBAction)downloadFile:(id)sender {
