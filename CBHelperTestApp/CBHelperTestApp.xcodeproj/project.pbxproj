@@ -378,6 +378,7 @@
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
 				"HEADER_SEARCH_PATHS[arch=*]" = "../CBHelper/CBHelper/**";
 				INFOPLIST_FILE = "CBHelperTestApp/CBHelperTestApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/iOSHelper-ewmoxfdurovqxbhfhjhrblcksubb/Build/Products/Debug-iphoneos\"",
@@ -405,6 +406,7 @@
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
 				"HEADER_SEARCH_PATHS[arch=*]" = "../CBHelper/CBHelper/**";
 				INFOPLIST_FILE = "CBHelperTestApp/CBHelperTestApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/iOSHelper-ewmoxfdurovqxbhfhjhrblcksubb/Build/Products/Debug-iphoneos\"",

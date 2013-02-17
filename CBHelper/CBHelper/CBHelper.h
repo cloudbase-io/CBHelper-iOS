@@ -30,6 +30,8 @@
 #import "CBDataAggregationCommandGroup.h"
 #import "CBDataAggregationCommandProject.h"
 
+#define SYSTEM_VERSION_GREATER_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+
 /*! \mainpage cloudbase.io iOS Helper Class Reference
  *
  * \section intro_sec Introduction
@@ -318,6 +320,8 @@ typedef enum {
  * @return The NSData 
  */
 + (NSData *)decodeBase64WithString:(NSString *)strBase64;
+
++ (NSString *)getMacaddress;
 
 - (void)registerDevice;
 /** @name Logging functions */
