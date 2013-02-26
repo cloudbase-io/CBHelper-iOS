@@ -15,10 +15,10 @@
  02111-1307, USA.
  */
 
-#import "CBHelperResponseInfo.h"
+#include "CBHelperResponseInfo.h"
 
 @implementation CBHelperResponseInfo
 
-@synthesize postSuccess, errorMessage, function, responseData, statusCode, responseString;
+@synthesize postSuccess, errorMessage, function, responseData, statusCode, responseString, isQueued, originalRequest;
 
 @end

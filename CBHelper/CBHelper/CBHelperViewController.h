@@ -15,11 +15,16 @@
  02111-1307, USA.
  */
 
-#import <UIKit/UIKit.h>
-#import "CBHelper.h"
+#include <UIKit/UIKit.h>
+#include "CBHelper.h"
+
+#ifndef CBHELPERVIEWCONTROLLER_H_
+#define CBHELPERVIEWCONTROLLER_H_
 
 @interface CBHelperViewController : UIViewController
 
 @property (nonatomic, retain) CBHelper *cbHelper;
 
 @end
+
+#endif

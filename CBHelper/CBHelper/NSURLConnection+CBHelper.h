@@ -27,6 +27,11 @@
 @property (nonatomic, retain) NSNumber *totalResponseBytes;
 @property (nonatomic, retain) NSNumber *responseStatusCode;
 
+@property (nonatomic, retain) NSString *shouldQueue;
+@property (nonatomic, retain) NSString *queueFileName;
+
+@property (nonatomic, retain) CBQueuedRequest *requestObject;
+
 + (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request andHandler:(void (^) (CBHelperResponseInfo *response))handler andDelegate:(id)delegate;
 
 @end

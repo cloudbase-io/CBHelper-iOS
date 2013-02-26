@@ -15,15 +15,71 @@
  02111-1307, USA.
  */
 
-#import "CBHelper.h"
-#include <sys/socket.h> // Per msqr
-#include <sys/sysctl.h>
-#include <net/if.h>
-#include <net/if_dl.h>
+#include "CBHelper.h"
+
+// private methods used to queue requests if the connection is not available
+@interface CBHelper()
+
+/**
+ * checks with the delegate whether a request should be queued.
+ * @param The CBQueuedRequest object contain all of the parameters sent to the cloudbase.io APIs
+ * @return YES if the call should be queued
+ */
+- (BOOL)shouldQueueRequest:(CBQueuedRequest*)request;
+/**
+ * Creates a queue file for a request and returns the full path to the file
+ * @param The NSString cloudbase.io function
+ * @param the full post data to be cached
+ * @param The url for the api call
+ * @return The Full path of the file created
+ */
+- (NSString*)queueRequest:(CBQueuedRequest*)req;
+/**
+ * deletes a file previously queued
+ * @param The name of the queue file
+ */
+- (void)removeQueueFile:(NSString*)fileName;
+/**
+ * returns the size of the queue on disk
+ * @return The number of queued calls
+ */
+- (NSInteger)getQueueSize;
+/**
+ * Sends of all of the queued requests asynchronously
+ */
+- (void)sendQueuedRequests;
+/**
+ * Internal method to parse the response of an API request
+ * @param The NSURLConnection object
+ * @param The http status of the call
+ * @param The CBQueueRequest object
+ * @param The response data
+ * @param Whether it was called by a queued request or live one
+ */
+- (void)parseResponseData:(NSURLConnection*)con statusCode:(NSInteger)status fromRequest:(CBQueuedRequest*)req withResponse:(NSMutableData*)res fromQueue:(BOOL)queue;
+/**
+ * Locks the queue of requests by creating the default lockfile
+ */
+- (void)lockQueue;
+/**
+ * Returns the name of the file used as a lockfile
+ */
+- (NSString*)getQueueLockFileName;
+/**
+ * Removes the lockfile
+ */
+- (void)removeQueueLock;
+/**
+ * Checks whether the queue is locked and being processed by another helper class instance
+ * @return YES if the queue is locked
+ */
+- (BOOL)isQueueLocked;
+@end
+
 
 @implementation CBHelper
 
-@synthesize appCode, appSecret, isHttps, domain, currentLocation, defaultDateFormat, defaultLogCategory, deviceUniqueIdentifier, notificationToken, notificationCertificateType, authUsername, authPassword;
+@synthesize appCode, appSecret, isHttps, domain, currentLocation, defaultDateFormat, defaultLogCategory, deviceUniqueIdentifier, notificationToken, notificationCertificateType, authUsername, authPassword, httpConnectionTimeout, debugMode;
 @synthesize delegate;
 
 NSString * const CBLogLevel_ToString[] = {
@@ -60,11 +116,12 @@ static const short _base64DecodingTable[256] = {
 {
     self.isHttps                = YES;
     self.domain                 = @"api.cloudbase.io";
+    self.debugMode              = NO;
     deviceRegistered            = NO;
     self.currentLocation        = nil;
     self.defaultDateFormat      = @"yyyy-MM-dd'T'HH:mm:ss";
     self.defaultLogCategory     = @"DEFAULT";
-    if (SYSTEM_VERSION_GREATER_THAN(@"5.1")) {
+    if (SYSTEM_VERSION_GREATER_THAN(@"5.1.1")) {
         self.deviceUniqueIdentifier = [UIDevice currentDevice].identifierForVendor.UUIDString;
     } else {
         //self.deviceUniqueIdentifier = [UIDevice currentDevice].identifierForVendor.UUIDString;
@@ -74,6 +131,7 @@ static const short _base64DecodingTable[256] = {
         }
     }
     self.notificationCertificateType = @"poduction";
+    self.httpConnectionTimeout = 5;
     requestParamBoundary        = @"---------------------------14737809831466499882746641449";
     language                    = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSLocale* currentLocale = [NSLocale currentLocale];  // get the current locale.
@@ -120,9 +178,13 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/register", [self generateURL], self.appCode];
     
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"register-device" toUrl:postUrl withObject:device];
+    req.originalObject = device;
+    req.subAction = req.function;
+    
     // once we have received the response set the session id variable.
     // this will be used when tracking navigation information (see logNavigation) with cloudbase.io
-    [self sendPost:@"register-device" withForm:device andParameters:NULL toUrl:postUrl whenDone:^(CBHelperResponseInfo *response) {
+    [self sendPost:req whenDone:^(CBHelperResponseInfo *response) {
         if (response.postSuccess && [response.responseData isKindOfClass:[NSDictionary class]])
         {
             NSDictionary *tmpData = (NSDictionary *)response.responseData;
@@ -149,7 +211,11 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/log", [self generateURL], self.appCode];
     
-    [self sendPost:@"log" withForm:logdata toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"log" toUrl:postUrl withObject:logdata];
+    req.originalObject = logdata;
+    req.subAction = req.function;
+
+    [self sendPost:req whenDone:NULL];
     logdata = nil;
     postUrl = nil;
 }
@@ -214,7 +280,11 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/lognavigation", [self generateURL], self.appCode];
     
-    [self sendPost:@"log-navigation" withForm:logdata toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"log-navigation" toUrl:postUrl withObject:logdata];
+    req.originalObject = logdata;
+    req.subAction = req.function;
+    
+    [self sendPost:req whenDone:NULL];
     logdata = nil;
     postUrl = nil;
 }
@@ -231,7 +301,14 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/insert", [self generateURL], self.appCode, collectionName];
     
-    [self sendPost:@"data" withForm:insertObjects toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:insertObjects];
+    req.originalObject = obj;
+    req.subAction = @"insert";
+    req.collectionName = collectionName;
+    
+    [self sendPost:req whenDone:NULL];
+    
+    //[self sendPost:@"data" withForm:insertObjects andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:collectionName whenDone:NULL];
     insertObjects = nil;
     postUrl = nil;
 }
@@ -247,7 +324,14 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/insert", [self generateURL], self.appCode, collectionName];
     
-    [self sendPost:@"data" withForm:insertObjects andFiles:attachments toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:insertObjects];
+    req.originalObject = obj;
+    req.files = attachments;
+    req.subAction = @"insert";
+    req.collectionName = collectionName;
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"data" withForm:insertObjects andFiles:attachments andParameters:NULL toUrl:postUrl usingCollection:collectionName whenDone:NULL];
     insertObjects = nil;
     postUrl = nil;
 }
@@ -262,7 +346,14 @@ static const short _base64DecodingTable[256] = {
         [insertObjects addObject:obj];
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/insert", [self generateURL], self.appCode, collectionName];
-    [self sendPost:@"data" withForm:insertObjects andParameters:nil toUrl:postUrl whenDone:handler];
+    
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:insertObjects];
+    req.originalObject = obj;
+    req.subAction = @"insert";
+    req.collectionName = collectionName;
+
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"data" withForm:insertObjects andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:collectionName whenDone:handler];
     insertObjects = nil;
     postUrl = nil;
 }
@@ -277,7 +368,15 @@ static const short _base64DecodingTable[256] = {
         [insertObjects addObject:obj];
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/insert", [self generateURL], self.appCode, collectionName];
-    [self sendPost:@"data" withForm:insertObjects andFiles:attachments andParameters:nil toUrl:postUrl whenDone:handler];
+    
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:insertObjects];
+    req.originalObject = obj;
+    req.files = attachments;
+    req.subAction = @"insert";
+    req.collectionName = collectionName;
+
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"data" withForm:insertObjects andFiles:attachments andParameters:NULL toUrl:postUrl usingCollection:collectionName whenDone:handler];
     insertObjects = nil;
     postUrl = nil;
 
@@ -304,7 +403,13 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/search", [self generateURL], self.appCode, collection];
     
-    [self sendPost:@"data" withForm:serializedConditions andParameters:nil toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:serializedConditions];
+    req.originalObject = conditions;
+    req.subAction = @"search";
+    req.collectionName = collection;
+
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"data" withForm:serializedConditions andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:collection whenDone:handler];
     serializedConditions = nil;
     postUrl = nil;
 }
@@ -326,7 +431,13 @@ static const short _base64DecodingTable[256] = {
     NSMutableDictionary *finalCond = [[NSMutableDictionary alloc] init];
     [finalCond setObject:serializedAggregateConditions forKey:@"cb_aggregate_key"];
     
-    [self sendPost:@"data" withForm:finalCond andParameters:nil toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:finalCond];
+    req.originalObject = aggregateConditions;
+    req.subAction = @"aggregate";
+    req.collectionName = collection;
+    
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"data" withForm:finalCond andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:collection whenDone:handler];
     
     postUrl = nil;
 }
@@ -362,13 +473,23 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/update", [self generateURL], self.appCode, collection];
     
-    [self sendPost:@"data" withForm:insertObjects andParameters:nil toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:insertObjects];
+    req.originalObject = obj;
+    req.subAction = @"update";
+    req.collectionName = collection;
+    
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"data" withForm:insertObjects andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:collection whenDone:handler];
     insertObjects = nil;
     postUrl = nil;
 }
 
 - (void)downloadFileData:(NSString *)fileId whenDone:(void (^)(NSData *fileContent))handler
 {
+    if (![CBHelper hasConnectivity]) {
+        handler(NULL);
+        return;
+    }
     // we create a new URLRequest to download a file rather then using the standard methods included in this
     // class.
     NSMutableData *postData = [NSMutableData data];
@@ -418,7 +539,13 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/notifications-register", [self generateURL], self.appCode];
     
-    [self sendPost:@"notifications-register" withForm:subForm toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"notifications-register" toUrl:postUrl withObject:subForm];
+    req.originalObject = deviceToken;
+    req.subAction = @"subscribe";
+    //req.collectionName = collection;
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"notifications-register" withForm:subForm andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:@"notifications" whenDone:NULL];
     subForm = nil;
     pushToken = nil;
     postUrl = nil;
@@ -442,7 +569,12 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/notifications-register", [self generateURL], self.appCode];
     
-    [self sendPost:@"notifications-register" withForm:subForm toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"notifications-register" toUrl:postUrl withObject:subForm];
+    req.originalObject = deviceToken;
+    req.subAction = @"unsubscribe";
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"notifications-register" withForm:subForm andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:@"notifications" whenDone:NULL];
     subForm = nil;
     pushToken = nil;
     postUrl = nil;
@@ -458,7 +590,12 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/email", [self generateURL], self.appCode];
     
-    [self sendPost:@"email" withForm:subForm toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"email" toUrl:postUrl withObject:subForm];
+    req.originalObject = recipient;
+    req.subAction = @"unsubscribe";
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"email" withForm:subForm andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:@"email" whenDone:NULL];
     subForm = nil;
     postUrl = nil;
 }
@@ -478,7 +615,12 @@ static const short _base64DecodingTable[256] = {
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/notifications", [self generateURL], self.appCode];
     
-    [self sendPost:@"notifications" withForm:subForm toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"notifications" toUrl:postUrl withObject:subForm];
+    req.originalObject = text;
+    req.subAction = @"push";
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"notifications" withForm:subForm andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:@"notifications" whenDone:NULL];
     subForm = nil;
     postUrl = nil;
 }
@@ -500,7 +642,13 @@ static const short _base64DecodingTable[256] = {
 {
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/cloudfunction/%@", [self generateURL], self.appCode, fcode];
     
-    [self sendPost:@"cloudfunction" withForm:nil andParameters:params toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"cloudfunction" toUrl:postUrl withObject:NULL];
+    req.originalObject = fcode;
+    req.additionalParams = params;
+    //req.subAction = @"";
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"cloudfunction" withForm:NULL andFiles:NULL andParameters:params toUrl:postUrl usingCollection:@"" whenDone:NULL];
     postUrl = nil;
 }
 
@@ -508,7 +656,12 @@ static const short _base64DecodingTable[256] = {
 {
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/cloudfunction/%@", [self generateURL], self.appCode, fcode];
     
-    [self sendPost:@"cloudfunction" withForm:nil andParameters:params toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"cloudfunction" toUrl:postUrl withObject:NULL];
+    req.originalObject = fcode;
+    req.additionalParams = params;
+    
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"cloudfunction" withForm:NULL andFiles:NULL andParameters:params toUrl:postUrl usingCollection:@"" whenDone:handler];
     postUrl = nil;
 
 }
@@ -517,7 +670,12 @@ static const short _base64DecodingTable[256] = {
 {
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/applet/%@", [self generateURL], self.appCode, fcode];
     
-    [self sendPost:@"applet" withForm:nil andParameters:params toUrl:postUrl];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"applet" toUrl:postUrl withObject:NULL];
+    req.originalObject = fcode;
+    req.additionalParams = params;
+    
+    [self sendPost:req whenDone:NULL];
+    //[self sendPost:@"applet" withForm:NULL andFiles:NULL andParameters:params toUrl:postUrl usingCollection:@"" whenDone:NULL];
     postUrl = nil;
 
 }
@@ -526,7 +684,12 @@ static const short _base64DecodingTable[256] = {
 {
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/applet/%@", [self generateURL], self.appCode, fcode];
     
-    [self sendPost:@"applet" withForm:nil andParameters:params toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"applet" toUrl:postUrl withObject:NULL];
+    req.originalObject = fcode;
+    req.additionalParams = params;
+    
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"applet" withForm:NULL andFiles:NULL andParameters:params toUrl:postUrl usingCollection:@"" whenDone:handler];
     postUrl = nil;
 }
 
@@ -549,7 +712,12 @@ static const short _base64DecodingTable[256] = {
     if (bill.paymentCancelledUrl != NULL)
         [postForm setObject:bill.paymentCancelledUrl forKey:@"payment_cancelled_url"];
     
-    [self sendPost:@"paypal" withForm:postForm andParameters:NULL toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"paypal" toUrl:postUrl withObject:postForm];
+    req.originalObject = bill;
+    req.subAction = @"prepare";
+    
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"paypal" withForm:postForm andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:@"paypal" whenDone:handler];
 }
 
 - (BOOL)readPayPalResponse:(NSURLRequest*)request whenDone:(void (^) (CBHelperResponseInfo *response))handler
@@ -561,7 +729,12 @@ static const short _base64DecodingTable[256] = {
     }
     else
     {
-        [self sendPost:@"paypal" withForm:NULL andParameters:NULL toUrl:urlString whenDone:handler];
+        CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"paypal" toUrl:urlString withObject:NULL];
+        req.originalObject = request;
+        req.subAction = @"complete";
+        
+        [self sendPost:req whenDone:handler];
+        //[self sendPost:@"paypal" withForm:NULL andFiles:NULL andParameters:NULL toUrl:urlString usingCollection:@"paypal" whenDone:handler];
         return NO;
     }
 }
@@ -573,41 +746,19 @@ static const short _base64DecodingTable[256] = {
     
     [postForm setObject:paymentId forKey:@"payment_id"];
     
-    [self sendPost:@"paypal" withForm:postForm andParameters:NULL toUrl:postUrl whenDone:handler];
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"paypal" toUrl:postUrl withObject:postForm];
+    req.originalObject = paymentId;
+    req.subAction = @"details";
+    
+    [self sendPost:req whenDone:handler];
+    //[self sendPost:@"paypal" withForm:postForm andFiles:NULL andParameters:NULL toUrl:postUrl usingCollection:@"paypal" whenDone:handler];
 }
 
 #pragma mark - Common
-- (void)sendPost:(NSString *)function withForm:(id)form andParameters:(NSDictionary *)params toUrl:(NSString *)url
-{
-    [self sendPost:function withForm:form andParameters:params toUrl:url whenDone:nil];
-}
-
-- (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments andParameters:(NSDictionary *)params toUrl:(NSString *)url
-{
-    [self sendPost:function withForm:form andFiles:attachments andParameters:params toUrl:url whenDone:nil];
-}
-
-- (void)sendPost:(NSString *)function withForm:(id)form toUrl:(NSString *)url
-{
-    [self sendPost:function withForm:form andFiles:nil andParameters:nil toUrl:url whenDone:nil];
-}
-
-- (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments toUrl:(NSString *)url
-{
-    [self sendPost:function withForm:form andFiles:attachments andParameters:nil toUrl:url whenDone:nil];
-}
-
-- (void)sendPost:(NSString *)function withForm:(id)form andParameters:(NSDictionary *)params toUrl:(NSString *)url whenDone:(void (^) (CBHelperResponseInfo *response))handler
-{
-    [self sendPost:function withForm:form andFiles:nil andParameters:params toUrl:url whenDone:handler];
-}
-
-- (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments andParameters:(NSDictionary *)params toUrl:(NSString *)url whenDone:(void (^) (CBHelperResponseInfo *response))handler
-{
-
+- (void)sendPost:(CBQueuedRequest*)request whenDone:(void (^) (CBHelperResponseInfo *response))handler {
     NSString *JSONData = @"";
-    if (form != nil)
-        JSONData = [form JSONRepresentation]; // use the SBJson library to get the json version of the parameters
+    if (request.processedObject != nil)
+        JSONData = [request.processedObject JSONRepresentation]; // use the SBJson library to get the json version of the parameters
     
     NSMutableData *postData = [NSMutableData data];
     // write all the required parameters for the request
@@ -616,9 +767,9 @@ static const short _base64DecodingTable[256] = {
     [postData appendData:[self requestBodyForParameter:@"device_uniq" withValue:self.deviceUniqueIdentifier]];
     [postData appendData:[self requestBodyForParameter:@"post_data" withValue:JSONData]];
     
-    for (id key in params)
+    for (id key in request.additionalParams)
     {
-        [postData appendData:[self requestBodyForParameter:(NSString *)key withValue:(NSString *)[params objectForKey:key]]];
+        [postData appendData:[self requestBodyForParameter:(NSString *)key withValue:(NSString *)[request.additionalParams objectForKey:key]]];
     }
     
     // if the application is set to require user authentication and the authUsername parameter is set
@@ -646,10 +797,10 @@ static const short _base64DecodingTable[256] = {
         loc = nil;
     }
     
-    if (attachments != nil)
+    if (request.files != nil)
     {
         int cnt = 0;
-        for (id attachment in attachments)
+        for (id attachment in request.files)
         {
             [postData appendData:[self requestBodyForFile:(CBHelperAttachment *)attachment withOrder:cnt]];
             cnt++;
@@ -658,9 +809,50 @@ static const short _base64DecodingTable[256] = {
     //close the form
     [postData appendData:[[NSString stringWithFormat:@"--%@--\r\n", requestParamBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [self sendRequest:function toUrl:url withData:postData whenDone:handler];
-    postData = nil;
+    request.formData = postData;
+    
+    BOOL shouldQueue = [self shouldQueueRequest:request];
+    
+    // check if we have internet connection
+    NSString* queueName = [self queueRequest:request];
+    if ([CBHelper hasConnectivity]) {
+        
+        // send the request
+        NSString *postLength = [NSString stringWithFormat:@"%d", [request.formData length]];
+        
+        NSMutableURLRequest *httpRequest = [[NSMutableURLRequest alloc] init];
+        [httpRequest setURL:[NSURL URLWithString:request.url]];
+        [httpRequest setHTTPMethod:@"POST"];
+        [httpRequest setTimeoutInterval:self.httpConnectionTimeout];
+        [httpRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", requestParamBoundary];
+        [httpRequest addValue:contentType forHTTPHeaderField:@"Content-Type"];
+        
+        [httpRequest setHTTPBody:request.formData];
+        
+        NSURLConnection *conn = [NSURLConnection connectionWithRequest:httpRequest andHandler:handler andDelegate:self];
+        conn.shouldQueue = (shouldQueue?@"true":@"false");
+        conn.queueFileName = queueName;
+        conn.CBFunctionName = request.function;
+        conn.requestObject = request;
+        
+        [conn start];
+        request = nil;
+    } else {
+        if (!shouldQueue) {
+            [self removeQueueFile:queueName];
+        }
+        if (handler != NULL) {
+            CBHelperResponseInfo *resp = [[CBHelperResponseInfo alloc] init];
+            resp.isQueued = shouldQueue;
+            resp.postSuccess = NO;
+            handler(resp);
+        }
+    }
 
+    
+    //[self sendRequest:function toUrl:url withData:postData shouldQueue:shouldQueue whenDone:handler];
+    postData = nil;
 }
 
 - (NSData *)requestBodyForParameter:(NSString *)paramName withValue:(NSString *)paramValue
@@ -688,32 +880,294 @@ static const short _base64DecodingTable[256] = {
     return paramBody;
 }
 
-- (void)sendRequest:(NSString *)function toUrl:(NSString *)url withData:(NSData *)formData
-{
-    [self sendRequest:function toUrl:url withData:formData whenDone:nil];
+- (void)parseResponseData:(NSURLConnection*)con statusCode:(NSInteger)status fromRequest:(CBQueuedRequest*)req withResponse:(NSMutableData*)res fromQueue:(BOOL)queue {
+    // if we are downloading a file then call the handler without parsing the response
+    // as a string
+    if ([req.function isEqualToString:@"download"]) {
+        if (queue) {
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(queuedDownloadExecuted:withResponse:)]) {
+                [self.delegate performSelector:@selector(queuedDownloadExecuted:withResponse:) withObject:req withObject:res];
+            }
+        } else {
+            if (con.downloadHandler != nil) {
+                con.downloadHandler(res);
+            }
+        }
+        return;
+    } else {
+        // parse the response
+        CBHelperResponseInfo *response = [[CBHelperResponseInfo alloc] init];
+        response.function = req.function;
+        response.statusCode = status;//[con.responseStatusCode integerValue];
+        response.responseString = [[NSString alloc] initWithData:res encoding:NSUTF8StringEncoding];
+        response.originalRequest = req;
+        // uncomment this to see the full response data
+        //NSLog(@"Received: %@", response.responseString);
+        if (response.statusCode != 200) {
+            NSLog(@"Status code: %i", response.statusCode);
+            response.postSuccess = NO;
+        }
+        
+        if (response.statusCode == 200) {
+            //response.postSuccess = YES;
+            NSDictionary *respData = [response.responseString JSONValue];
+            
+            //NSLog(@"looking for %@", req.function);
+            
+            NSDictionary *functionOutput = [respData objectForKey:req.function];
+            
+            //NSLog(@"output: %@", [functionOutput JSONRepresentation]);
+            
+            if ([functionOutput objectForKey:@"status"] != nil) {
+                response.postSuccess = ([[functionOutput objectForKey:@"status"] isEqualToString:@"OK"]);
+                response.errorMessage = (NSString *)[functionOutput objectForKey:@"error"];
+                response.responseData = [functionOutput objectForKey:@"message"];
+            }
+            else
+                [NSException raise:@"unexpected" format:@"Could not find message object"];
+        }
+        
+        // if we the delegate protocol has been implemented then call the method
+        if (queue) {
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(queuedRequestExecuted:withResponse:)]) {
+                [self.delegate performSelector:@selector(queuedRequestExecuted:withResponse:) withObject:req withObject:response];
+            }
+        } else {
+            if ([delegate respondsToSelector:@selector(requestCompleted:)]) {
+                [delegate performSelector:@selector(requestCompleted:) withObject:response];
+            }
+            // if we have a block handler for the response then trigger the handler
+            if (con.outputHanlder != nil) {
+                con.outputHanlder(response);
+            }
+        }
+    }
+
 }
 
-- (void)sendRequest:(NSString *)function toUrl:(NSString *)url withData:(NSData *)formData whenDone:(void (^) (CBHelperResponseInfo *response))handler
+#pragma mark - RequestQueueing
+// methods to handle request queueing
 
-{
-    //NSLog(@"Calling url %@", url);
+- (void)lockQueue {
+    NSString *lockString = @"lock";
+    NSError *error;
+    [lockString writeToFile:[self getQueueLockFileName] atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
-    // send the request
-    NSString *postLength = [NSString stringWithFormat:@"%d", [formData length]];
+    if (error != NULL) {
+        NSLog(@"error while locking queue %@", error.debugDescription);
+    }
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", requestParamBoundary];
-    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+}
+- (NSString*)getQueueLockFileName {
+    return [NSString stringWithFormat:@"%@/cb_queue_lock", [CBHelper getRequestQueueDirectory]];
+}
+- (void)removeQueueLock {
+    [self removeQueueFile:[self getQueueLockFileName]];
+}
+- (BOOL)isQueueLocked {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self getQueueLockFileName]];
+}
 
-    [request setHTTPBody:formData];
+
+- (NSString*)queueRequest:(CBQueuedRequest*)req {
     
-    NSURLConnection *conn = [NSURLConnection connectionWithRequest:request andHandler:handler andDelegate:self];
-    conn.CBFunctionName = function;
-    [conn start];
-    request = nil;
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:req];
+    
+    NSInteger queueSize = [self getQueueSize];
+    NSString *fileName = [NSString stringWithFormat:@"%@/cb_queue_%i", [CBHelper getRequestQueueDirectory], queueSize];
+    
+    [encodedObject writeToFile:fileName atomically:YES];
+    
+    if (self.debugMode) {
+        NSLog(@"request has been queued in file %@", fileName);
+    }
+    
+    return fileName;
+}
+
+- (NSInteger)getQueueSize {
+    NSError *error;
+    
+    NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[CBHelper getRequestQueueDirectory] error:&error];
+    
+    return [directoryContents count];
+}
+
+- (BOOL)shouldQueueRequest:(CBQueuedRequest*)request {
+    SEL selector = @selector(shouldQueueRequest:);
+    if ([self.delegate respondsToSelector:selector]) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
+                                        [[self.delegate class]instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setArgument:&request atIndex:2];
+        [invocation setTarget:self.delegate];
+        [invocation invoke];
+        BOOL returnValue;
+        [invocation getReturnValue:&returnValue];
+            
+        if (self.debugMode) {
+            NSLog(@"returned %s to shouldQueue ", returnValue?"true":"false");
+        }
+            
+        return returnValue;
+    }
+    return NO;
+}
+- (void)removeQueueFile:(NSString*)fileName {
+    if (self.debugMode) {
+        NSLog(@"removing %@ from the queue", fileName);
+    }
+    NSError *error;
+    [[NSFileManager defaultManager] removeItemAtPath:fileName error:&error];
+    
+    if (error) {
+        NSLog(@"Error while removing queued file %@ \n%@", fileName, error.debugDescription);
+    }
+}
+
+- (void)flushQueue {
+    NSError *error;
+    NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[CBHelper getRequestQueueDirectory] error:&error];
+    
+    if (error != NULL) {
+        NSLog(@"Error while removing queued requests %@", error.debugDescription);
+    }
+    
+    for (NSString* file in directoryContents) {
+        if (self.debugMode) {
+            NSLog(@"removing %@ from the queue", file);
+        }
+        [self removeQueueFile:[NSString stringWithFormat:@"%@/%@",[CBHelper getRequestQueueDirectory],file]];
+    }
+}
+
+- (void)sendQueuedRequests {
+    if ([self isQueueLocked])
+        return;
+    
+    [self lockQueue];
+    NSError* error;
+    NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[CBHelper getRequestQueueDirectory] error:&error];
+    
+    NSLog(@"found %i queued requests ", [directoryContents count]);
+    int cnt = 1;
+    for (NSString* file in directoryContents) {
+        
+        if ([file isEqualToString:@"cb_queue_lock"])
+            continue;
+        // check if it's a directory
+        NSLog(@"looking at file %@", file);
+        
+        NSData *queuedData = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",[CBHelper getRequestQueueDirectory],file]];
+        CBQueuedRequest *object = [NSKeyedUnarchiver unarchiveObjectWithData:queuedData];
+            
+        NSLog(@"the object has function: %@", object.function);
+            
+        NSString *postLength = [NSString stringWithFormat:@"%d", [object.formData length]];
+            
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setURL:[NSURL URLWithString:object.url]];
+        [request setHTTPMethod:@"POST"];
+        [request setTimeoutInterval:self.httpConnectionTimeout];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", requestParamBoundary];
+        [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+            
+        [request setHTTPBody:object.formData];
+        
+        NSHTTPURLResponse *resp;
+        NSError *error;
+        NSData *output = [NSURLConnection sendSynchronousRequest:request returningResponse:&resp error:&error];
+        //[conn start];
+        
+        if (error != NULL && self.debugMode) {
+            NSLog(@"error while sending queued request %@", error.debugDescription);
+        }
+        [self removeQueueFile:[NSString stringWithFormat:@"%@/%@",[CBHelper getRequestQueueDirectory],file]];
+        
+        [self parseResponseData:NULL statusCode:resp.statusCode fromRequest:object withResponse:[NSMutableData dataWithData:output] fromQueue:YES];
+        
+        NSLog(@"sent call for %@", file);
+        cnt++;
+    }
+    
+    [self removeQueueLock];
+}
+
+// /request queueing
+
+#pragma mark - Utility Methods
+/*
+ Connectivity testing code pulled from Apple's Reachability Example: http://developer.apple.com/library/ios/#samplecode/Reachability
+ */
++ (BOOL)hasConnectivity {
+    struct sockaddr_in zeroAddress;
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.sin_len = sizeof(zeroAddress);
+    zeroAddress.sin_family = AF_INET;
+    
+    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)&zeroAddress);
+    if(reachability != NULL) {
+        //NetworkStatus retVal = NotReachable;
+        SCNetworkReachabilityFlags flags;
+        if (SCNetworkReachabilityGetFlags(reachability, &flags)) {
+            if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
+            {
+                // if target host is not reachable
+                return NO;
+            }
+            
+            if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
+            {
+                // if target host is reachable and no connection is required
+                //  then we'll assume (for now) that your on Wi-Fi
+                return YES;
+            }
+            
+            
+            if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
+                 (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
+            {
+                // ... and the connection is on-demand (or on-traffic) if the
+                //     calling application is using the CFSocketStream or higher APIs
+                
+                if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
+                {
+                    // ... and no [user] intervention is needed
+                    return YES;
+                }
+            }
+            
+            if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
+            {
+                // ... but WWAN connections are OK if the calling application
+                //     is using the CFNetwork (CFSocketStream?) APIs.
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
++ (NSString *)getRequestQueueDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *rootDocumentFolder = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], @"cb_queue"];
+    
+    //NSLog(@"using document folder %@", rootDocumentFolder);
+    
+    NSError *error;
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:rootDocumentFolder
+                                   withIntermediateDirectories:YES
+                                                    attributes:nil
+                                                         error:&error])
+    {
+        NSLog(@"Create directory error: %@", error);
+        return nil;
+    }
+    
+    return rootDocumentFolder;
 }
 
 + (NSString *)getMacaddress {
@@ -1027,6 +1481,34 @@ static const short _base64DecodingTable[256] = {
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     NSLog(@"Received error while calling APIs: %@", error.debugDescription);
+    CBHelperResponseInfo *resp = [[CBHelperResponseInfo alloc] init];
+    resp.isQueued = [connection.shouldQueue isEqualToString:@"true"];
+    resp.postSuccess = NO;
+    
+    if ([connection.shouldQueue isEqualToString:@"false"]) {
+        [self removeQueueFile:connection.queueFileName];
+    }
+    
+    if ([connection.requestObject.function isEqualToString:@"download"] && connection.downloadHandler != nil) {
+        connection.downloadHandler(NULL);
+        return;
+    } else {
+        CBHelperResponseInfo *res = [[CBHelperResponseInfo alloc] init];
+        res.function = connection.requestObject.function;
+        res.statusCode = [connection.responseStatusCode integerValue];
+        res.responseString = [[NSString alloc] initWithData:connection.responseData encoding:NSUTF8StringEncoding];
+        res.postSuccess = NO;
+        
+        // if we the delegate protocol has been implemented then call the method
+        if ([delegate respondsToSelector:@selector(requestCompleted:)]) {
+            [delegate performSelector:@selector(requestCompleted:) withObject:res];
+        }
+        // if we have a block handler for the response then trigger the handler
+        if (connection.outputHanlder != nil) {
+            connection.outputHanlder(res);
+        }
+    }
+
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
@@ -1036,7 +1518,6 @@ static const short _base64DecodingTable[256] = {
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    //NSLog(@"Did finish loading");
     if (!deviceRegistered)
     {
         // we don't need to register the device at this point anymore as it is registered as
@@ -1045,51 +1526,19 @@ static const short _base64DecodingTable[256] = {
         deviceRegistered = YES;
     }
     
-    // if we are downloading a file then call the handler without parsing the response
-    // as a string
-    if (connection.CBFunctionName == @"download" && connection.downloadHandler != nil)
-    {
-        connection.downloadHandler(connection.responseData);
-        return;
-    }
-    else
-    {
-        // parse the response
-        CBHelperResponseInfo *res = [[CBHelperResponseInfo alloc] init];
-        res.function = connection.CBFunctionName;
-        res.statusCode = [connection.responseStatusCode integerValue];
-        res.responseString = [[NSString alloc] initWithData:connection.responseData encoding:NSUTF8StringEncoding];
-        // uncomment this to see the full response data
-        //NSLog(@"Received: %@", res.responseString);
-        if (res.statusCode != 200)
-            NSLog(@"Status code: %i", res.statusCode);
-        
-        if ([connection.responseStatusCode intValue] == 200) {
-            NSDictionary *respData = [connection.responseData JSONValue];
+    // remove the request from the queue
+    [self removeQueueFile:connection.queueFileName];
     
-            NSDictionary *functionOutput = [respData objectForKey:res.function];
-            
-            if ([functionOutput objectForKey:@"status"] != nil)
-            {
-                res.postSuccess = ([[functionOutput objectForKey:@"status"] isEqualToString:@"OK"]);
-                res.errorMessage = (NSString *)[functionOutput objectForKey:@"error"];
-                res.responseData = [functionOutput objectForKey:@"message"];
-            }
-            else
-                [NSException raise:@"unexpected" format:@"Could not find message object"];
+    // now we check the queue and send off queued requests if needed
+    NSLog(@"the queue size is %i", [self getQueueSize]);
+    if ([self getQueueSize] > 0 && ![self isQueueLocked]) {
+        if (self.debugMode) {
+            NSLog(@"sending queued requests...");
         }
-
-        // if we the delegate protocol has been implemented then call the method
-        if ([delegate respondsToSelector:@selector(requestCompleted:)])
-        {
-            [delegate performSelector:@selector(requestCompleted:) withObject:res];
-        }
-        // if we have a block handler for the response then trigger the handler
-        if (connection.outputHanlder != nil)
-        {
-             connection.outputHanlder(res);
-        }
+        [self performSelectorInBackground:@selector(sendQueuedRequests) withObject:NULL];
+        //[self sendQueuedRequests];
     }
+    [self parseResponseData:connection statusCode:[connection.responseStatusCode integerValue] fromRequest:connection.requestObject withResponse:connection.responseData fromQueue:NO];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

@@ -15,7 +15,7 @@
  02111-1307, USA.
  */
 
-#import "CBHelperAttachment.h"
+#include "CBHelperAttachment.h"
 
 @implementation CBHelperAttachment
 
@@ -27,6 +27,26 @@
     self.fileName = name;
     
     return self;
-    
 }
+
+- (void) encodeWithCoder:(NSCoder*)encoder {
+    // If parent class also adopts NSCoding, include a call to
+    // [super encodeWithCoder:encoder] as the first statement.
+    
+    [encoder encodeObject:self.fileData forKey:@"fileData"];
+    [encoder encodeObject:self.fileName forKey:@"fileName"];
+}
+
+- (id) initWithCoder:(NSCoder*)decoder {
+    if (self = [super init]) {
+        // If parent class also adopts NSCoding, replace [super init]
+        // with [super initWithCoder:decoder] to properly initialize.
+        
+        // NOTE: Decoded objects are auto-released and must be retained
+        self.fileData = [decoder decodeObjectForKey:@"fileData"];
+        self.fileName = [decoder decodeObjectForKey:@"fileName"];
+    }
+    return self;
+}
+
 @end

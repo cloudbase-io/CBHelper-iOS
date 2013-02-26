@@ -15,7 +15,11 @@
  02111-1307, USA.
  */
 
-#import <Foundation/Foundation.h>
+#include <Foundation/Foundation.h>
+#include "CBQueuedRequest.h"
+
+#ifndef CBHELPERRESPONSEINFO_H_
+#define CBHELPERRESPONSEINFO_H_
 
 /**
  * This object represents a response from the cloudbase.io servers. It is returned to both
@@ -24,6 +28,15 @@
  */
 @interface CBHelperResponseInfo : NSObject
 
+/**
+ * indicates whether the request has been queued and will be sent to the APIs
+ * once internet connectivity becomes available
+ */
+@property (nonatomic) BOOL isQueued;
+/**
+ * The original request object sent to the APIs
+ */
+@property (nonatomic, retain) CBQueuedRequest* originalRequest;
 /**
  * the error message if one is returned by cloudbase.io
  */
@@ -50,3 +63,5 @@
 @property (nonatomic, retain) NSString *responseString;
 
 @end
+
+#endif

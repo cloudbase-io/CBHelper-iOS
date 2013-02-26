@@ -15,8 +15,11 @@
  02111-1307, USA.
  */
 
-#import <Foundation/Foundation.h>
-#import "CBPayPalBillItem.h"
+#include <Foundation/Foundation.h>
+#include "CBPayPalBillItem.h"
+
+#ifndef CBPAYPALBILL_H_
+#define CBPAYPALBILL_H_
 
 /**
  * This is the bill object for the PayPal digital goods payments APIs. A bill object must contain
@@ -83,3 +86,5 @@
 - (void) addNewItem:(CBPayPalBillItem*)newItem;
 
 @end
+
+#endif

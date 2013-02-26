@@ -15,9 +15,12 @@
  02111-1307, USA.
  */
 
-#import <UIKit/UIKit.h>
+#include <UIKit/UIKit.h>
 
-@interface CBHelperAttachment : NSObject
+#ifndef CBHELPERATTACHMENT_H_
+#define CBHELPERATTACHMENT_H_
+
+@interface CBHelperAttachment : NSObject <NSCoding>
 
 @property (nonatomic, retain) NSString* fileName;
 @property (nonatomic, retain) NSData* fileData;
@@ -29,3 +32,5 @@
  */
 - (id)initForFile:(NSString *)name withData:(NSData *)content;
 @end
+
+#endif

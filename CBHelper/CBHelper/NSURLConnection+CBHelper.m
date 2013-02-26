@@ -24,6 +24,10 @@
 @dynamic responseData;
 @dynamic totalResponseBytes;
 @dynamic responseStatusCode;
+@dynamic shouldQueue;
+@dynamic queueFileName;
+
+@dynamic requestObject;
 
 + (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request andHandler:(void (^) (CBHelperResponseInfo *response))handler andDelegate:(id)delegate {
 	NSURLConnection *con = [[[self class] alloc] initWithRequest:request delegate:delegate];
@@ -83,5 +87,31 @@
 - (void)setResponseStatusCode:(NSNumber *)statusCode
 {
     objc_setAssociatedObject(self,@"responseStatusCode",statusCode,OBJC_ASSOCIATION_RETAIN);
+}
+
+- (NSString *)shouldQueue {
+    return (NSString*)objc_getAssociatedObject(self, @"shouldQueue");
+}
+
+- (void)setShouldQueue:(NSString*)shouldQueue
+{
+    objc_setAssociatedObject(self,@"shouldQueue",shouldQueue,OBJC_ASSOCIATION_RETAIN);
+}
+
+- (NSString *)queueFileName {
+    return (NSString*)objc_getAssociatedObject(self, @"queueFileName");
+}
+
+- (void)setQueueFileName:(NSString *)queueFileName
+{
+    objc_setAssociatedObject(self,@"queueFileName",queueFileName,OBJC_ASSOCIATION_RETAIN);
+}
+
+- (CBQueuedRequest *)requestObject {
+    return (CBQueuedRequest*)objc_getAssociatedObject(self, @"requestObject");
+}
+
+- (void)setRequestObject:(CBQueuedRequest *)requestObject {
+    objc_setAssociatedObject(self,@"requestObject",requestObject,OBJC_ASSOCIATION_RETAIN);
 }
 @end

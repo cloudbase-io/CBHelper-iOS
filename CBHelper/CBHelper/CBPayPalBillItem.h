@@ -15,7 +15,10 @@
  02111-1307, USA.
  */
 
-#import <Foundation/Foundation.h>
+#include <Foundation/Foundation.h>
+
+#ifndef CBPAYPALBILLITEM_H_
+#define CBPAYPALBILLITEM_H_
 
 /**
  * this object represents a single item within a CBPayPalBill object.
@@ -46,3 +49,5 @@
 @property (nonatomic, retain) NSNumber* quantity;
 
 @end
+
+#endif

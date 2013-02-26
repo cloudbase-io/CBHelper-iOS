@@ -17,6 +17,10 @@
 
 #import "CBAppDelegate.h"
 
+@interface CBAppDelegate() <CBHelperDelegate>
+
+@end
+
 @implementation CBAppDelegate
 
 @synthesize helper, notificationDeviceToken;
@@ -27,6 +31,8 @@
 
     if (sharedInstance.appCode && !self.helper) {
         self.helper = [[CBHelper alloc] initForApp:sharedInstance.appCode withSecret:sharedInstance.appSecret];
+        self.helper.delegate = self;
+        self.helper.debugMode = YES;
         [self.helper setPassword:sharedInstance.appPwd];
         
         [self initNotificationsForApp:application];
@@ -79,5 +85,9 @@
     NSLog(@"Error while subscribing for notifications %@", [error description]);
 }
 
+- (BOOL)shouldQueueRequest:(CBQueuedRequest*)request {
+    NSLog(@"should queue");
+    return YES;
+}
 
 @end

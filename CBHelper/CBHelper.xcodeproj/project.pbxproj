@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E20F5B7016D660B600BED0C1 /* CBQueuedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */; };
 		E2272B0216AAEBFD00969611 /* CBDataAggregationCommandUnwind.m in Sources */ = {isa = PBXBuildFile; fileRef = E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */; };
 		E22C638316446F8500F557D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C638216446F8500F557D5 /* Foundation.framework */; };
 		E22C639A16446FCB00F557D5 /* CBDataSearchConditionGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */; };
@@ -28,6 +29,7 @@
 		E22C63C81644702500F557D5 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B81644702500F557D5 /* SBJsonTokeniser.m */; };
 		E22C63C91644702500F557D5 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BA1644702500F557D5 /* SBJsonUTF8Stream.m */; };
 		E22C63CA1644702500F557D5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BC1644702500F557D5 /* SBJsonWriter.m */; };
+		E246563716D6433D00554D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E246563616D6433D00554D0A /* SystemConfiguration.framework */; };
 		E276F9DB1696217E00546827 /* CBPayPalBill.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DA1696217E00546827 /* CBPayPalBill.m */; };
 		E276F9DE169623A200546827 /* CBPayPalBillItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DD169623A200546827 /* CBPayPalBillItem.m */; };
 		E2988FF116A9631B00F1B0A0 /* CBDataAggregationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */; };
@@ -48,6 +50,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E20F5B6E16D660B600BED0C1 /* CBQueuedRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQueuedRequest.h; sourceTree = "<group>"; };
+		E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBQueuedRequest.m; sourceTree = "<group>"; };
 		E2272B0016AAEBFD00969611 /* CBDataAggregationCommandUnwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommandUnwind.h; path = CBHelper/CBDataAggregationCommandUnwind.h; sourceTree = "<group>"; };
 		E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataAggregationCommandUnwind.m; path = CBHelper/CBDataAggregationCommandUnwind.m; sourceTree = "<group>"; };
 		E22C637F16446F8500F557D5 /* libCBHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCBHelper.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +96,7 @@
 		E22C63BA1644702500F557D5 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		E22C63BB1644702500F557D5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		E22C63BC1644702500F557D5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		E246563616D6433D00554D0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E276F9D91696217E00546827 /* CBPayPalBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPayPalBill.h; sourceTree = "<group>"; };
 		E276F9DA1696217E00546827 /* CBPayPalBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPayPalBill.m; sourceTree = "<group>"; };
 		E276F9DC169623A200546827 /* CBPayPalBillItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPayPalBillItem.h; sourceTree = "<group>"; };
@@ -109,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E246563716D6433D00554D0A /* SystemConfiguration.framework in Frameworks */,
 				E22C638316446F8500F557D5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +142,7 @@
 		E22C638116446F8500F557D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E246563616D6433D00554D0A /* SystemConfiguration.framework */,
 				E22C638216446F8500F557D5 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -159,6 +166,8 @@
 				E276F9DA1696217E00546827 /* CBPayPalBill.m */,
 				E276F9DC169623A200546827 /* CBPayPalBillItem.h */,
 				E276F9DD169623A200546827 /* CBPayPalBillItem.m */,
+				E20F5B6E16D660B600BED0C1 /* CBQueuedRequest.h */,
+				E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */,
 			);
 			path = CBHelper;
 			sourceTree = "<group>";
@@ -301,6 +310,7 @@
 				E2988FF616A96BA300F1B0A0 /* CBDataAggregationCommandProject.m in Sources */,
 				E2988FF916A971D200F1B0A0 /* CBDataAggregationCommandGroup.m in Sources */,
 				E2272B0216AAEBFD00969611 /* CBDataAggregationCommandUnwind.m in Sources */,
+				E20F5B7016D660B600BED0C1 /* CBQueuedRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

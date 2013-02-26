@@ -15,22 +15,36 @@
  02111-1307, USA.
  */
 
-#import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonDigest.h>
-#import <objc/runtime.h>
-#import "CBHelperResponseInfo.h"
-#import "SBJson.h"
-#import "NSData+Additions.h"
-#import "NSObject+SBJson.h"
-#import "CBDataSearchConditionGroup.h"
-#import "NSURLConnection+CBHelper.h"
-#import "CBHelperAttachment.h"
-#import "CBPayPalBill.h"
-#import "CBDataAggregationCommand.h"
-#import "CBDataAggregationCommandGroup.h"
-#import "CBDataAggregationCommandProject.h"
+#include <Foundation/Foundation.h>
+#include <CommonCrypto/CommonDigest.h>
+#include <objc/runtime.h>
+#include <sys/socket.h> // Per msqr
+#include <sys/sysctl.h>
+#include <net/if.h>
+#include <net/if_dl.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+// we need the SystemConfiguration framework to detect whether an internet
+// connection is available
+#include <SystemConfiguration/SystemConfiguration.h>
+#include "CBHelperResponseInfo.h"
+#include "SBJson.h"
+#include "NSData+Additions.h"
+#include "NSObject+SBJson.h"
+#include "CBDataSearchConditionGroup.h"
+#include "NSURLConnection+CBHelper.h"
+#include "CBHelperAttachment.h"
+#include "CBPayPalBill.h"
+#include "CBDataAggregationCommand.h"
+#include "CBDataAggregationCommandGroup.h"
+#include "CBDataAggregationCommandProject.h"
+#include "CBQueuedRequest.h"
 
 #define SYSTEM_VERSION_GREATER_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+
+
+#ifndef CBHELPER_H_
+#define CBHELPER_H_
 
 /*! \mainpage cloudbase.io iOS Helper Class Reference
  *
@@ -68,13 +82,14 @@
  * Methods available to the delegate class
  */ 
 @protocol CBHelperDelegate
+
+@optional
 /**
  * This method is invoked whenever a request to the APIs is completed.
  * @param response The CBHelperResponseInfo object representing the data received from the APIs
  */
 - (void)requestCompleted:(CBHelperResponseInfo *)response;
 
-@optional
 /**
  * Use this method to monitor the status of the upload of a post request. Particularly useful
  * if what you are sending is large data such as an image
@@ -89,13 +104,31 @@
  * @param totalBytesExpected The total number of bytes expected for the response. -1 if not known
  */
 - (void)didReceiveResponseData:(NSNumber *)bytesReceived totalBytesExpected:(NSNumber *)totalBytesExpected;
+/**
+ * This method is called on the delegate before each request to decide whether the call should be queued in case of 
+ * failure.
+ * @param A CBQueuedRequest object containing all of the parameters for the API call
+ * @return YES if the request should be queued in case of failure
+ */
+- (BOOL)shouldQueueRequest:(CBQueuedRequest*)request;
+/**
+ * This selector is called every time a request that was queued is successfully executed
+ * @param the CBQueuedRequest object
+ * @param the parsed CBHelperResponseInfo object
+ */
+- (void)queuedRequestExecuted:(CBQueuedRequest*)request withResponse:(CBHelperResponseInfo*)resp;
+/**
+ * @param The CBQueuedRequest object
+ * @param The output data from the download
+ */
+- (void)queuedDownloadExecuted:(CBQueuedRequest*)request withResponse:(NSMutableData*)resp;
 @end
 
 // private variables for teh helper class
 @interface CBHelper : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 {
     BOOL deviceRegistered;
-
+    
     NSString *password;
     NSString *sessionid; // the session id generated when the device is registered.
     NSString *language; // the language of the device
@@ -127,6 +160,13 @@ typedef enum {
 /// has since been deprecated. This can be overwritter by the developer with whatever unique they will want to use
 @property (nonatomic, retain) NSString *deviceUniqueIdentifier;
 
+/**
+ * This is the default timeout for http connections sent to the cloudbase.io APIs.
+ * by default this is set to 5 seconds. Override this value when the helper class is
+ * initialized to set custom timeouts in seconds.
+ */
+@property (nonatomic) NSTimeInterval httpConnectionTimeout;
+
 @property (retain) NSString *domain; /// domain for the apis. default to api.cloudbase.io
 @property (nonatomic) BOOL isHttps; /// HTTPS or not?
 @property (retain) NSString *appCode; /// application code
@@ -147,6 +187,8 @@ typedef enum {
 
 /// The notification certificate to use, either development or production
 @property (nonatomic, retain) NSString *notificationCertificateType;
+
+@property (nonatomic) BOOL debugMode;
 
 
 - (NSString *)generateURL;
@@ -206,94 +248,13 @@ typedef enum {
 - (id)dictionaryOrArray:(id)dictionaryOrArray toObject:(Class)objectClass;
 
 /**
- * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. This method
- * should not be used directly.
- * @param function The string represnetation of the called function (log/data...)
- * @param form The NSDictionary or NSArray containing the data for the form
- * @param url The url to post to
- */
-- (void)sendPost:(NSString *)function withForm:(id)form toUrl:(NSString *)url;
-
-/**
- * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. This method
- * should not be used directly.
- * @param function The string represnetation of the called function (log/data...)
- * @param form The NSDictionary or NSArray containing the data for the form
- * @param attachments An array of CBHelperAttachment objects
- * @param url The url to post to
- */
-
-- (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments toUrl:(NSString *)url;
-
-/**
  * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
  * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
  * This method should not be used directly.
- * @param function The string represnetation of the called function (log/data...)
- * @param form The NSDictionary or NSArray containing the data for the form
- * @param params The additional HTTP Post parameters to be appended to the request
- * @param url The url to post to
- */
-- (void)sendPost:(NSString *)function withForm:(id)form andParameters:(NSDictionary *)params toUrl:(NSString *)url;
-
-/**
- * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
- * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
- * This method should not be used directly.
- * @param function The string represnetation of the called function (log/data...)
- * @param form The NSDictionary or NSArray containing the data for the form
- * @param attachments An array of CBHelperAttachment objects
- * @param params The additional HTTP Post parameters to be appended to the request
- * @param url The url to post to
- */
-- (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments andParameters:(NSDictionary *)params toUrl:(NSString *)url;
-
-
-/**
- * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
- * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
- * This method should not be used directly.
- * @param function The string represnetation of the called function (log/data...)
- * @param form The NSDictionary or NSArray containing the data for the form
- * @param params The additional HTTP Post parameters to be appended to the request
- * @param url The url to post to
+ * @param A CBQueuedRequest object
  * @param handler The block to be executed once the request is completed
  */
-- (void)sendPost:(NSString *)function withForm:(id)form andParameters:(NSDictionary *)params toUrl:(NSString *)url whenDone:(void (^) (CBHelperResponseInfo *response))handler;
-
-/**
- * Prepares the JSON encoded form and attaches the location data if needed then calls the sendRequest. 
- * It also appends additional paramters to the HTTP Post. This is used for CloudFunction calls
- * This method should not be used directly.
- * @param function The string represnetation of the called function (log/data...)
- * @param form The NSDictionary or NSArray containing the data for the form
- * @param attachments An array of CBHelperAttachment objects
- * @param params The additional HTTP Post parameters to be appended to the request
- * @param url The url to post to
- * @param handler The block to be executed once the request is completed
- */
-- (void)sendPost:(NSString *)function withForm:(id)form andFiles:(NSArray *)attachments andParameters:(NSDictionary *)params toUrl:(NSString *)url whenDone:(void (^) (CBHelperResponseInfo *response))handler;
-
-/**
- * Generic method to send a request to the Cloudbase APIs. This should not be used directly and it's only called by the
- * API interaction methods described below.
- * Once the request is completed this method will try to invoke the requestCompleted method of the Delegate
- * @param function The string representation of the called function (log/data...)
- * @param url The url for the requested API
- * @param formData The encoded NSData object containing the parameters required for the API to work
- */
-- (void)sendRequest:(NSString *)function toUrl:(NSString *)url withData:(NSData *)formData;
-
-/**
- * Generic method to send a request to the Cloudbase APIs. This should not be used directly and it's only called by the
- * API interaction methods described below.
- * Once the request is completed this method will try to invoke the requestCompleted method of the Delegate
- * @param function The string representation of the called function (log/data...)
- * @param url The url for the requested API
- * @param formData The encoded NSData object containing the parameters required for the API to work
- * @param handler The block to be executed once the request is completed
- */
-- (void)sendRequest:(NSString *)function toUrl:(NSString *)url withData:(NSData *)formData whenDone:(void (^) (CBHelperResponseInfo *response))handler;
+- (void)sendPost:(CBQueuedRequest*)request whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
 /**
  * Returns a unique identifier for the user/application on the device
@@ -321,7 +282,30 @@ typedef enum {
  */
 + (NSData *)decodeBase64WithString:(NSString *)strBase64;
 
+/**
+ * return the Mac Address of the current device. This is used to generate a unique id
+ * if all else fails
+ * @return The NSString representation of the mac address
+ */
 + (NSString *)getMacaddress;
+
+/**
+ * This method is copied from the Apple Reachability example and checks whether an internet
+ * connection is available
+ * @return NO if the internet connection is offline
+ */
++ (BOOL)hasConnectivity;
+
+/**
+ * Returns the directory used by the cloudbase.io helper class to store queued requests.
+ * @return The NSString path to the requeust queue folder
+ */
++ (NSString*)getRequestQueueDirectory;
+
+/**
+ * Empties the queue of requests.
+ */
+- (void)flushQueue;
 
 - (void)registerDevice;
 /** @name Logging functions */
@@ -657,3 +641,5 @@ typedef enum {
  */
 - (void)getPayPalPaymentDetails:(NSString*)paymentId whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 @end
+
+#endif

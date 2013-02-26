@@ -26,6 +26,7 @@
 		E22C6472164474A900F557D5 /* libCBHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C6471164474A900F557D5 /* libCBHelper.a */; };
 		E22C6477164476F600F557D5 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C6476164476F600F557D5 /* LogViewController.m */; };
 		E22C647C164478BF00F557D5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C647B164478BF00F557D5 /* SettingsViewController.m */; };
+		E246563916D6439F00554D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E246563816D6439F00554D0A /* SystemConfiguration.framework */; };
 		E276F9E21696F3C900546827 /* PayPalBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9E11696F3C900546827 /* PayPalBrowserViewController.m */; };
 		E2C4F77D1645D0DC0049AB03 /* 157-wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = E2C4F77C1645D0DC0049AB03 /* 157-wrench.png */; };
 		E2C4F77F1645D1080049AB03 /* 68-paperclip.png in Resources */ = {isa = PBXBuildFile; fileRef = E2C4F77E1645D1080049AB03 /* 68-paperclip.png */; };
@@ -67,6 +68,7 @@
 		E22C6476164476F600F557D5 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = ../ViewControllers/LogViewController.m; sourceTree = "<group>"; };
 		E22C647A164478BF00F557D5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ViewControllers/SettingsViewController.h; sourceTree = SOURCE_ROOT; };
 		E22C647B164478BF00F557D5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ViewControllers/SettingsViewController.m; sourceTree = SOURCE_ROOT; };
+		E246563816D6439F00554D0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E276F9E01696F3C900546827 /* PayPalBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalBrowserViewController.h; path = ViewControllers/PayPalBrowserViewController.h; sourceTree = SOURCE_ROOT; };
 		E276F9E11696F3C900546827 /* PayPalBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PayPalBrowserViewController.m; path = ViewControllers/PayPalBrowserViewController.m; sourceTree = SOURCE_ROOT; };
 		E2C4F77C1645D0DC0049AB03 /* 157-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "157-wrench.png"; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E246563916D6439F00554D0A /* SystemConfiguration.framework in Frameworks */,
 				E2C4F7901648135C0049AB03 /* CoreLocation.framework in Frameworks */,
 				E22C6472164474A900F557D5 /* libCBHelper.a in Frameworks */,
 				E22C64391644746B00F557D5 /* UIKit.framework in Frameworks */,
@@ -125,6 +128,7 @@
 		E22C64371644746B00F557D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E246563816D6439F00554D0A /* SystemConfiguration.framework */,
 				E2C4F78F1648135C0049AB03 /* CoreLocation.framework */,
 				E22C64381644746B00F557D5 /* UIKit.framework */,
 				E22C643A1644746B00F557D5 /* Foundation.framework */,

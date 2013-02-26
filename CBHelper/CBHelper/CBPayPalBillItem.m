@@ -15,7 +15,7 @@
  02111-1307, USA.
  */
 
-#import "CBPayPalBillItem.h"
+#include "CBPayPalBillItem.h"
 
 @implementation CBPayPalBillItem
 

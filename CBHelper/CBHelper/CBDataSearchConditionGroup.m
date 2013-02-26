@@ -83,7 +83,7 @@ NSString * const CBLimitKey = @"cb_limit";
 
 // the geolocation search conditions require some special parameters and are created and structured differently from a
 // standard CBSearchConditionGroup directly from this methods
-- (id)initWithGoeSearchNear:(CLLocationCoordinate2D)coords withinMaxDistance:(NSInteger)distance
+- (id)initWithGeoSearchNear:(CLLocationCoordinate2D)coords withinMaxDistance:(NSInteger)distance
 {
     if (self = [super init])
     {
