@@ -15,24 +15,20 @@
  02111-1307, USA.
  */
 
-#import <UIKit/UIKit.h>
-#import <CBHelper/CBHelper.h>
-#import "Settings.h"
-#import "CBAppDelegate.h"
+#import "CBDataAggregationCommand.h"
 
-@interface SettingsViewController : UIViewController
+/**
+ * The project aggregation command filters the number of fields selected
+ * from a document.
+ * You can either populate the <strong>includeFields</strong> property
+ * to exclude all fields and only include the ones selected or use
+ * the <strong>excludeFields</strong> to set up an exclusion list.
+ */
+@interface CBDataAggregationCommandProject : CBDataAggregationCommand
 
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, retain) NSMutableArray *includeFields;
+@property (nonatomic, retain) NSMutableArray *excludeFields;
 
-@property (nonatomic, retain) IBOutlet UITextField *appCode;
-@property (nonatomic, retain) IBOutlet UITextField *appSecret;
-@property (nonatomic, retain) IBOutlet UITextField *appPwd;
+- (id)init;
 
-- (IBAction)saveSettings:(id)sender;
-
-- (IBAction)downloadImage:(id)sender;
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end

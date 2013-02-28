@@ -15,24 +15,16 @@
  02111-1307, USA.
  */
 
-#import <UIKit/UIKit.h>
-#import <CBHelper/CBHelper.h>
-#import "Settings.h"
-#import "CBAppDelegate.h"
+#include <UIKit/UIKit.h>
+#include "CBHelper.h"
 
-@interface SettingsViewController : UIViewController
+#ifndef CBHELPERVIEWCONTROLLER_H_
+#define CBHELPERVIEWCONTROLLER_H_
 
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
+@interface CBHelperViewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UITextField *appCode;
-@property (nonatomic, retain) IBOutlet UITextField *appSecret;
-@property (nonatomic, retain) IBOutlet UITextField *appPwd;
+@property (nonatomic, retain) CBHelper *cbHelper;
 
-- (IBAction)saveSettings:(id)sender;
-
-- (IBAction)downloadImage:(id)sender;
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end
+
+#endif

@@ -7,58 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E20F5B7016D660B600BED0C1 /* CBQueuedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */; };
-		E2272B0216AAEBFD00969611 /* CBDataAggregationCommandUnwind.m in Sources */ = {isa = PBXBuildFile; fileRef = E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */; };
-		E22C638316446F8500F557D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C638216446F8500F557D5 /* Foundation.framework */; };
-		E22C639A16446FCB00F557D5 /* CBDataSearchConditionGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */; };
-		E22C639B16446FCB00F557D5 /* CBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639316446FCB00F557D5 /* CBHelper.m */; };
-		E22C639C16446FCB00F557D5 /* CBHelperAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639516446FCB00F557D5 /* CBHelperAttachment.m */; };
-		E22C639D16446FCB00F557D5 /* CBHelperResponseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639716446FCB00F557D5 /* CBHelperResponseInfo.m */; };
-		E22C639E16446FCB00F557D5 /* CBHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639916446FCB00F557D5 /* CBHelperViewController.m */; };
-		E22C63BD1644702500F557D5 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A11644702500F557D5 /* NSData+Additions.m */; };
-		E22C63BE1644702500F557D5 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A31644702500F557D5 /* NSObject+SBJson.m */; };
-		E22C63BF1644702500F557D5 /* NSURLConnection+CBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A51644702500F557D5 /* NSURLConnection+CBHelper.m */; };
-		E22C63C01644702500F557D5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A81644702500F557D5 /* SBJsonParser.m */; };
-		E22C63C11644702500F557D5 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63AA1644702500F557D5 /* SBJsonStreamParser.m */; };
-		E22C63C21644702500F557D5 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63AC1644702500F557D5 /* SBJsonStreamParserAccumulator.m */; };
-		E22C63C31644702500F557D5 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63AE1644702500F557D5 /* SBJsonStreamParserAdapter.m */; };
-		E22C63C41644702500F557D5 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B01644702500F557D5 /* SBJsonStreamParserState.m */; };
-		E22C63C51644702500F557D5 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B21644702500F557D5 /* SBJsonStreamWriter.m */; };
-		E22C63C61644702500F557D5 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B41644702500F557D5 /* SBJsonStreamWriterAccumulator.m */; };
-		E22C63C71644702500F557D5 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B61644702500F557D5 /* SBJsonStreamWriterState.m */; };
-		E22C63C81644702500F557D5 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B81644702500F557D5 /* SBJsonTokeniser.m */; };
-		E22C63C91644702500F557D5 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BA1644702500F557D5 /* SBJsonUTF8Stream.m */; };
-		E22C63CA1644702500F557D5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BC1644702500F557D5 /* SBJsonWriter.m */; };
-		E246563716D6433D00554D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E246563616D6433D00554D0A /* SystemConfiguration.framework */; };
-		E276F9DB1696217E00546827 /* CBPayPalBill.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DA1696217E00546827 /* CBPayPalBill.m */; };
-		E276F9DE169623A200546827 /* CBPayPalBillItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DD169623A200546827 /* CBPayPalBillItem.m */; };
-		E2988FF116A9631B00F1B0A0 /* CBDataAggregationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */; };
-		E2988FF616A96BA300F1B0A0 /* CBDataAggregationCommandProject.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF516A96BA300F1B0A0 /* CBDataAggregationCommandProject.m */; };
-		E2988FF916A971D200F1B0A0 /* CBDataAggregationCommandGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF816A971D200F1B0A0 /* CBDataAggregationCommandGroup.m */; };
+		E2028E7A16DF86B2000779E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C638216446F8500F557D5 /* Foundation.framework */; };
+		E2028E8016DF86B2000779E9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2028E7E16DF86B2000779E9 /* InfoPlist.strings */; };
+		E2028E8516DF86DB000779E9 /* CBDataSearchConditionGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */; };
+		E2028E8616DF86DB000779E9 /* CBDataAggregationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */; };
+		E2028E8716DF86DB000779E9 /* CBDataAggregationCommandProject.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF516A96BA300F1B0A0 /* CBDataAggregationCommandProject.m */; };
+		E2028E8816DF86DB000779E9 /* CBDataAggregationCommandGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = E2988FF816A971D200F1B0A0 /* CBDataAggregationCommandGroup.m */; };
+		E2028E8916DF86DB000779E9 /* CBDataAggregationCommandUnwind.m in Sources */ = {isa = PBXBuildFile; fileRef = E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */; };
+		E2028E8A16DF86DB000779E9 /* CBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639316446FCB00F557D5 /* CBHelper.m */; };
+		E2028E8B16DF86DB000779E9 /* CBHelperAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639516446FCB00F557D5 /* CBHelperAttachment.m */; };
+		E2028E8C16DF86DB000779E9 /* CBHelperResponseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639716446FCB00F557D5 /* CBHelperResponseInfo.m */; };
+		E2028E8D16DF86DB000779E9 /* CBHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C639916446FCB00F557D5 /* CBHelperViewController.m */; };
+		E2028E8E16DF86DB000779E9 /* CBPayPalBill.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DA1696217E00546827 /* CBPayPalBill.m */; };
+		E2028E8F16DF86DB000779E9 /* CBPayPalBillItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9DD169623A200546827 /* CBPayPalBillItem.m */; };
+		E2028E9016DF86DB000779E9 /* CBQueuedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */; };
+		E2028E9116DF86E6000779E9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E246563616D6433D00554D0A /* SystemConfiguration.framework */; };
+		E2028E9216DF87FE000779E9 /* CBDataSearchConditionGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C639016446FCB00F557D5 /* CBDataSearchConditionGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9316DF87FE000779E9 /* CBDataAggregationCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = E2988FEF16A9631B00F1B0A0 /* CBDataAggregationCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9416DF87FE000779E9 /* CBDataAggregationCommandProject.h in Headers */ = {isa = PBXBuildFile; fileRef = E2988FF416A96BA300F1B0A0 /* CBDataAggregationCommandProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9516DF87FE000779E9 /* CBDataAggregationCommandGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = E2988FF716A971D200F1B0A0 /* CBDataAggregationCommandGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9616DF87FE000779E9 /* CBDataAggregationCommandUnwind.h in Headers */ = {isa = PBXBuildFile; fileRef = E2272B0016AAEBFD00969611 /* CBDataAggregationCommandUnwind.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9716DF87FE000779E9 /* CBHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C639216446FCB00F557D5 /* CBHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9816DF87FE000779E9 /* CBHelperAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C639416446FCB00F557D5 /* CBHelperAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9916DF87FE000779E9 /* CBHelperResponseInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C639616446FCB00F557D5 /* CBHelperResponseInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9A16DF87FE000779E9 /* CBHelperViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C639816446FCB00F557D5 /* CBHelperViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9B16DF87FE000779E9 /* CBPayPalBill.h in Headers */ = {isa = PBXBuildFile; fileRef = E276F9D91696217E00546827 /* CBPayPalBill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9C16DF87FE000779E9 /* CBPayPalBillItem.h in Headers */ = {isa = PBXBuildFile; fileRef = E276F9DC169623A200546827 /* CBPayPalBillItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028E9D16DF87FE000779E9 /* CBQueuedRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = E20F5B6E16D660B600BED0C1 /* CBQueuedRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA316DF8E1F000779E9 /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63A01644702500F557D5 /* NSData+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA416DF8E1F000779E9 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63A21644702500F557D5 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA516DF8E1F000779E9 /* NSURLConnection+CBHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63A41644702500F557D5 /* NSURLConnection+CBHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA616DF8E1F000779E9 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63A61644702500F557D5 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA716DF8E1F000779E9 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63A71644702500F557D5 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA816DF8E1F000779E9 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63A91644702500F557D5 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EA916DF8E1F000779E9 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63AB1644702500F557D5 /* SBJsonStreamParserAccumulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EAA16DF8E1F000779E9 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63AD1644702500F557D5 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EAB16DF8E1F000779E9 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63AF1644702500F557D5 /* SBJsonStreamParserState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EAC16DF8E1F000779E9 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63B11644702500F557D5 /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EAD16DF8E1F000779E9 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63B31644702500F557D5 /* SBJsonStreamWriterAccumulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EAE16DF8E1F000779E9 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63B51644702500F557D5 /* SBJsonStreamWriterState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EAF16DF8E1F000779E9 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63B71644702500F557D5 /* SBJsonTokeniser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EB016DF8E1F000779E9 /* SBJsonUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63B91644702500F557D5 /* SBJsonUTF8Stream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EB116DF8E1F000779E9 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = E22C63BB1644702500F557D5 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2028EB416DF8FC9000779E9 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A11644702500F557D5 /* NSData+Additions.m */; };
+		E2028EB516DF8FC9000779E9 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A31644702500F557D5 /* NSObject+SBJson.m */; };
+		E2028EB616DF8FC9000779E9 /* NSURLConnection+CBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A51644702500F557D5 /* NSURLConnection+CBHelper.m */; };
+		E2028EB716DF8FC9000779E9 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63A81644702500F557D5 /* SBJsonParser.m */; };
+		E2028EB816DF8FC9000779E9 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63AA1644702500F557D5 /* SBJsonStreamParser.m */; };
+		E2028EB916DF8FC9000779E9 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63AC1644702500F557D5 /* SBJsonStreamParserAccumulator.m */; };
+		E2028EBA16DF8FC9000779E9 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63AE1644702500F557D5 /* SBJsonStreamParserAdapter.m */; };
+		E2028EBB16DF8FC9000779E9 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B01644702500F557D5 /* SBJsonStreamParserState.m */; };
+		E2028EBC16DF8FC9000779E9 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B21644702500F557D5 /* SBJsonStreamWriter.m */; };
+		E2028EBD16DF8FC9000779E9 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B41644702500F557D5 /* SBJsonStreamWriterAccumulator.m */; };
+		E2028EBE16DF8FC9000779E9 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B61644702500F557D5 /* SBJsonStreamWriterState.m */; };
+		E2028EBF16DF8FC9000779E9 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63B81644702500F557D5 /* SBJsonTokeniser.m */; };
+		E2028EC016DF8FC9000779E9 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BA1644702500F557D5 /* SBJsonUTF8Stream.m */; };
+		E2028EC116DF8FC9000779E9 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C63BC1644702500F557D5 /* SBJsonWriter.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E22C637D16446F8500F557D5 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		E2028E7916DF86B2000779E9 /* CBHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = CBHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2028E7D16DF86B2000779E9 /* CBHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBHelper-Info.plist"; sourceTree = "<group>"; };
+		E2028E7F16DF86B2000779E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E2028E8116DF86B2000779E9 /* CBHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBHelper-Prefix.pch"; sourceTree = "<group>"; };
 		E20F5B6E16D660B600BED0C1 /* CBQueuedRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQueuedRequest.h; sourceTree = "<group>"; };
 		E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBQueuedRequest.m; sourceTree = "<group>"; };
-		E2272B0016AAEBFD00969611 /* CBDataAggregationCommandUnwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommandUnwind.h; path = CBHelper/CBDataAggregationCommandUnwind.h; sourceTree = "<group>"; };
-		E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataAggregationCommandUnwind.m; path = CBHelper/CBDataAggregationCommandUnwind.m; sourceTree = "<group>"; };
-		E22C637F16446F8500F557D5 /* libCBHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCBHelper.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E22C638216446F8500F557D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E2272B0016AAEBFD00969611 /* CBDataAggregationCommandUnwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDataAggregationCommandUnwind.h; sourceTree = "<group>"; };
+		E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBDataAggregationCommandUnwind.m; sourceTree = "<group>"; };
+		E22C638216446F8500F557D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		E22C638616446F8500F557D5 /* CBHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBHelper-Prefix.pch"; sourceTree = "<group>"; };
-		E22C639016446FCB00F557D5 /* CBDataSearchConditionGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataSearchConditionGroup.h; path = CBHelper/CBDataSearchConditionGroup.h; sourceTree = "<group>"; };
-		E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataSearchConditionGroup.m; path = CBHelper/CBDataSearchConditionGroup.m; sourceTree = "<group>"; };
+		E22C639016446FCB00F557D5 /* CBDataSearchConditionGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDataSearchConditionGroup.h; sourceTree = "<group>"; };
+		E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBDataSearchConditionGroup.m; sourceTree = "<group>"; };
 		E22C639216446FCB00F557D5 /* CBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHelper.h; sourceTree = "<group>"; };
 		E22C639316446FCB00F557D5 /* CBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBHelper.m; sourceTree = "<group>"; };
 		E22C639416446FCB00F557D5 /* CBHelperAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHelperAttachment.h; sourceTree = "<group>"; };
@@ -101,31 +120,76 @@
 		E276F9DA1696217E00546827 /* CBPayPalBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPayPalBill.m; sourceTree = "<group>"; };
 		E276F9DC169623A200546827 /* CBPayPalBillItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPayPalBillItem.h; sourceTree = "<group>"; };
 		E276F9DD169623A200546827 /* CBPayPalBillItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPayPalBillItem.m; sourceTree = "<group>"; };
-		E2988FEF16A9631B00F1B0A0 /* CBDataAggregationCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommand.h; path = CBHelper/CBDataAggregationCommand.h; sourceTree = "<group>"; };
-		E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataAggregationCommand.m; path = CBHelper/CBDataAggregationCommand.m; sourceTree = "<group>"; };
-		E2988FF416A96BA300F1B0A0 /* CBDataAggregationCommandProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommandProject.h; path = CBHelper/CBDataAggregationCommandProject.h; sourceTree = "<group>"; };
-		E2988FF516A96BA300F1B0A0 /* CBDataAggregationCommandProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataAggregationCommandProject.m; path = CBHelper/CBDataAggregationCommandProject.m; sourceTree = "<group>"; };
-		E2988FF716A971D200F1B0A0 /* CBDataAggregationCommandGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommandGroup.h; path = CBHelper/CBDataAggregationCommandGroup.h; sourceTree = "<group>"; };
-		E2988FF816A971D200F1B0A0 /* CBDataAggregationCommandGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataAggregationCommandGroup.m; path = CBHelper/CBDataAggregationCommandGroup.m; sourceTree = "<group>"; };
+		E2988FEF16A9631B00F1B0A0 /* CBDataAggregationCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDataAggregationCommand.h; sourceTree = "<group>"; };
+		E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBDataAggregationCommand.m; sourceTree = "<group>"; };
+		E2988FF416A96BA300F1B0A0 /* CBDataAggregationCommandProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDataAggregationCommandProject.h; sourceTree = "<group>"; };
+		E2988FF516A96BA300F1B0A0 /* CBDataAggregationCommandProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBDataAggregationCommandProject.m; sourceTree = "<group>"; };
+		E2988FF716A971D200F1B0A0 /* CBDataAggregationCommandGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDataAggregationCommandGroup.h; sourceTree = "<group>"; };
+		E2988FF816A971D200F1B0A0 /* CBDataAggregationCommandGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBDataAggregationCommandGroup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E22C637C16446F8500F557D5 /* Frameworks */ = {
+		E2028E7316DF86B2000779E9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E246563716D6433D00554D0A /* SystemConfiguration.framework in Frameworks */,
-				E22C638316446F8500F557D5 /* Foundation.framework in Frameworks */,
+				E2028E9116DF86E6000779E9 /* SystemConfiguration.framework in Frameworks */,
+				E2028E7A16DF86B2000779E9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E2028E7B16DF86B2000779E9 /* CBHelper */ = {
+			isa = PBXGroup;
+			children = (
+				E2988FF316A9637000F1B0A0 /* CBDataCommands */,
+				E22C639016446FCB00F557D5 /* CBDataSearchConditionGroup.h */,
+				E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */,
+				E2988FEF16A9631B00F1B0A0 /* CBDataAggregationCommand.h */,
+				E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */,
+				E2988FF416A96BA300F1B0A0 /* CBDataAggregationCommandProject.h */,
+				E2988FF516A96BA300F1B0A0 /* CBDataAggregationCommandProject.m */,
+				E2988FF716A971D200F1B0A0 /* CBDataAggregationCommandGroup.h */,
+				E2988FF816A971D200F1B0A0 /* CBDataAggregationCommandGroup.m */,
+				E2272B0016AAEBFD00969611 /* CBDataAggregationCommandUnwind.h */,
+				E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */,
+				E22C639F16446FD600F557D5 /* Libs */,
+				E22C639216446FCB00F557D5 /* CBHelper.h */,
+				E22C639316446FCB00F557D5 /* CBHelper.m */,
+				E22C639416446FCB00F557D5 /* CBHelperAttachment.h */,
+				E22C639516446FCB00F557D5 /* CBHelperAttachment.m */,
+				E22C639616446FCB00F557D5 /* CBHelperResponseInfo.h */,
+				E22C639716446FCB00F557D5 /* CBHelperResponseInfo.m */,
+				E22C639816446FCB00F557D5 /* CBHelperViewController.h */,
+				E22C639916446FCB00F557D5 /* CBHelperViewController.m */,
+				E22C638616446F8500F557D5 /* CBHelper-Prefix.pch */,
+				E276F9D91696217E00546827 /* CBPayPalBill.h */,
+				E276F9DA1696217E00546827 /* CBPayPalBill.m */,
+				E276F9DC169623A200546827 /* CBPayPalBillItem.h */,
+				E276F9DD169623A200546827 /* CBPayPalBillItem.m */,
+				E20F5B6E16D660B600BED0C1 /* CBQueuedRequest.h */,
+				E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */,
+				E2028E7C16DF86B2000779E9 /* Supporting Files */,
+			);
+			path = CBHelper;
+			sourceTree = "<group>";
+		};
+		E2028E7C16DF86B2000779E9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E2028E7D16DF86B2000779E9 /* CBHelper-Info.plist */,
+				E2028E7E16DF86B2000779E9 /* InfoPlist.strings */,
+				E2028E8116DF86B2000779E9 /* CBHelper-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		E22C637416446F8500F557D5 = {
 			isa = PBXGroup;
 			children = (
-				E22C638416446F8500F557D5 /* CBHelper */,
+				E2028E7B16DF86B2000779E9 /* CBHelper */,
 				E22C638116446F8500F557D5 /* Frameworks */,
 				E22C638016446F8500F557D5 /* Products */,
 			);
@@ -134,7 +198,7 @@
 		E22C638016446F8500F557D5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E22C637F16446F8500F557D5 /* libCBHelper.a */,
+				E2028E7916DF86B2000779E9 /* CBHelper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,38 +210,6 @@
 				E22C638216446F8500F557D5 /* Foundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E22C638416446F8500F557D5 /* CBHelper */ = {
-			isa = PBXGroup;
-			children = (
-				E2988FF316A9637000F1B0A0 /* CBDataCommands */,
-				E22C639F16446FD600F557D5 /* Libs */,
-				E22C639216446FCB00F557D5 /* CBHelper.h */,
-				E22C639316446FCB00F557D5 /* CBHelper.m */,
-				E22C639416446FCB00F557D5 /* CBHelperAttachment.h */,
-				E22C639516446FCB00F557D5 /* CBHelperAttachment.m */,
-				E22C639616446FCB00F557D5 /* CBHelperResponseInfo.h */,
-				E22C639716446FCB00F557D5 /* CBHelperResponseInfo.m */,
-				E22C639816446FCB00F557D5 /* CBHelperViewController.h */,
-				E22C639916446FCB00F557D5 /* CBHelperViewController.m */,
-				E22C638516446F8500F557D5 /* Supporting Files */,
-				E276F9D91696217E00546827 /* CBPayPalBill.h */,
-				E276F9DA1696217E00546827 /* CBPayPalBill.m */,
-				E276F9DC169623A200546827 /* CBPayPalBillItem.h */,
-				E276F9DD169623A200546827 /* CBPayPalBillItem.m */,
-				E20F5B6E16D660B600BED0C1 /* CBQueuedRequest.h */,
-				E20F5B6F16D660B600BED0C1 /* CBQueuedRequest.m */,
-			);
-			path = CBHelper;
-			sourceTree = "<group>";
-		};
-		E22C638516446F8500F557D5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E22C638616446F8500F557D5 /* CBHelper-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E22C639F16446FD600F557D5 /* Libs */ = {
@@ -219,16 +251,6 @@
 		E2988FF316A9637000F1B0A0 /* CBDataCommands */ = {
 			isa = PBXGroup;
 			children = (
-				E22C639016446FCB00F557D5 /* CBDataSearchConditionGroup.h */,
-				E22C639116446FCB00F557D5 /* CBDataSearchConditionGroup.m */,
-				E2988FEF16A9631B00F1B0A0 /* CBDataAggregationCommand.h */,
-				E2988FF016A9631B00F1B0A0 /* CBDataAggregationCommand.m */,
-				E2988FF416A96BA300F1B0A0 /* CBDataAggregationCommandProject.h */,
-				E2988FF516A96BA300F1B0A0 /* CBDataAggregationCommandProject.m */,
-				E2988FF716A971D200F1B0A0 /* CBDataAggregationCommandGroup.h */,
-				E2988FF816A971D200F1B0A0 /* CBDataAggregationCommandGroup.m */,
-				E2272B0016AAEBFD00969611 /* CBDataAggregationCommandUnwind.h */,
-				E2272B0116AAEBFD00969611 /* CBDataAggregationCommandUnwind.m */,
 			);
 			name = CBDataCommands;
 			path = ..;
@@ -236,14 +258,56 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E2028E7416DF86B2000779E9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2028EA316DF8E1F000779E9 /* NSData+Additions.h in Headers */,
+				E2028EA416DF8E1F000779E9 /* NSObject+SBJson.h in Headers */,
+				E2028EA516DF8E1F000779E9 /* NSURLConnection+CBHelper.h in Headers */,
+				E2028EA616DF8E1F000779E9 /* SBJson.h in Headers */,
+				E2028EA716DF8E1F000779E9 /* SBJsonParser.h in Headers */,
+				E2028EA816DF8E1F000779E9 /* SBJsonStreamParser.h in Headers */,
+				E2028EA916DF8E1F000779E9 /* SBJsonStreamParserAccumulator.h in Headers */,
+				E2028EAA16DF8E1F000779E9 /* SBJsonStreamParserAdapter.h in Headers */,
+				E2028EAB16DF8E1F000779E9 /* SBJsonStreamParserState.h in Headers */,
+				E2028EAC16DF8E1F000779E9 /* SBJsonStreamWriter.h in Headers */,
+				E2028EAD16DF8E1F000779E9 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				E2028EAE16DF8E1F000779E9 /* SBJsonStreamWriterState.h in Headers */,
+				E2028EAF16DF8E1F000779E9 /* SBJsonTokeniser.h in Headers */,
+				E2028EB016DF8E1F000779E9 /* SBJsonUTF8Stream.h in Headers */,
+				E2028EB116DF8E1F000779E9 /* SBJsonWriter.h in Headers */,
+				E2028E9216DF87FE000779E9 /* CBDataSearchConditionGroup.h in Headers */,
+				E2028E9316DF87FE000779E9 /* CBDataAggregationCommand.h in Headers */,
+				E2028E9416DF87FE000779E9 /* CBDataAggregationCommandProject.h in Headers */,
+				E2028E9516DF87FE000779E9 /* CBDataAggregationCommandGroup.h in Headers */,
+				E2028E9616DF87FE000779E9 /* CBDataAggregationCommandUnwind.h in Headers */,
+				E2028E9716DF87FE000779E9 /* CBHelper.h in Headers */,
+				E2028E9816DF87FE000779E9 /* CBHelperAttachment.h in Headers */,
+				E2028E9916DF87FE000779E9 /* CBHelperResponseInfo.h in Headers */,
+				E2028E9A16DF87FE000779E9 /* CBHelperViewController.h in Headers */,
+				E2028E9B16DF87FE000779E9 /* CBPayPalBill.h in Headers */,
+				E2028E9C16DF87FE000779E9 /* CBPayPalBillItem.h in Headers */,
+				E2028E9D16DF87FE000779E9 /* CBQueuedRequest.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		E22C637E16446F8500F557D5 /* CBHelper */ = {
+		E2028E7816DF86B2000779E9 /* CBHelper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E22C638D16446F8500F557D5 /* Build configuration list for PBXNativeTarget "CBHelper" */;
+			buildConfigurationList = E2028E8216DF86B2000779E9 /* Build configuration list for PBXNativeTarget "CBHelper" */;
 			buildPhases = (
-				E22C637B16446F8500F557D5 /* Sources */,
-				E22C637C16446F8500F557D5 /* Frameworks */,
-				E22C637D16446F8500F557D5 /* CopyFiles */,
+				E2028E7116DF86B2000779E9 /* ShellScript */,
+				E2028E7216DF86B2000779E9 /* Sources */,
+				E2028E7316DF86B2000779E9 /* Frameworks */,
+				E2028E7416DF86B2000779E9 /* Headers */,
+				E2028E7516DF86B2000779E9 /* Resources */,
+				E2028E7616DF86B2000779E9 /* ShellScript */,
+				E2028E7716DF86B2000779E9 /* ShellScript */,
+				E2028EA016DF8D0D000779E9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -251,8 +315,8 @@
 			);
 			name = CBHelper;
 			productName = CBHelper;
-			productReference = E22C637F16446F8500F557D5 /* libCBHelper.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = E2028E7916DF86B2000779E9 /* CBHelper.framework */;
+			productType = "com.apple.product-type.framework.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -275,48 +339,163 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E22C637E16446F8500F557D5 /* CBHelper */,
+				E2028E7816DF86B2000779E9 /* CBHelper */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		E2028E7516DF86B2000779E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2028E8016DF86B2000779E9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E2028E7116DF86B2000779E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n\tUFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version  from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\nONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM:-$ONLY_ACTIVE_ARCH}\n\n# Short-circuit if all binaries are up to date\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && \\\n   [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && \\\n   [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && \\\n  ([[ \"${ONLY_ACTIVE_PLATFORM}\" == \"YES\" ]] || \\\n    ([[ -f \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && \\\n     [[ -f \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && \\\n     [[ ! \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\n    )\n  )\nthen\n    exit 0\nfi\n\n\n# Clean other platform if needed\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]]\nthen\n\techo \"Platform \\\"$UFW_SDK_PLATFORM\\\" was cleaned recently. Cleaning \\\"$UFW_OTHER_PLATFORM\\\" as well\"\n\techo xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" clean\n\txcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" clean\nfi\n\n\n# Make sure we are building from fresh binaries\n\nrm -rf \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\n\nif [[ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]]\nthen\n    rm -rf \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n    rm -rf \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nfi\n";
+		};
+		E2028E7616DF86B2000779E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "HEADERS_ROOT=$SRCROOT/$PRODUCT_NAME\nFRAMEWORK_HEADERS_DIR=\"$BUILT_PRODUCTS_DIR/$WRAPPER_NAME/Versions/$FRAMEWORK_VERSION/Headers\"\n\n## only header files expected at this point\nPUBLIC_HEADERS=$(find $FRAMEWORK_HEADERS_DIR/. -not -type d 2> /dev/null | sed -e \"s@.*/@@g\")\n\nFIND_OPTS=\"\"\nfor PUBLIC_HEADER in $PUBLIC_HEADERS; do\n  if [ -n \"$FIND_OPTS\" ]; then\n    FIND_OPTS=\"$FIND_OPTS -o\"\n  fi\n  FIND_OPTS=\"$FIND_OPTS -name '$PUBLIC_HEADER'\"\ndone\n\nif [ -n \"$FIND_OPTS\" ]; then\n  for ORIG_HEADER in $(eval \"find $HEADERS_ROOT/. $FIND_OPTS\" 2> /dev/null | sed -e \"s@^$HEADERS_ROOT/./@@g\"); do\n    PUBLIC_HEADER=$(basename $ORIG_HEADER)\n    RELATIVE_PATH=$(dirname $ORIG_HEADER)\n    if [ -e $FRAMEWORK_HEADERS_DIR/$PUBLIC_HEADER ]; then\n      mkdir -p \"$FRAMEWORK_HEADERS_DIR/$RELATIVE_PATH\"\n      mv \"$FRAMEWORK_HEADERS_DIR/$PUBLIC_HEADER\" \"$FRAMEWORK_HEADERS_DIR/$RELATIVE_PATH/$PUBLIC_HEADER\"\n    fi\n  done\nfi\n";
+		};
+		E2028E7716DF86B2000779E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n        eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\n    echo \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\n    exit 1\nfi\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    UFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\nONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM:-$ONLY_ACTIVE_ARCH}\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\nthen\n    exit 0\nfi\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" == \"YES\" ]\nthen\n    echo \"ONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM}: Skipping other platform build\"\nelse\n    # Make sure the other platform gets built\n    \n    echo \"Build other platform\"\n    \n    echo xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n    xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n    \n    \n    # Build the fat static library binary\n    \n    echo \"Create universal static library\"\n    \n    echo \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n    \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n    \n    echo mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n    mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\n    if [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\n    then\n        echo ln -sfh \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n        ln -sfh \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n    fi\ndone\n\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]\nthen\n    # Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n    \n    echo \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n    \n    echo rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    echo cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nfi\n";
+		};
+		E2028EA016DF8D0D000779E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# copy generated framework to build folder\nif [ -d $SOURCE_ROOT/build/$WRAPPER_NAME ]; then\n    rm -rf $SOURCE_ROOT/build/$WRAPPER_NAME\nfi\n\ncp -rf $BUILT_PRODUCTS_DIR/$WRAPPER_NAME $SOURCE_ROOT/build/$WRAPPER_NAME";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		E22C637B16446F8500F557D5 /* Sources */ = {
+		E2028E7216DF86B2000779E9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E22C639A16446FCB00F557D5 /* CBDataSearchConditionGroup.m in Sources */,
-				E22C639B16446FCB00F557D5 /* CBHelper.m in Sources */,
-				E22C639C16446FCB00F557D5 /* CBHelperAttachment.m in Sources */,
-				E22C639D16446FCB00F557D5 /* CBHelperResponseInfo.m in Sources */,
-				E22C639E16446FCB00F557D5 /* CBHelperViewController.m in Sources */,
-				E22C63BD1644702500F557D5 /* NSData+Additions.m in Sources */,
-				E22C63BE1644702500F557D5 /* NSObject+SBJson.m in Sources */,
-				E22C63BF1644702500F557D5 /* NSURLConnection+CBHelper.m in Sources */,
-				E22C63C01644702500F557D5 /* SBJsonParser.m in Sources */,
-				E22C63C11644702500F557D5 /* SBJsonStreamParser.m in Sources */,
-				E22C63C21644702500F557D5 /* SBJsonStreamParserAccumulator.m in Sources */,
-				E22C63C31644702500F557D5 /* SBJsonStreamParserAdapter.m in Sources */,
-				E22C63C41644702500F557D5 /* SBJsonStreamParserState.m in Sources */,
-				E22C63C51644702500F557D5 /* SBJsonStreamWriter.m in Sources */,
-				E22C63C61644702500F557D5 /* SBJsonStreamWriterAccumulator.m in Sources */,
-				E22C63C71644702500F557D5 /* SBJsonStreamWriterState.m in Sources */,
-				E22C63C81644702500F557D5 /* SBJsonTokeniser.m in Sources */,
-				E22C63C91644702500F557D5 /* SBJsonUTF8Stream.m in Sources */,
-				E22C63CA1644702500F557D5 /* SBJsonWriter.m in Sources */,
-				E276F9DB1696217E00546827 /* CBPayPalBill.m in Sources */,
-				E276F9DE169623A200546827 /* CBPayPalBillItem.m in Sources */,
-				E2988FF116A9631B00F1B0A0 /* CBDataAggregationCommand.m in Sources */,
-				E2988FF616A96BA300F1B0A0 /* CBDataAggregationCommandProject.m in Sources */,
-				E2988FF916A971D200F1B0A0 /* CBDataAggregationCommandGroup.m in Sources */,
-				E2272B0216AAEBFD00969611 /* CBDataAggregationCommandUnwind.m in Sources */,
-				E20F5B7016D660B600BED0C1 /* CBQueuedRequest.m in Sources */,
+				E2028EB416DF8FC9000779E9 /* NSData+Additions.m in Sources */,
+				E2028EB516DF8FC9000779E9 /* NSObject+SBJson.m in Sources */,
+				E2028EB616DF8FC9000779E9 /* NSURLConnection+CBHelper.m in Sources */,
+				E2028EB716DF8FC9000779E9 /* SBJsonParser.m in Sources */,
+				E2028EB816DF8FC9000779E9 /* SBJsonStreamParser.m in Sources */,
+				E2028EB916DF8FC9000779E9 /* SBJsonStreamParserAccumulator.m in Sources */,
+				E2028EBA16DF8FC9000779E9 /* SBJsonStreamParserAdapter.m in Sources */,
+				E2028EBB16DF8FC9000779E9 /* SBJsonStreamParserState.m in Sources */,
+				E2028EBC16DF8FC9000779E9 /* SBJsonStreamWriter.m in Sources */,
+				E2028EBD16DF8FC9000779E9 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				E2028EBE16DF8FC9000779E9 /* SBJsonStreamWriterState.m in Sources */,
+				E2028EBF16DF8FC9000779E9 /* SBJsonTokeniser.m in Sources */,
+				E2028EC016DF8FC9000779E9 /* SBJsonUTF8Stream.m in Sources */,
+				E2028EC116DF8FC9000779E9 /* SBJsonWriter.m in Sources */,
+				E2028E8516DF86DB000779E9 /* CBDataSearchConditionGroup.m in Sources */,
+				E2028E8616DF86DB000779E9 /* CBDataAggregationCommand.m in Sources */,
+				E2028E8716DF86DB000779E9 /* CBDataAggregationCommandProject.m in Sources */,
+				E2028E8816DF86DB000779E9 /* CBDataAggregationCommandGroup.m in Sources */,
+				E2028E8916DF86DB000779E9 /* CBDataAggregationCommandUnwind.m in Sources */,
+				E2028E8A16DF86DB000779E9 /* CBHelper.m in Sources */,
+				E2028E8B16DF86DB000779E9 /* CBHelperAttachment.m in Sources */,
+				E2028E8C16DF86DB000779E9 /* CBHelperResponseInfo.m in Sources */,
+				E2028E8D16DF86DB000779E9 /* CBHelperViewController.m in Sources */,
+				E2028E8E16DF86DB000779E9 /* CBPayPalBill.m in Sources */,
+				E2028E8F16DF86DB000779E9 /* CBPayPalBillItem.m in Sources */,
+				E2028E9016DF86DB000779E9 /* CBQueuedRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		E2028E7E16DF86B2000779E9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E2028E7F16DF86B2000779E9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		E2028E8316DF86B2000779E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CBHelper/CBHelper-Prefix.pch";
+				INFOPLIST_FILE = "CBHelper/CBHelper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		E2028E8416DF86B2000779E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CBHelper/CBHelper-Prefix.pch";
+				INFOPLIST_FILE = "CBHelper/CBHelper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
 		E22C638B16446F8500F557D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -365,47 +544,23 @@
 			};
 			name = Release;
 		};
-		E22C638E16446F8500F557D5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/CBHelper.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBHelper/CBHelper-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		E22C638F16446F8500F557D5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/CBHelper.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBHelper/CBHelper-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E2028E8216DF86B2000779E9 /* Build configuration list for PBXNativeTarget "CBHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2028E8316DF86B2000779E9 /* Debug */,
+				E2028E8416DF86B2000779E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E22C637916446F8500F557D5 /* Build configuration list for PBXProject "CBHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E22C638B16446F8500F557D5 /* Debug */,
 				E22C638C16446F8500F557D5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E22C638D16446F8500F557D5 /* Build configuration list for PBXNativeTarget "CBHelper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E22C638E16446F8500F557D5 /* Debug */,
-				E22C638F16446F8500F557D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

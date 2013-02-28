@@ -15,24 +15,22 @@
  02111-1307, USA.
  */
 
-#import <UIKit/UIKit.h>
-#import <CBHelper/CBHelper.h>
-#import "Settings.h"
-#import "CBAppDelegate.h"
+#include <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController
+#ifndef CBHELPERATTACHMENT_H_
+#define CBHELPERATTACHMENT_H_
 
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
+@interface CBHelperAttachment : NSObject <NSCoding>
 
-@property (nonatomic, retain) IBOutlet UITextField *appCode;
-@property (nonatomic, retain) IBOutlet UITextField *appSecret;
-@property (nonatomic, retain) IBOutlet UITextField *appPwd;
+@property (nonatomic, retain) NSString* fileName;
+@property (nonatomic, retain) NSData* fileData;
 
-- (IBAction)saveSettings:(id)sender;
-
-- (IBAction)downloadImage:(id)sender;
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField;
+/**
+ * creates a new attachment
+ * @param fileName The original name of the file
+ * @param content the NSData representation of the file.
+ */
+- (id)initForFile:(NSString *)name withData:(NSData *)content;
 @end
+
+#endif

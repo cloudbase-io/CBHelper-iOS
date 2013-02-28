@@ -16,8 +16,8 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "CBHelper.h"
-#import "CBPayPalBill.h"
+#include <CBHelper/CBHelper.h>
+#import <CBHelper/CBPayPalBill.h>
 // for the additional SBJson libraries to be loaded add these
 // directives to the Other Linker Flags of your project -ObjC -all_load
 #import "Settings.h"

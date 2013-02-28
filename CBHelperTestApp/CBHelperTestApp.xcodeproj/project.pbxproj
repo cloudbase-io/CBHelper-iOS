@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E2028EB316DF8F03000779E9 /* CBHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2028EB216DF8F03000779E9 /* CBHelper.framework */; };
 		E22C64391644746B00F557D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C64381644746B00F557D5 /* UIKit.framework */; };
 		E22C643B1644746B00F557D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C643A1644746B00F557D5 /* Foundation.framework */; };
 		E22C643D1644746B00F557D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C643C1644746B00F557D5 /* CoreGraphics.framework */; };
@@ -23,7 +24,6 @@
 		E22C646B1644748400F557D5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E22C646A1644748400F557D5 /* Default.png */; };
 		E22C646D1644748900F557D5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E22C646C1644748900F557D5 /* Default@2x.png */; };
 		E22C646F1644748B00F557D5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E22C646E1644748B00F557D5 /* Default-568h@2x.png */; };
-		E22C6472164474A900F557D5 /* libCBHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C6471164474A900F557D5 /* libCBHelper.a */; };
 		E22C6477164476F600F557D5 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C6476164476F600F557D5 /* LogViewController.m */; };
 		E22C647C164478BF00F557D5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C647B164478BF00F557D5 /* SettingsViewController.m */; };
 		E246563916D6439F00554D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E246563816D6439F00554D0A /* SystemConfiguration.framework */; };
@@ -43,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E2028EB216DF8F03000779E9 /* CBHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBHelper.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos/CBHelper.framework"; sourceTree = "<group>"; };
 		E22C64341644746B00F557D5 /* CBHelperTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBHelperTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E22C64381644746B00F557D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E22C643A1644746B00F557D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,9 +97,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2028EB316DF8F03000779E9 /* CBHelper.framework in Frameworks */,
 				E246563916D6439F00554D0A /* SystemConfiguration.framework in Frameworks */,
 				E2C4F7901648135C0049AB03 /* CoreLocation.framework in Frameworks */,
-				E22C6472164474A900F557D5 /* libCBHelper.a in Frameworks */,
 				E22C64391644746B00F557D5 /* UIKit.framework in Frameworks */,
 				E22C643B1644746B00F557D5 /* Foundation.framework in Frameworks */,
 				E22C643D1644746B00F557D5 /* CoreGraphics.framework in Frameworks */,
@@ -128,6 +129,7 @@
 		E22C64371644746B00F557D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E2028EB216DF8F03000779E9 /* CBHelper.framework */,
 				E246563816D6439F00554D0A /* SystemConfiguration.framework */,
 				E2C4F78F1648135C0049AB03 /* CoreLocation.framework */,
 				E22C64381644746B00F557D5 /* UIKit.framework */,
@@ -378,9 +380,13 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
-				"HEADER_SEARCH_PATHS[arch=*]" = "../CBHelper/CBHelper/**";
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
 				INFOPLIST_FILE = "CBHelperTestApp/CBHelperTestApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -406,9 +412,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
-				"HEADER_SEARCH_PATHS[arch=*]" = "../CBHelper/CBHelper/**";
 				INFOPLIST_FILE = "CBHelperTestApp/CBHelperTestApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
