@@ -25,7 +25,7 @@
  * exactly in the format needed by the CBHelper class to be added
  * to the list of parmeters, serliazed and sent to cloudbase.io
  */
-@interface CBDataAggregationCommand : NSObject
+@interface CBDataAggregationCommand : NSObject <NSCoding>
 
 typedef enum {
     CBDataAggregationProject,

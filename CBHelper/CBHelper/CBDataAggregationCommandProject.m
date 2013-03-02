@@ -33,7 +33,7 @@
     
     if (self.includeFields != NULL) {
         for (NSString *fieldName in self.includeFields) {
-            NSLog(@"including");
+            //NSLog(@"including");
             [fieldList setObject:[NSNumber numberWithInt:1] forKey:fieldName];
         }
     }

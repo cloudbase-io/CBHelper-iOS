@@ -21,7 +21,7 @@
 
 #import "CBDataAggregationCommand.h"
 
-@interface CBDataSearchConditionGroup : CBDataAggregationCommand
+@interface CBDataSearchConditionGroup : CBDataAggregationCommand <NSCoding>
 
 typedef enum {
     CBOperatorEqual,

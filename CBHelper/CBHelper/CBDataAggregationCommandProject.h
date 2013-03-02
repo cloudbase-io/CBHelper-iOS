@@ -24,7 +24,7 @@
  * to exclude all fields and only include the ones selected or use
  * the <strong>excludeFields</strong> to set up an exclusion list.
  */
-@interface CBDataAggregationCommandProject : CBDataAggregationCommand
+@interface CBDataAggregationCommandProject : CBDataAggregationCommand <NSCoding>
 
 @property (nonatomic, retain) NSMutableArray *includeFields;
 @property (nonatomic, retain) NSMutableArray *excludeFields;

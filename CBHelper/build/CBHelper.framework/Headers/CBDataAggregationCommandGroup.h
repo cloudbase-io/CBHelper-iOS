@@ -25,7 +25,7 @@
  * There's a number of operators to apply to the grouped field defined as
  * CBDataAggregationGroupOperator
  */
-@interface CBDataAggregationCommandGroup : CBDataAggregationCommand {
+@interface CBDataAggregationCommandGroup : CBDataAggregationCommand <NSCoding> {
     NSMutableArray *idFields;
     NSMutableDictionary *groupField;
 }

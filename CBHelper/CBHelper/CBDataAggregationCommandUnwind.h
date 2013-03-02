@@ -31,7 +31,7 @@
  * { "firstName" : "Cloud", "lastName" : "Base", "books" : "Love in the Time of Cholera" }
  * ...
  */
-@interface CBDataAggregationCommandUnwind : CBDataAggregationCommand
+@interface CBDataAggregationCommandUnwind : CBDataAggregationCommand <NSCoding>
 
 /**
  * The name of the array field to be unwound

@@ -159,6 +159,7 @@
     
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [appDelegate.helper searchDocumentWithAggregates:aggregateCond inCollection:@"security_master_3" whenDone:^(CBHelperResponseInfo *response) {
+        NSLog(@"received: %@", response.responseString);
     }];
     
 }

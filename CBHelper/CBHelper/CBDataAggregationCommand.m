@@ -38,4 +38,16 @@ NSString * const CBDataAggregationCommand_ToString[] = {
     return CBDataAggregationCommand_ToString[self.commandType];
 }
 
+- (void) encodeWithCoder:(NSCoder*)encoder {
+    
+    [encoder encodeObject:[self serializeAggregateConditions] forKey:@"dataCommands"];
+}
+
+- (id) initWithCoder:(NSCoder*)decoder {
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+
 @end
