@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CBHelperTestApp/CBHelperTestApp.xcodeproj">
+      location = "group:CBHelper/CBHelper.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:CBHelper/CBHelper.xcodeproj">
+      location = "group:CBHelperTestApp/CBHelperTestApp.xcodeproj">
    </FileRef>
 </Workspace>
