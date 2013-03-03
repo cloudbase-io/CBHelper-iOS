@@ -26,6 +26,7 @@
 		E22C6477164476F600F557D5 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C6476164476F600F557D5 /* LogViewController.m */; };
 		E22C647C164478BF00F557D5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E22C647B164478BF00F557D5 /* SettingsViewController.m */; };
 		E246563916D6439F00554D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E246563816D6439F00554D0A /* SystemConfiguration.framework */; };
+		E25460C216E3BED300A86F59 /* CBHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E25460C116E3BED300A86F59 /* CBHelper.framework */; };
 		E276F9E21696F3C900546827 /* PayPalBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E276F9E11696F3C900546827 /* PayPalBrowserViewController.m */; };
 		E2C4F77D1645D0DC0049AB03 /* 157-wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = E2C4F77C1645D0DC0049AB03 /* 157-wrench.png */; };
 		E2C4F77F1645D1080049AB03 /* 68-paperclip.png in Resources */ = {isa = PBXBuildFile; fileRef = E2C4F77E1645D1080049AB03 /* 68-paperclip.png */; };
@@ -39,8 +40,19 @@
 		E2C4F79C164825ED0049AB03 /* FunctionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F79B164825ED0049AB03 /* FunctionsViewController.m */; };
 		E2C4F79E164826340049AB03 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = E2C4F79D164826340049AB03 /* 20-gear2.png */; };
 		E2C4F7A1164826B20049AB03 /* DataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F7A0164826B20049AB03 /* DataTableViewController.m */; };
-		E2E8ECD616E3863600E8C6F7 /* CBHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2E8ECD516E3863600E8C6F7 /* CBHelper.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E25460BD16E3B8C000A86F59 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E22C64341644746B00F557D5 /* CBHelperTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBHelperTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,12 +75,12 @@
 		E22C646A1644748400F557D5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		E22C646C1644748900F557D5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		E22C646E1644748B00F557D5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		E22C6471164474A900F557D5 /* libCBHelper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBHelper.a; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSHelper-ewmoxfdurovqxbhfhjhrblcksubb/Build/Products/Debug-iphoneos/libCBHelper.a"; sourceTree = "<group>"; };
 		E22C6475164476F600F557D5 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = ../ViewControllers/LogViewController.h; sourceTree = "<group>"; };
 		E22C6476164476F600F557D5 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = ../ViewControllers/LogViewController.m; sourceTree = "<group>"; };
 		E22C647A164478BF00F557D5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ViewControllers/SettingsViewController.h; sourceTree = SOURCE_ROOT; };
 		E22C647B164478BF00F557D5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ViewControllers/SettingsViewController.m; sourceTree = SOURCE_ROOT; };
 		E246563816D6439F00554D0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E25460C116E3BED300A86F59 /* CBHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBHelper.framework; path = ../CBHelper/build/CBHelper.framework; sourceTree = "<group>"; };
 		E276F9E01696F3C900546827 /* PayPalBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalBrowserViewController.h; path = ViewControllers/PayPalBrowserViewController.h; sourceTree = SOURCE_ROOT; };
 		E276F9E11696F3C900546827 /* PayPalBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PayPalBrowserViewController.m; path = ViewControllers/PayPalBrowserViewController.m; sourceTree = SOURCE_ROOT; };
 		E2C4F77C1645D0DC0049AB03 /* 157-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "157-wrench.png"; sourceTree = "<group>"; };
@@ -89,7 +101,6 @@
 		E2C4F79D164826340049AB03 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		E2C4F79F164826B10049AB03 /* DataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTableViewController.h; sourceTree = "<group>"; };
 		E2C4F7A0164826B20049AB03 /* DataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTableViewController.m; sourceTree = "<group>"; };
-		E2E8ECD516E3863600E8C6F7 /* CBHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBHelper.framework; path = ../CBHelper/build/CBHelper.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +113,7 @@
 				E22C64391644746B00F557D5 /* UIKit.framework in Frameworks */,
 				E22C643B1644746B00F557D5 /* Foundation.framework in Frameworks */,
 				E22C643D1644746B00F557D5 /* CoreGraphics.framework in Frameworks */,
-				E2E8ECD616E3863600E8C6F7 /* CBHelper.framework in Frameworks */,
+				E25460C216E3BED300A86F59 /* CBHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +123,6 @@
 		E22C64291644746B00F557D5 = {
 			isa = PBXGroup;
 			children = (
-				E2E8ECD516E3863600E8C6F7 /* CBHelper.framework */,
 				E22C643E1644746B00F557D5 /* CBHelperTestApp */,
 				E22C64371644746B00F557D5 /* Frameworks */,
 				E22C64351644746B00F557D5 /* Products */,
@@ -130,6 +140,7 @@
 		E22C64371644746B00F557D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E25460C116E3BED300A86F59 /* CBHelper.framework */,
 				E246563816D6439F00554D0A /* SystemConfiguration.framework */,
 				E2C4F78F1648135C0049AB03 /* CoreLocation.framework */,
 				E22C64381644746B00F557D5 /* UIKit.framework */,
@@ -205,7 +216,6 @@
 		E22C6473164474AE00F557D5 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				E22C6471164474A900F557D5 /* libCBHelper.a */,
 			);
 			name = Libs;
 			sourceTree = "<group>";
@@ -220,6 +230,7 @@
 				E22C64301644746B00F557D5 /* Sources */,
 				E22C64311644746B00F557D5 /* Frameworks */,
 				E22C64321644746B00F557D5 /* Resources */,
+				E25460BD16E3B8C000A86F59 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -346,7 +357,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				"HEADER_SEARCH_PATHS[arch=*]" = ../CBHelper/CBHelper/;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -378,11 +388,12 @@
 		E22C64641644746B00F557D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos\"",
 					"\"$(SRCROOT)/../CBHelper/build\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -390,15 +401,8 @@
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
 				INFOPLIST_FILE = "CBHelperTestApp/CBHelperTestApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/iOSHelper-ewmoxfdurovqxbhfhjhrblcksubb/Build/Products/Debug-iphoneos\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
-				"OTHER_LDFLAGS[arch=*]" = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -411,21 +415,19 @@
 		E22C64651644746B00F557D5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos\"",
 					"\"$(SRCROOT)/../CBHelper/build\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
 				INFOPLIST_FILE = "CBHelperTestApp/CBHelperTestApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/iOSHelper-ewmoxfdurovqxbhfhjhrblcksubb/Build/Products/Debug-iphoneos\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
