@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E2028EB316DF8F03000779E9 /* CBHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2028EB216DF8F03000779E9 /* CBHelper.framework */; };
 		E22C64391644746B00F557D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C64381644746B00F557D5 /* UIKit.framework */; };
 		E22C643B1644746B00F557D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C643A1644746B00F557D5 /* Foundation.framework */; };
 		E22C643D1644746B00F557D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22C643C1644746B00F557D5 /* CoreGraphics.framework */; };
@@ -40,10 +39,10 @@
 		E2C4F79C164825ED0049AB03 /* FunctionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F79B164825ED0049AB03 /* FunctionsViewController.m */; };
 		E2C4F79E164826340049AB03 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = E2C4F79D164826340049AB03 /* 20-gear2.png */; };
 		E2C4F7A1164826B20049AB03 /* DataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F7A0164826B20049AB03 /* DataTableViewController.m */; };
+		E2E8ECD616E3863600E8C6F7 /* CBHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2E8ECD516E3863600E8C6F7 /* CBHelper.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E2028EB216DF8F03000779E9 /* CBHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBHelper.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos/CBHelper.framework"; sourceTree = "<group>"; };
 		E22C64341644746B00F557D5 /* CBHelperTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBHelperTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E22C64381644746B00F557D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E22C643A1644746B00F557D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +89,7 @@
 		E2C4F79D164826340049AB03 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		E2C4F79F164826B10049AB03 /* DataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTableViewController.h; sourceTree = "<group>"; };
 		E2C4F7A0164826B20049AB03 /* DataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTableViewController.m; sourceTree = "<group>"; };
+		E2E8ECD516E3863600E8C6F7 /* CBHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBHelper.framework; path = ../CBHelper/build/CBHelper.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +97,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2028EB316DF8F03000779E9 /* CBHelper.framework in Frameworks */,
 				E246563916D6439F00554D0A /* SystemConfiguration.framework in Frameworks */,
 				E2C4F7901648135C0049AB03 /* CoreLocation.framework in Frameworks */,
 				E22C64391644746B00F557D5 /* UIKit.framework in Frameworks */,
 				E22C643B1644746B00F557D5 /* Foundation.framework in Frameworks */,
 				E22C643D1644746B00F557D5 /* CoreGraphics.framework in Frameworks */,
+				E2E8ECD616E3863600E8C6F7 /* CBHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +112,7 @@
 		E22C64291644746B00F557D5 = {
 			isa = PBXGroup;
 			children = (
+				E2E8ECD516E3863600E8C6F7 /* CBHelper.framework */,
 				E22C643E1644746B00F557D5 /* CBHelperTestApp */,
 				E22C64371644746B00F557D5 /* Frameworks */,
 				E22C64351644746B00F557D5 /* Products */,
@@ -129,7 +130,6 @@
 		E22C64371644746B00F557D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E2028EB216DF8F03000779E9 /* CBHelper.framework */,
 				E246563816D6439F00554D0A /* SystemConfiguration.framework */,
 				E2C4F78F1648135C0049AB03 /* CoreLocation.framework */,
 				E22C64381644746B00F557D5 /* UIKit.framework */,
@@ -383,6 +383,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../CBHelper/build\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
@@ -415,6 +416,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/CBHelper-bwncgecnqrddqhfcizebjfstdaoi/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../CBHelper/build\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBHelperTestApp/CBHelperTestApp-Prefix.pch";
