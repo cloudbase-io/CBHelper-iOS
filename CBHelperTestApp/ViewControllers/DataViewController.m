@@ -147,7 +147,12 @@
     
     [aggregateCond addObject:projectCommand];
     
-    CBDataSearchConditionGroup *searchCond = [[CBDataSearchConditionGroup alloc] initWithField:@"Symbol" is:CBOperatorEqual to:@"AAPL"];
+    NSMutableArray *symbols = [[NSMutableArray alloc] init];
+    [symbols addObject:@"AAPL"];
+    [symbols addObject:@"AMZN"];
+    CBDataSearchConditionGroup *searchCond = [[CBDataSearchConditionGroup alloc] initWithField:@"Symbol" is:CBOperatorIn to:symbols];
+    [searchCond addSortField:@"_id" withSortingDirection:CBSortAscending];
+    searchCond.limit = 1;
     
     [aggregateCond addObject:searchCond];
     

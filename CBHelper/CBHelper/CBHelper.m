@@ -459,6 +459,7 @@ static const short _base64DecodingTable[256] = {
 - (void)searchDocumentWithAggregates:(NSMutableArray *)aggregateConditions inCollection:(NSString *)collection whenDone:(void (^) (CBHelperResponseInfo *response))handler {
     NSMutableArray *serializedAggregateConditions = [[NSMutableArray alloc] init];
     
+    NSMutableDictionary *finalCond = [[NSMutableDictionary alloc] init];
     
     for (CBDataAggregationCommand *curCommand in aggregateConditions) {
         NSMutableDictionary *curSerializedCondition = [[NSMutableDictionary alloc] init];
@@ -466,11 +467,21 @@ static const short _base64DecodingTable[256] = {
         [curSerializedCondition setObject:[curCommand serializeAggregateConditions] forKey:[curCommand getCommandTypeString]];
         
         [serializedAggregateConditions addObject:curSerializedCondition];
+        
+        if ([curCommand isKindOfClass:[CBDataSearchConditionGroup class]]) {
+            CBDataSearchConditionGroup *cond = (CBDataSearchConditionGroup*)curCommand;
+            if (cond.sortKeys != NULL) {
+                if (cond.sortKeys != NULL && [cond.sortKeys count] > 0)
+                    [finalCond setObject:cond.sortKeys forKey:@"cb_sort_key"];
+                
+                if (cond.limit > 0)
+                    [finalCond setObject:[NSString stringWithFormat:@"%i", cond.limit] forKey:@"cb_limit"];
+            }
+        }
     }
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/%@/aggregate", [self generateURL], self.appCode, collection];
     
-    NSMutableDictionary *finalCond = [[NSMutableDictionary alloc] init];
     [finalCond setObject:serializedAggregateConditions forKey:@"cb_aggregate_key"];
     
     CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"data" toUrl:postUrl withObject:finalCond];
