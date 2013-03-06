@@ -82,6 +82,48 @@
 @synthesize appCode, appSecret, isHttps, domain, currentLocation, defaultDateFormat, defaultLogCategory, deviceUniqueIdentifier, notificationToken, notificationCertificateType, authUsername, authPassword, httpConnectionTimeout, debugMode;
 @synthesize delegate;
 
+static NSMutableArray *httpErrorCodesToQueue;
+
+
+/**
+ * defines which http error codes would cause a request to be queued if it failed.
+ * If your application needs to queue on other error cases simply extend this array.
+ *
+ * 500 - internal server error
+ * 502 - bad gateway
+ * 503 - service unavailable
+ * 504 - gateway timeout
+ * 505 - http version not supported (hopefully this should be a temporary error because something has gone wrong on the servers)
+ * 507 - insufficient storage
+ * 508 - loop detected
+ * 509 - bandwidth limit
+ * 511 - auth required
+ * 551 - option not supported
+ * 598 and 599 timeouts
+ *
+ * @return an array containing the strings representing the various status codes
+ */
++ (NSMutableArray *)httpErrorCodesToQueue
+{
+    if (!httpErrorCodesToQueue) {
+        httpErrorCodesToQueue = [[NSMutableArray alloc] init];
+    
+        [httpErrorCodesToQueue addObject:@"500"];
+        [httpErrorCodesToQueue addObject:@"502"];
+        [httpErrorCodesToQueue addObject:@"503"];
+        [httpErrorCodesToQueue addObject:@"504"];
+        [httpErrorCodesToQueue addObject:@"505"];
+        [httpErrorCodesToQueue addObject:@"507"];
+        [httpErrorCodesToQueue addObject:@"508"];
+        [httpErrorCodesToQueue addObject:@"509"];
+        [httpErrorCodesToQueue addObject:@"511"];
+        [httpErrorCodesToQueue addObject:@"551"];
+        [httpErrorCodesToQueue addObject:@"598"];
+        [httpErrorCodesToQueue addObject:@"599"];
+    }
+    return httpErrorCodesToQueue;
+}
+
 NSString * const CBLogLevel_ToString[] = {
     @"DEBUG",
     @"INFO",
@@ -814,7 +856,6 @@ static const short _base64DecodingTable[256] = {
     BOOL shouldQueue = [self shouldQueueRequest:request];
     
     // check if we have internet connection
-    NSString* queueName = [self queueRequest:request];
     if ([CBHelper hasConnectivity]) {
         
         // send the request
@@ -832,15 +873,16 @@ static const short _base64DecodingTable[256] = {
         
         NSURLConnection *conn = [NSURLConnection connectionWithRequest:httpRequest andHandler:handler andDelegate:self];
         conn.shouldQueue = (shouldQueue?@"true":@"false");
-        conn.queueFileName = queueName;
+        //conn.queueFileName = queueName;
         conn.CBFunctionName = request.function;
         conn.requestObject = request;
         
         [conn start];
         request = nil;
     } else {
-        if (!shouldQueue) {
-            [self removeQueueFile:queueName];
+        if (shouldQueue) {
+            [self queueRequest:request];
+            //[self removeQueueFile:queueName];
         }
         if (handler != NULL) {
             CBHelperResponseInfo *resp = [[CBHelperResponseInfo alloc] init];
@@ -1485,8 +1527,8 @@ static const short _base64DecodingTable[256] = {
     resp.isQueued = [connection.shouldQueue isEqualToString:@"true"];
     resp.postSuccess = NO;
     
-    if ([connection.shouldQueue isEqualToString:@"false"]) {
-        [self removeQueueFile:connection.queueFileName];
+    if ([connection.shouldQueue isEqualToString:@"true"]) {
+        [self queueRequest:connection.requestObject];
     }
     
     if ([connection.requestObject.function isEqualToString:@"download"] && connection.downloadHandler != nil) {
@@ -1526,11 +1568,7 @@ static const short _base64DecodingTable[256] = {
         deviceRegistered = YES;
     }
     
-    // remove the request from the queue
-    [self removeQueueFile:connection.queueFileName];
-    
     // now we check the queue and send off queued requests if needed
-    NSLog(@"the queue size is %i", [self getQueueSize]);
     if ([self getQueueSize] > 0 && ![self isQueueLocked]) {
         if (self.debugMode) {
             NSLog(@"sending queued requests...");
@@ -1538,6 +1576,12 @@ static const short _base64DecodingTable[256] = {
         [self performSelectorInBackground:@selector(sendQueuedRequests) withObject:NULL];
         //[self sendQueuedRequests];
     }
+    
+    // if the response is an error from the server then we queue the request
+    if ([connection.shouldQueue isEqualToString:@"true"] && [CBHelper.httpErrorCodesToQueue containsObject:[connection.responseStatusCode stringValue]]) {
+        [self queueRequest:connection.requestObject];
+    }
+    
     [self parseResponseData:connection statusCode:[connection.responseStatusCode integerValue] fromRequest:connection.requestObject withResponse:connection.responseData fromQueue:NO];
 }
 

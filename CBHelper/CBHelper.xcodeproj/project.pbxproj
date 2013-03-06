@@ -61,8 +61,6 @@
 		E2E8EC8E16E3726E00E8C6F7 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E8EC5916E3726E00E8C6F7 /* SBJsonUTF8Stream.m */; };
 		E2E8EC8F16E3726E00E8C6F7 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E8EC5A16E3726E00E8C6F7 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E2E8EC9016E3726E00E8C6F7 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E8EC5B16E3726E00E8C6F7 /* SBJsonWriter.m */; };
-		E2E8EC9516E3734700E8C6F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2E8EC9416E3734700E8C6F7 /* Foundation.framework */; };
-		E2E8EC9716E3734D00E8C6F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2E8EC9616E3734D00E8C6F7 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,8 +121,6 @@
 		E2E8EC5916E3726E00E8C6F7 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = CBHelper/SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		E2E8EC5A16E3726E00E8C6F7 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = CBHelper/SBJsonWriter.h; sourceTree = "<group>"; };
 		E2E8EC5B16E3726E00E8C6F7 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = CBHelper/SBJsonWriter.m; sourceTree = "<group>"; };
-		E2E8EC9416E3734700E8C6F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E2E8EC9616E3734D00E8C6F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +128,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2E8EC9716E3734D00E8C6F7 /* SystemConfiguration.framework in Frameworks */,
-				E2E8EC9516E3734700E8C6F7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,8 +241,6 @@
 		E2E8EC9816E3735200E8C6F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E2E8EC9616E3734D00E8C6F7 /* SystemConfiguration.framework */,
-				E2E8EC9416E3734700E8C6F7 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
