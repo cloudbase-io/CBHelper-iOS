@@ -276,6 +276,10 @@ NSString * const CBLimitKey = @"cb_limit";
             case CBOperatorExists:
             case CBOperatorNe:
             case CBOperatorIn:
+            case CBOperatorBigger:
+            case CBOperatorBiggerOrEqual:
+            case CBOperatorLess:
+            case CBOperatorLessOrEqual:
             case CBOperatorNin:
             case CBOperatorSize:
             case CBOperatorType:
