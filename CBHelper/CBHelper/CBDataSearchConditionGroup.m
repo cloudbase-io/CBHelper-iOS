@@ -88,15 +88,17 @@ NSString * const CBLimitKey = @"cb_limit";
     if (self = [super init])
     {
         //{ loc : { $near : [50,50] , $maxDistance : 5 } }
-        NSArray *point = [[NSArray alloc] initWithObjects:[NSNumber numberWithLong:coords.latitude], [NSNumber numberWithLong:coords.longitude], nil];
+        NSArray *point = [[NSArray alloc] initWithObjects:[NSNumber numberWithDouble:coords.latitude], [NSNumber numberWithDouble:coords.longitude], nil];
         NSMutableDictionary *searchQuery = [[NSMutableDictionary alloc] init];
         
         self.field = @"cb_location";
         self.CBOperator = CBOperatorEqual;
         
         [searchQuery setValue:point forKey:@"$near"];
-        if (distance != -1)
-            [searchQuery setValue:[NSNumber numberWithLong:distance] forKey:@"$maxDistance"];
+        if (distance != -1) {
+            // convert meters to radius, 111.12 km in 1 degree
+            [searchQuery setValue:[NSNumber numberWithLong:(distance/1000)/111.12] forKey:@"$maxDistance"];
+        }
         
         self.value  = searchQuery;
         self.limit = -1;

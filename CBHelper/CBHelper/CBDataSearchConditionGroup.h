@@ -106,7 +106,7 @@ typedef enum {
  * Creates a new search condition based on the location data stored in the cloudbase database.
  * Finds points near the given coordinates.
  * @param coords The location of the point to look for
- * @param distance The maximum distance of the items to locate from the given object. Send this paramter as -1
+ * @param distance The maximum distance in meters of the items to locate from the given object. Send this paramter as -1
  *  to use unlimited distance
  * @return an initialised CBDataSearchConditionGroup object
  */
