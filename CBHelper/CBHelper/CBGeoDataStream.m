@@ -44,6 +44,11 @@
     return self;
 }
 
+- (void) setSearchRadius:(double)radius {
+    self.searchRadius = radius;
+    queryRadius = radius;
+}
+
 - (void) startStream {
     // starts the timer
     updateTimer = [NSTimer scheduledTimerWithTimeInterval: CBGEODATASTREAM_UPDATE_SPEED target:self selector:@selector(updateInformation:) userInfo:nil repeats:YES];
