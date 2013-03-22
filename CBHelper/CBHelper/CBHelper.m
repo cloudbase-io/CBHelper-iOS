@@ -936,18 +936,6 @@ static const short _base64DecodingTable[256] = {
 - (void)parseResponseData:(NSURLConnection*)con statusCode:(NSInteger)status fromRequest:(CBQueuedRequest*)req withResponse:(NSMutableData*)res fromQueue:(BOOL)queue {
     // if we are downloading a file then call the handler without parsing the response
     // as a string
-    if ([req.function isEqualToString:@"download"]) {
-        if (queue) {
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(queuedDownloadExecuted:withResponse:)]) {
-                [self.delegate performSelector:@selector(queuedDownloadExecuted:withResponse:) withObject:req withObject:res];
-            }
-        } else {
-            if (con.downloadHandler != nil) {
-                con.downloadHandler(res);
-            }
-        }
-        return;
-    } else {
         // parse the response
         CBHelperResponseInfo *response = [[CBHelperResponseInfo alloc] init];
         response.function = req.function;
@@ -994,7 +982,7 @@ static const short _base64DecodingTable[256] = {
                 con.outputHanlder(response);
             }
         }
-    }
+    
 
 }
 
@@ -1593,7 +1581,16 @@ static const short _base64DecodingTable[256] = {
         [self queueRequest:connection.requestObject];
     }
     
-    [self parseResponseData:connection statusCode:[connection.responseStatusCode integerValue] fromRequest:connection.requestObject withResponse:connection.responseData fromQueue:NO];
+    if ([connection.CBFunctionName isEqualToString:@"download"]) {
+        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(queuedDownloadExecuted:withResponse:)]) {
+            [self.delegate performSelector:@selector(queuedDownloadExecuted:withResponse:) withObject:NULL withObject:connection.responseData];
+        }
+        if (connection.downloadHandler != nil) {
+            connection.downloadHandler(connection.responseData);
+        }
+    } else {
+        [self parseResponseData:connection statusCode:[connection.responseStatusCode integerValue] fromRequest:connection.requestObject withResponse:connection.responseData fromQueue:NO];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
