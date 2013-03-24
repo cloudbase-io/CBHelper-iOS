@@ -511,7 +511,7 @@ static const short _base64DecodingTable[256] = {
         for (id curObj in obj)
         {
             NSMutableDictionary *tmpDict = [self objectToDictionaryOrArray:curObj];
-            [tmpDict setValue:[conditions serializeConditions] forKey:@"cb_search_key"];
+            [tmpDict setValue:[conditions serializeConditions:conditions] forKey:@"cb_search_key"];
             [insertObjects addObject:tmpDict];
             tmpDict = nil;
         }
@@ -519,7 +519,7 @@ static const short _base64DecodingTable[256] = {
     else
     {
         NSMutableDictionary *tmpDict = [self objectToDictionaryOrArray:obj];
-        [tmpDict setValue:[conditions serializeConditions] forKey:@"cb_search_key"];
+        [tmpDict setValue:[conditions serializeConditions:conditions] forKey:@"cb_search_key"];
         [insertObjects addObject:tmpDict];
         tmpDict = nil;
     }
