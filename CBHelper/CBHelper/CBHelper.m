@@ -889,6 +889,11 @@ static const short _base64DecodingTable[256] = {
         conn.requestObject = request;
         
         [conn start];
+        
+        if ( [self.delegate respondsToSelector:@selector(requestSent:withConnection:)] ) {
+            [self.delegate performSelector:@selector(requestSent:withConnection:) withObject:request withObject:conn];
+        }
+        
         request = nil;
     } else {
         if (shouldQueue) {

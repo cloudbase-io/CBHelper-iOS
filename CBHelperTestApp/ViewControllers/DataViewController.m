@@ -107,6 +107,7 @@
     
     if (appDelegate.helper)
     {
+
         CBDataSearchConditionGroup* searchCondition = [[CBDataSearchConditionGroup alloc] initWithoutSubConditions];//[[CBDataSearchConditionGroup alloc] initWithField:@"firstName" is:CBOperatorEqual to:@"Cloud"];
         [searchCondition addSortField:@"firstName" withSortingDirection:CBSortDescending];
         searchCondition.limit = 10;

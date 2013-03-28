@@ -85,11 +85,20 @@
 
 @optional
 /**
+ * This method is invoked whenever a new request is started right after the shouldQueueRequest cal.
+ * This gives back control of the NSURLConnection to your application and you can use it to cancel
+ * the connection. If you modify the delegate settings of the object then the CBHelper object won't be
+ * able to process the response and return it to your application either through this protocol or the 
+ * block methods.
+ * @param request The cloudbase.io request object being sent
+ * @param connection The NSURLConnection object.
+ */
+- (void)requestSent:(CBQueuedRequest *)request withConnection:(NSURLConnection *)connection;
+/**
  * This method is invoked whenever a request to the APIs is completed.
  * @param response The CBHelperResponseInfo object representing the data received from the APIs
  */
 - (void)requestCompleted:(CBHelperResponseInfo *)response;
-
 /**
  * Use this method to monitor the status of the upload of a post request. Particularly useful
  * if what you are sending is large data such as an image

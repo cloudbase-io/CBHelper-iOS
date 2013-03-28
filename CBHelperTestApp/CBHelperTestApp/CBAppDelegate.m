@@ -90,4 +90,8 @@
     return YES;
 }
 
+- (void)requestSent:(CBQueuedRequest *)request withConnection:(NSURLConnection *)connection {
+    NSLog(@"sent request %@", request.function);
+}
+
 @end
