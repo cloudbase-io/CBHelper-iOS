@@ -44,7 +44,7 @@ NSString * const CBDataAggregationGroupOperator_ToString[] = {
     [self addGroupFormulaFor:fieldName withOperator:op onValue:fieldVar];
 }
 
-- (void)addGroupFormulaFor:(NSString*)fieldName withOperator:(CBDataAggregationGroupOperator)op onValue:(NSString*)value {
+- (void)addGroupFormulaFor:(NSString*)fieldName withOperator:(CBDataAggregationGroupOperator)op onValue:(id)value {
     NSMutableDictionary *newOperator = [[NSMutableDictionary alloc] init];
     [newOperator setObject:value forKey:CBDataAggregationGroupOperator_ToString[op]];
     [groupField setObject:newOperator forKey:fieldName];

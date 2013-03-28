@@ -62,6 +62,6 @@ typedef enum {
  * @param op The operator to apply to the selected variable field
  * @param value A value to be used with the operator
  */
-- (void)addGroupFormulaFor:(NSString*)fieldName withOperator:(CBDataAggregationGroupOperator)op onValue:(NSString*)value;
+- (void)addGroupFormulaFor:(NSString*)fieldName withOperator:(CBDataAggregationGroupOperator)op onValue:(id)value;
 
 @end

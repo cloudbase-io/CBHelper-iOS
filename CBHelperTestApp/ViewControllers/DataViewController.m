@@ -145,6 +145,7 @@
     [projectCommand.includeFields addObject:@"Symbol"];
     [projectCommand.includeFields addObject:@"Price"];
     [projectCommand.includeFields addObject:@"total"];
+    [projectCommand.includeFields addObject:@"count"];
     
     [aggregateCond addObject:projectCommand];
     
@@ -160,6 +161,7 @@
     CBDataAggregationCommandGroup *groupCommand = [[CBDataAggregationCommandGroup alloc] init];
     [groupCommand addOutputField:@"Symbol"];
     [groupCommand addGroupFormulaFor:@"total" withOperator:CBDataAggregationGroupSum onField:@"Price"];
+    [groupCommand addGroupFormulaFor:@"count" withOperator:CBDataAggregationGroupSum onValue:@1];
     
     [aggregateCond addObject:groupCommand];
     
