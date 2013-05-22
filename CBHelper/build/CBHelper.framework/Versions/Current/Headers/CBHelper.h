@@ -74,7 +74,7 @@
  * -ObjC<br/>
  * -all_load<br/><br/>
  *
- * This full reference is a companion to <a href="/documentation/ios" target="_blank">
+ * This full reference is a companion to <a href="/documentation/ios/get-started" target="_blank">
  * the tutorial on the cloudbase.io website<a/>
  */
 
@@ -138,7 +138,7 @@
 {
     BOOL deviceRegistered;
     
-    NSString *password;
+    NSString *_password;
     NSString *sessionid; // the session id generated when the device is registered.
     NSString *language; // the language of the device
     NSString *country;
@@ -163,6 +163,7 @@ typedef enum {
     CBLogLevelEvent
 } CBLogLevel;
 
+@property (nonatomic, strong, retain) NSString *password;
 
 @property (nonatomic, retain) NSString *defaultLogCategory; /// default cateogory for logs. If not set this will be automatically initialised to "DEFAULT"
 /// a unique identifier for the device. By default we'll use the uniqueIdentifier of the UIDevice which
@@ -620,6 +621,15 @@ typedef enum {
  */
 - (void)executeApplet:(NSString *)fcode withParameters:(NSDictionary *)params whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
+/**
+ * Executes an Shared API on demand and handles the response from the service with a block.
+ * @param fcode The applet code for the function to be executed
+ * @param params The parameters for the applet
+ * @param password The password for the Shared API if required
+ * @param handler A block to manage the results returned from the server
+ */
+- (void)executeSharedApi:(NSString *)fcode withParameters:(NSDictionary *)params andPassword:(NSString *)password whenDone:(void (^) (CBHelperResponseInfo *response))handler;
+
 /** @name PayPal digital goods sale integration */
 
 /**
@@ -630,6 +640,16 @@ typedef enum {
  * @param handler A block to manage the results returned from the server - specifically the token and checkout url
  */
 - (void)preparePayPalPurchase:(CBPayPalBill*)bill onLiveEnvironment:(BOOL)isLive whenDone:(void (^) (CBHelperResponseInfo *response))handler;
+
+/**
+ * Calls PayPal and requests a token for the express checkout.
+ * The PayPal API credentials must be set in the cloudbase.io control panel for this method to work.
+ * @param bill A populated CBPayPalBill object with at least one detail item
+ * @param isLive Whether the call should be made to the PayPal production or sandbox environments
+ * @param digital Whether it is a digital goods transaction
+ * @param handler A block to manage the results returned from the server - specifically the token and checkout url
+ */
+- (void)preparePayPalPurchase:(CBPayPalBill*)bill onLiveEnvironment:(BOOL)isLive forDigitalGoods:(BOOL)digital whenDone:(void (^) (CBHelperResponseInfo *response))handler;
 
 /**
  * This method should be used from the UIWebView delegate method to intercept the web pages loaded and detect

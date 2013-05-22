@@ -68,6 +68,14 @@
     }];
 }
 
+-(IBAction)executeSharedApi:(id)sender {
+    CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    [appDelegate.helper executeSharedApi:functionCodeField.text withParameters:@{ @"input" : @"test string"} andPassword:@"password" whenDone:^(CBHelperResponseInfo *response) {
+        NSLog(@"received response: %@", response.responseString);
+    }];
+}
+
 -(IBAction)testPayPalPayment:(id)sender {
     CBPayPalBill *newBill = [[CBPayPalBill alloc] init];
     newBill.name = @"test bill";
@@ -87,7 +95,8 @@
     [newBill addNewItem:item];
     
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [appDelegate.helper preparePayPalPurchase:newBill onLiveEnvironment:YES whenDone:^(CBHelperResponseInfo *response) {
+    //[appDelegate.helper preparePayPalPurchase:newBill onLiveEnvironment:YES whenDone:^(CBHelperResponseInfo *response) {
+    [appDelegate.helper preparePayPalPurchase:newBill onLiveEnvironment:YES forDigitalGoods:NO whenDone:^(CBHelperResponseInfo *response) {
         if (response.postSuccess && [response.responseData isKindOfClass:[NSDictionary class]])
         {
             NSDictionary *tmpData = (NSDictionary *)response.responseData;

@@ -19,7 +19,7 @@
 
 @implementation CBDataSearchConditionGroup
 
-@synthesize conditions, field, value, CBLink, CBOperator, sortKeys, limit;
+@synthesize conditions, field, value, CBLink, CBOperator, sortKeys, limit, isUpsert, offset;
 
 NSString * const CBConditionOperator_ToString[] = {
     @"",
@@ -47,7 +47,9 @@ NSString * const CBConditionLink_ToString[] = {
 
 NSString * const CBSearchKey = @"cb_search_key";
 NSString * const CBSortKey = @"cb_sort_key";
+NSString * const CBUpsertKey = @"cb_upsert";
 NSString * const CBLimitKey = @"cb_limit";
+NSString * const CBOffsetKey = @"cb_offset";
 
 - (id)init
 {
@@ -55,6 +57,8 @@ NSString * const CBLimitKey = @"cb_limit";
     {
         self.conditions = [[NSMutableArray alloc] init];
         self.limit = -1;
+        self.offset = -1;
+        self.isUpsert = NO;
         self.commandType = CBDataAggregationMatch;
         return self;
     }
@@ -64,6 +68,7 @@ NSString * const CBLimitKey = @"cb_limit";
 {
     self = [super init];
     self.limit = -1;
+    self.offset = -1;
     return self;
 }
 
@@ -75,6 +80,8 @@ NSString * const CBLimitKey = @"cb_limit";
         self.CBOperator = op;
         self.value = compareValue;
         self.limit = -1;
+        self.offset = -1;
+        self.isUpsert = NO;
         self.commandType = CBDataAggregationMatch;
         return self;
     }
@@ -102,6 +109,8 @@ NSString * const CBLimitKey = @"cb_limit";
         
         self.value  = searchQuery;
         self.limit = -1;
+        self.offset = -1;
+        self.isUpsert = NO;
         self.commandType = CBDataAggregationMatch;
         return self;
     }
@@ -131,6 +140,8 @@ NSString * const CBLimitKey = @"cb_limit";
 
         self.value  = searchQuery;
         self.limit = -1;
+        self.offset = -1;
+        self.isUpsert = NO;
         self.commandType = CBDataAggregationMatch;
         return self;
     }
@@ -233,6 +244,9 @@ NSString * const CBLimitKey = @"cb_limit";
     if (self.limit > 0)
         [finalConditions setObject:[NSString stringWithFormat:@"%i", self.limit] forKey:CBLimitKey];
     
+    if (self.offset > 0)
+        [finalConditions setValue:[NSString stringWithFormat:@"%i", self.offset] forKey:CBOffsetKey];
+        
     return finalConditions;
 }
 

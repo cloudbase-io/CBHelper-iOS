@@ -594,23 +594,39 @@
                                     <action selector="executeApplet:" destination="W1v-qW-dwq" eventType="touchUpInside" id="tQB-qf-B2k"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ltq-po-AR8">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="execute Shared API">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="executeSharedApi:" destination="W1v-qW-dwq" eventType="touchUpInside" id="DR1-IQ-HWI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xeZ-so-O36" firstAttribute="leading" secondItem="flL-2e-632" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="07k-s2-BPF"/>
                             <constraint firstItem="y3G-sw-tu9" firstAttribute="leading" secondItem="flL-2e-632" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="1bA-Ee-SUM"/>
+                            <constraint firstAttribute="trailing" secondItem="Ltq-po-AR8" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="7yV-y9-RyX"/>
+                            <constraint firstAttribute="bottom" secondItem="Ltq-po-AR8" secondAttribute="bottom" constant="144" id="8Mc-9g-lIc"/>
                             <constraint firstItem="Coi-88-XIh" firstAttribute="top" secondItem="flL-2e-632" secondAttribute="top" constant="20" symbolic="YES" type="default" id="8di-4c-nLh"/>
                             <constraint firstAttribute="trailing" secondItem="Ccm-yA-8B6" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Jd7-xt-KFO"/>
                             <constraint firstAttribute="trailing" secondItem="Coi-88-XIh" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Lik-gY-9Io"/>
                             <constraint firstItem="Coi-88-XIh" firstAttribute="leading" secondItem="flL-2e-632" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="NKS-Il-Mo2"/>
+                            <constraint firstItem="Ltq-po-AR8" firstAttribute="leading" secondItem="flL-2e-632" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="TU6-K4-DdR"/>
                             <constraint firstItem="iKp-s1-gBn" firstAttribute="leading" secondItem="flL-2e-632" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="UJr-aO-Iu9"/>
                             <constraint firstAttribute="trailing" secondItem="xeZ-so-O36" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="VJ9-W2-IlK"/>
                             <constraint firstItem="Ccm-yA-8B6" firstAttribute="top" secondItem="flL-2e-632" secondAttribute="top" constant="184" id="aQN-UJ-5g1"/>
                             <constraint firstItem="y3G-sw-tu9" firstAttribute="top" secondItem="flL-2e-632" secondAttribute="top" constant="108" id="hAt-gQ-Y49"/>
                             <constraint firstAttribute="trailing" secondItem="iKp-s1-gBn" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="hrb-Ui-b35"/>
                             <constraint firstItem="xeZ-so-O36" firstAttribute="top" secondItem="flL-2e-632" secondAttribute="top" constant="69" id="hyi-7f-0Jb"/>
+                            <constraint firstAttribute="bottom" secondItem="iKp-s1-gBn" secondAttribute="bottom" constant="74" id="jqX-Y3-ubV"/>
                             <constraint firstAttribute="trailing" secondItem="y3G-sw-tu9" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="mHk-mC-yyi"/>
-                            <constraint firstItem="iKp-s1-gBn" firstAttribute="top" secondItem="Ccm-yA-8B6" secondAttribute="bottom" constant="40" type="user" id="mJR-Mc-rUH"/>
                             <constraint firstItem="Ccm-yA-8B6" firstAttribute="leading" secondItem="flL-2e-632" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="xvr-v1-EkX"/>
                         </constraints>
                     </view>
@@ -698,6 +714,7 @@
             <relationships>
                 <relationship kind="action" name="executeApplet:"/>
                 <relationship kind="action" name="executeFunction:"/>
+                <relationship kind="action" name="executeSharedApi:"/>
                 <relationship kind="action" name="testPayPalPayment:"/>
                 <relationship kind="outlet" name="functionCodeField" candidateClass="UITextField"/>
             </relationships>

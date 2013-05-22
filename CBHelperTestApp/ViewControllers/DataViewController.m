@@ -72,10 +72,10 @@
     }
 }
 
+
 - (IBAction)insertObject:(id)sender
 {
     TestDataObject *newObj = [self createTestObject];
-    
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
     if (appDelegate.helper)

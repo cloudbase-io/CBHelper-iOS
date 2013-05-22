@@ -54,12 +54,15 @@ typedef enum {
 
 @property (nonatomic, retain) NSMutableArray *conditions;
 @property (nonatomic, retain) NSMutableArray *sortKeys;
+@property (nonatomic) BOOL isUpsert;
 @property (nonatomic, retain) NSString *field;
 @property (nonatomic, retain) id value;
 /**
  * This property is the maximum number of results to be returned by the search
  */
 @property (nonatomic) NSInteger limit;
+
+@property (nonatomic) NSInteger offset;
 
 @property (nonatomic) CBConditionOperator CBOperator;
 @property (nonatomic) CBConditionLink CBLink;

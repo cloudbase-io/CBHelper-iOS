@@ -81,6 +81,7 @@
 
 @synthesize appCode, appSecret, isHttps, domain, currentLocation, defaultDateFormat, defaultLogCategory, deviceUniqueIdentifier, notificationToken, notificationCertificateType, authUsername, authPassword, httpConnectionTimeout, debugMode;
 @synthesize delegate;
+@synthesize password = _password;
 
 static NSMutableArray *httpErrorCodesToQueue;
 
@@ -192,7 +193,7 @@ static const short _base64DecodingTable[256] = {
 
 - (void)setPassword:(NSString *)value
 {
-    password = value;
+    _password = value;
     [self registerDevice]; // once we have set the password then we can register the device with the cloudbase.io server
 }
 
@@ -512,6 +513,9 @@ static const short _base64DecodingTable[256] = {
         {
             NSMutableDictionary *tmpDict = [self objectToDictionaryOrArray:curObj];
             [tmpDict setValue:[conditions serializeConditions:conditions] forKey:@"cb_search_key"];
+            if ( conditions.isUpsert ) {
+                [tmpDict setObject:@"1" forKey:@"cb_upsert"];
+            }
             [insertObjects addObject:tmpDict];
             tmpDict = nil;
         }
@@ -520,6 +524,9 @@ static const short _base64DecodingTable[256] = {
     {
         NSMutableDictionary *tmpDict = [self objectToDictionaryOrArray:obj];
         [tmpDict setValue:[conditions serializeConditions:conditions] forKey:@"cb_search_key"];
+        if ( conditions.isUpsert ) {
+            [tmpDict setObject:@"1" forKey:@"cb_upsert"];
+        }
         [insertObjects addObject:tmpDict];
         tmpDict = nil;
     }
@@ -547,7 +554,7 @@ static const short _base64DecodingTable[256] = {
     // class.
     NSMutableData *postData = [NSMutableData data];
     [postData appendData:[self requestBodyForParameter:@"app_uniq" withValue:self.appSecret]];
-    [postData appendData:[self requestBodyForParameter:@"app_pwd" withValue:password]];
+    [postData appendData:[self requestBodyForParameter:@"app_pwd" withValue:_password]];
     [postData appendData:[self requestBodyForParameter:@"device_uniq" withValue:self.deviceUniqueIdentifier]];
     [postData appendData:[[NSString stringWithFormat:@"--%@--\r\n", requestParamBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -746,8 +753,32 @@ static const short _base64DecodingTable[256] = {
     postUrl = nil;
 }
 
+- (void)executeSharedApi:(NSString *)fcode withParameters:(NSDictionary *)params andPassword:(NSString *)password whenDone:(void (^) (CBHelperResponseInfo *response))handler {
+    NSString *postUrl = [NSString stringWithFormat:@"%@/%@/shared/%@", [self generateURL], self.appCode, fcode];
+    
+    NSMutableDictionary *finalParams = [[NSMutableDictionary alloc] init];
+    if ( params != NULL ) {
+        [finalParams addEntriesFromDictionary:params];
+    }
+    if ( password != NULL ) {
+        [finalParams setValue:password forKey:@"cb_shared_password"];
+    }
+    
+    CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"shared-api" toUrl:postUrl withObject:NULL];
+    req.originalObject = fcode;
+    req.additionalParams = finalParams;
+    
+    [self sendPost:req whenDone:handler];
+    postUrl = nil;
+}
+
 #pragma mark - PayPal
 - (void)preparePayPalPurchase:(CBPayPalBill*)bill onLiveEnvironment:(BOOL)isLive whenDone:(void (^) (CBHelperResponseInfo *response))handler
+{
+    [self preparePayPalPurchase:bill onLiveEnvironment:isLive forDigitalGoods:YES whenDone:handler];
+}
+
+- (void)preparePayPalPurchase:(CBPayPalBill*)bill onLiveEnvironment:(BOOL)isLive forDigitalGoods:(BOOL)digital whenDone:(void (^) (CBHelperResponseInfo *response))handler
 {
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/paypal/prepare", [self generateURL], self.appCode];
     NSMutableDictionary* postForm = [[NSMutableDictionary alloc] init];
@@ -758,6 +789,9 @@ static const short _base64DecodingTable[256] = {
     [postForm setObject:(isLive?@"live":@"sandbox") forKey:@"environment"];
     [postForm setObject:bill.currency forKey:@"currency"];
     [postForm setObject:@"purchase" forKey:@"type"];
+    if ( !digital ) {
+        [postForm setObject:@"standard" forKey:@"paypal_type"];
+    }
     [postForm setObject:bill.paymentCompletedFunction forKey:@"completed_cloudfunction"];
     [postForm setObject:bill.paymentCancelledFunction forKey:@"cancelled_cloudfunction"];
     if (bill.paymentCompletedUrl != NULL)
@@ -816,7 +850,7 @@ static const short _base64DecodingTable[256] = {
     NSMutableData *postData = [NSMutableData data];
     // write all the required parameters for the request
     [postData appendData:[self requestBodyForParameter:@"app_uniq" withValue:self.appSecret]];
-    [postData appendData:[self requestBodyForParameter:@"app_pwd" withValue:password]];
+    [postData appendData:[self requestBodyForParameter:@"app_pwd" withValue:_password]];
     [postData appendData:[self requestBodyForParameter:@"device_uniq" withValue:self.deviceUniqueIdentifier]];
     [postData appendData:[self requestBodyForParameter:@"post_data" withValue:JSONData]];
     
@@ -946,6 +980,7 @@ static const short _base64DecodingTable[256] = {
         response.function = req.function;
         response.statusCode = status;//[con.responseStatusCode integerValue];
         response.responseString = [[NSString alloc] initWithData:res encoding:NSUTF8StringEncoding];
+        //NSLog(response.responseString);
         response.originalRequest = req;
         // uncomment this to see the full response data
         //NSLog(@"Received: %@", response.responseString);
@@ -1564,12 +1599,19 @@ static const short _base64DecodingTable[256] = {
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    if (!deviceRegistered)
-    {
-        // we don't need to register the device at this point anymore as it is registered as
-        // soon as the password for the application connection is set
-        //[self registerDevice];
-        deviceRegistered = YES;
+    NSLog(@"Did finish loading");
+    if ([connection.requestObject.function isEqualToString:@"register-device"]) {
+        NSString *tmpResponseString = [[NSString alloc] initWithData:connection.responseData encoding:NSUTF8StringEncoding];
+        
+        if ( !deviceRegistered && ( [tmpResponseString isEqualToString:@""] || tmpResponseString == NULL )) {
+            [self registerDevice];
+            return;
+        } else {
+            // we don't need to register the device at this point anymore as it is registered as
+            // soon as the password for the application connection is set
+            //[self registerDevice];
+            deviceRegistered = YES;
+        }
     }
     
     // now we check the queue and send off queued requests if needed

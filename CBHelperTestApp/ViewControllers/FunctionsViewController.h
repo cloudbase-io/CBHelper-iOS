@@ -26,6 +26,7 @@
 
 -(IBAction)executeFunction:(id)sender;
 -(IBAction)executeApplet:(id)sender;
+-(IBAction)executeSharedApi:(id)sender;
 -(IBAction)testPayPalPayment:(id)sender;
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField;

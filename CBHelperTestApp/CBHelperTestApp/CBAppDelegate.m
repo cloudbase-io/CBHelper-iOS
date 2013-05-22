@@ -34,7 +34,6 @@
         self.helper.delegate = self;
         self.helper.debugMode = YES;
         [self.helper setPassword:sharedInstance.appPwd];
-        
         [self initNotificationsForApp:application];
     }
 
