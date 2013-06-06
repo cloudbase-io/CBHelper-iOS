@@ -11,6 +11,7 @@
 		E23303F716EA33B5001645A9 /* CBGeoDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = E23303F516EA33B5001645A9 /* CBGeoDataStream.m */; };
 		E27C0B6216EF7CAB005776C7 /* CBGeoLocatedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E27C0B6016EF7CAB005776C7 /* CBGeoLocatedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E27C0B6316EF7CAB005776C7 /* CBGeoLocatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C0B6116EF7CAB005776C7 /* CBGeoLocatedObject.m */; };
+		E2C368721760856F00712BE7 /* CBHelper-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = E2C368711760856F00712BE7 /* CBHelper-Prefix.pch */; };
 		E2E8EC2016E3724600E8C6F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2E8EC1E16E3724600E8C6F7 /* InfoPlist.strings */; };
 		E2E8EC5C16E3726E00E8C6F7 /* CBDataAggregationCommandProject.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E8EC2716E3726E00E8C6F7 /* CBDataAggregationCommandProject.m */; };
 		E2E8EC5D16E3726E00E8C6F7 /* CBDataAggregationCommandUnwind.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E8EC2816E3726E00E8C6F7 /* CBDataAggregationCommandUnwind.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,10 +73,10 @@
 		E23303F516EA33B5001645A9 /* CBGeoDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBGeoDataStream.m; path = CBHelper/CBGeoDataStream.m; sourceTree = "<group>"; };
 		E27C0B6016EF7CAB005776C7 /* CBGeoLocatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBGeoLocatedObject.h; path = CBHelper/CBGeoLocatedObject.h; sourceTree = "<group>"; };
 		E27C0B6116EF7CAB005776C7 /* CBGeoLocatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBGeoLocatedObject.m; path = CBHelper/CBGeoLocatedObject.m; sourceTree = "<group>"; };
+		E2C368711760856F00712BE7 /* CBHelper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBHelper-Prefix.pch"; sourceTree = "<group>"; };
 		E2E8EC1916E3724600E8C6F7 /* CBHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CBHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E8EC1D16E3724600E8C6F7 /* CBHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBHelper-Info.plist"; sourceTree = "<group>"; };
 		E2E8EC1F16E3724600E8C6F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E2E8EC2116E3724600E8C6F7 /* CBHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBHelper-Prefix.pch"; sourceTree = "<group>"; };
 		E2E8EC2716E3726E00E8C6F7 /* CBDataAggregationCommandProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBDataAggregationCommandProject.m; path = CBHelper/CBDataAggregationCommandProject.m; sourceTree = "<group>"; };
 		E2E8EC2816E3726E00E8C6F7 /* CBDataAggregationCommandUnwind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommandUnwind.h; path = CBHelper/CBDataAggregationCommandUnwind.h; sourceTree = "<group>"; };
 		E2E8EC2916E3726E00E8C6F7 /* CBDataAggregationCommandGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBDataAggregationCommandGroup.h; path = CBHelper/CBDataAggregationCommandGroup.h; sourceTree = "<group>"; };
@@ -198,9 +199,9 @@
 		E2E8EC1C16E3724600E8C6F7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E2C368711760856F00712BE7 /* CBHelper-Prefix.pch */,
 				E2E8EC1D16E3724600E8C6F7 /* CBHelper-Info.plist */,
 				E2E8EC1E16E3724600E8C6F7 /* InfoPlist.strings */,
-				E2E8EC2116E3724600E8C6F7 /* CBHelper-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -301,6 +302,7 @@
 				E2E8EC8F16E3726E00E8C6F7 /* SBJsonWriter.h in Headers */,
 				E23303F616EA33B5001645A9 /* CBGeoDataStream.h in Headers */,
 				E27C0B6216EF7CAB005776C7 /* CBGeoLocatedObject.h in Headers */,
+				E2C368721760856F00712BE7 /* CBHelper-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

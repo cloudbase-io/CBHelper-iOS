@@ -62,7 +62,6 @@
 		E22C64401644746B00F557D5 /* CBHelperTestApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBHelperTestApp-Info.plist"; sourceTree = "<group>"; };
 		E22C64421644746B00F557D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E22C64441644746B00F557D5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E22C64461644746B00F557D5 /* CBHelperTestApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBHelperTestApp-Prefix.pch"; sourceTree = "<group>"; };
 		E22C64471644746B00F557D5 /* CBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBAppDelegate.h; sourceTree = "<group>"; };
 		E22C64481644746B00F557D5 /* CBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBAppDelegate.m; sourceTree = "<group>"; };
 		E22C64511644746B00F557D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -83,6 +82,7 @@
 		E25460C116E3BED300A86F59 /* CBHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBHelper.framework; path = ../CBHelper/build/CBHelper.framework; sourceTree = "<group>"; };
 		E276F9E01696F3C900546827 /* PayPalBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalBrowserViewController.h; path = ViewControllers/PayPalBrowserViewController.h; sourceTree = SOURCE_ROOT; };
 		E276F9E11696F3C900546827 /* PayPalBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PayPalBrowserViewController.m; path = ViewControllers/PayPalBrowserViewController.m; sourceTree = SOURCE_ROOT; };
+		E2C36873176085AF00712BE7 /* CBHelperTestApp-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBHelperTestApp-Prefix.pch"; sourceTree = "<group>"; };
 		E2C4F77C1645D0DC0049AB03 /* 157-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "157-wrench.png"; sourceTree = "<group>"; };
 		E2C4F77E1645D1080049AB03 /* 68-paperclip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "68-paperclip.png"; sourceTree = "<group>"; };
 		E2C4F7801647C6D30049AB03 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -188,10 +188,10 @@
 		E22C643F1644746B00F557D5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E2C36873176085AF00712BE7 /* CBHelperTestApp-Prefix.pch */,
 				E22C64401644746B00F557D5 /* CBHelperTestApp-Info.plist */,
 				E22C64411644746B00F557D5 /* InfoPlist.strings */,
 				E22C64441644746B00F557D5 /* main.m */,
-				E22C64461644746B00F557D5 /* CBHelperTestApp-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

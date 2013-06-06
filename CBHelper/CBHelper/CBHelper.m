@@ -224,7 +224,7 @@ static const short _base64DecodingTable[256] = {
     CBQueuedRequest *req = [[CBQueuedRequest alloc] initForRequest:@"register-device" toUrl:postUrl withObject:device];
     req.originalObject = device;
     req.subAction = req.function;
-    
+    deviceRegistered = YES;
     // once we have received the response set the session id variable.
     // this will be used when tracking navigation information (see logNavigation) with cloudbase.io
     [self sendPost:req whenDone:^(CBHelperResponseInfo *response) {
@@ -1599,7 +1599,7 @@ static const short _base64DecodingTable[256] = {
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"Did finish loading");
+    //NSLog(@"Did finish loading");
     if ([connection.requestObject.function isEqualToString:@"register-device"]) {
         NSString *tmpResponseString = [[NSString alloc] initWithData:connection.responseData encoding:NSUTF8StringEncoding];
         
