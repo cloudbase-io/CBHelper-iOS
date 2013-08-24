@@ -660,7 +660,7 @@ static const short _base64DecodingTable[256] = {
     postUrl = nil;
 }
 
-- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannels:(NSArray *)channel
+- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannels:(NSArray *)channel withData:(NSDictionary *)customData;
 {
     NSMutableDictionary *subForm = [[NSMutableDictionary alloc] init];
     
@@ -671,7 +671,11 @@ static const short _base64DecodingTable[256] = {
     [subForm setValue:self.notificationCertificateType forKey:@"cert_type"];
     [subForm setValue:text forKey:@"alert"];
     [subForm setValue:[NSNumber numberWithInt:badgeNum] forKey:@"badge"];
-    [subForm setValue:soundName forKey:@"sound"];    
+    [subForm setValue:soundName forKey:@"sound"];
+    
+    if ( customData != NULL ) {
+        [subForm setValue:customData forKey:@"custom_data"];
+    }
     
     NSString *postUrl = [NSString stringWithFormat:@"%@/%@/notifications", [self generateURL], self.appCode];
     
@@ -685,10 +689,16 @@ static const short _base64DecodingTable[256] = {
     postUrl = nil;
 }
 
+- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannel:(NSString *)channel withData:(NSDictionary *)customData {
+    NSArray *channels = [NSArray arrayWithObject:channel];
+    [self sendNotification:text withBadge:badgeNum andSound:soundName toChannels:channels withData:customData];
+    channels = nil;
+}
+
 - (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannel:(NSString *)channel
 {
     NSArray *channels = [NSArray arrayWithObject:channel];
-    [self sendNotification:text withBadge:badgeNum andSound:soundName toChannels:channels];
+    [self sendNotification:text withBadge:badgeNum andSound:soundName toChannels:channels withData:NULL];
     channels = nil;
 }
 

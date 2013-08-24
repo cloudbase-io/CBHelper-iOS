@@ -88,6 +88,21 @@ NSString * const CBOffsetKey = @"cb_offset";
     return nil;
 }
 
+- (id)initWithFreeText:(NSString *)text {
+    if (self = [super init])
+    {
+        self.field = @"text";
+        self.CBOperator = CBOperatorEqual;
+        self.value = text;
+        self.limit = -1;
+        self.offset = -1;
+        self.isUpsert = NO;
+        self.commandType = CBDataAggregationMatch;
+        return self;
+    }
+    return nil;
+}
+
 // the geolocation search conditions require some special parameters and are created and structured differently from a
 // standard CBSearchConditionGroup directly from this methods
 - (id)initWithGeoSearchNear:(CLLocationCoordinate2D)coords withinMaxDistance:(NSInteger)distance

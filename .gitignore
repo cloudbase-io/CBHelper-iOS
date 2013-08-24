@@ -13,3 +13,7 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+
+CBHelperTestApp/CBHelperTestApp.xcodeproj/project.pbxproj
+
+CBHelper/build/CBHelper.framework/Versions/Current/Resources/Info.plist

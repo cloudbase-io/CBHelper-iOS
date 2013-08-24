@@ -561,6 +561,7 @@ typedef enum {
  * @param vars The variables to fill the template
  */
 - (void)sendEmail:(NSString *)templateCode to:(NSString *)recipient withSubject:(NSString *)subject andVars:(NSDictionary *)vars;
+
 /**
  * If client notifications are enabled then this method will send a notification to all devices subscribed to a 
  * particular channel.
@@ -573,6 +574,18 @@ typedef enum {
 - (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannel:(NSString *)channel;
 
 /**
+ * If client notifications are enabled then this method will send a notification to all devices subscribed to a
+ * particular channel.
+ * @param text The notification text
+ * @param badgeNum The badge number for the notification
+ * @param soundName The string representing the sound to be played with the notification
+ * @param channel The name of the channel to send the notification to <strong>all</strong> will send to all the devices
+ * @param additionalData A Dictionary of custom additional parameters for the push notification
+ * using the application
+ */
+- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannel:(NSString *)channel withData:(NSDictionary *)customData;
+
+/**
  * If client notifications are enabled then this method will send a notification to all devices subscribed to the 
  * channels in the given array
  * @param text The notification text
@@ -581,7 +594,7 @@ typedef enum {
  * @param channel The name of the channel to send the notification to <strong>all</strong> will send to all the devices
  * using the application
  */
-- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannels:(NSArray *)channel;
+- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannels:(NSArray *)channel withData:(NSDictionary *)customData;;
 
 /** @name CloudFunctions methods */
 

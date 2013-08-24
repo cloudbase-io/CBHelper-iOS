@@ -79,6 +79,15 @@ typedef enum {
  * @return an mepty CBDataSearchConditionGroup object
  */
 - (id)initWithoutSubConditions;
+
+/**
+ * Initializes a search condition to run a free text search over a collection in the cloud database.
+ * This method is only available for Professional and Enterprise accounts
+ * @param text The text string to search for
+ * @return An initialized CBDataSearchConditionGroup
+ */
+- (id)initWithFreeText:(NSString *)text;
+
 /**
  * Shortcut to initialise a simple condition object
  * Sub conitions array is not initialised to save memory if case sub conditions are not needed.
