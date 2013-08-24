@@ -594,7 +594,7 @@ typedef enum {
  * @param channel The name of the channel to send the notification to <strong>all</strong> will send to all the devices
  * using the application
  */
-- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannels:(NSArray *)channel withData:(NSDictionary *)customData;;
+- (void)sendNotification:(NSString *)text withBadge:(NSInteger)badgeNum andSound:(NSString *)soundName toChannels:(NSArray *)channel withData:(NSDictionary *)customData;
 
 /** @name CloudFunctions methods */
 
